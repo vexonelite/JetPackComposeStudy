@@ -84,22 +84,28 @@ class MainActivity : ComponentActivity() {
             //ProgressDemo02()
             //ListColumnDemo02()
 
-            val navController = rememberNavController()
-            val onBackPressedCallback = object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    when (navController.currentBackStackEntry?.destination?.route) {
-                        RouteDestination.Home.theRoute -> { finish() }
-                        RouteDestination.Login.theRoute -> { finish() }
-                        else ->  {
-                            // Navigate back
-                            navController.popBackStack()
-                        }
-                    }
-                }
-            }
-            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+            //TextFieldDemo01()
+            //BasicTextFieldDemo01()
+            FocusDemo01()
 
-            MyApp(navController)
+            // [start] navigation compose
+//            val navController = rememberNavController()
+//            val onBackPressedCallback = object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    when (navController.currentBackStackEntry?.destination?.route) {
+//                        RouteDestination.Home.theRoute -> { finish() }
+//                        RouteDestination.Login.theRoute -> { finish() }
+//                        else ->  {
+//                            // Navigate back
+//                            navController.popBackStack()
+//                        }
+//                    }
+//                }
+//            }
+//            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+//
+//            MyApp(navController)
+            // [end] navigation compose
         }
 
 

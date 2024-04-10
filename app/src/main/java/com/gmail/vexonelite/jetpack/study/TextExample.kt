@@ -336,6 +336,7 @@ fun TextSampleCompose(modifier: Modifier = Modifier) {
         //style = MaterialTheme.typography.titleLarge,
         //style = MaterialTheme.typography.bodySmall
         style = TextStyle(
+            //color = Color.Blue,
             fontWeight = FontWeight.W900,   // Bold
             fontSize = 20.sp,               // only accept sp here, dp will raise error
             letterSpacing = 7.sp            // only accept sp here, dp will raise error

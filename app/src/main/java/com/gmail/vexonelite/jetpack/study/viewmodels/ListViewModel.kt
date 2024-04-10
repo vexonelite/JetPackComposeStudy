@@ -1,4 +1,4 @@
-package com.gmail.vexonelite.jetpack.study
+package com.gmail.vexonelite.jetpack.study.viewmodels
 
 
 import androidx.compose.runtime.Immutable
