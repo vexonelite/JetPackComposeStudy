@@ -38,6 +38,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.gmail.vexonelite.jetpack.study.screens.LoginScreen01
+import com.gmail.vexonelite.jetpack.study.screens.MenuScreen01
 import com.gmail.vexonelite.jetpack.study.ui.theme.JetPackComposeStudyTheme
 
 
@@ -82,11 +84,30 @@ class MainActivity : ComponentActivity() {
             //MinimalDialog({ println("Confirmation registered") })
             //DialogDemo01()
             //ProgressDemo02()
-            //ListColumnDemo02()
 
+            // [start] LazyColumn
+            //ListColumnDemo02()
+            // [end] LazyColumn
+
+            // [start] LazyVerticalGrid
+            //LazyVerticalGridDemo01()
+            //LazyVerticalGridDemo02()
+            // [end] LazyVerticalGrid
+
+            // [start] TextField
             //TextFieldDemo01()
             //BasicTextFieldDemo01()
-            FocusDemo01()
+            //FocusDemo01()
+            // [end] TextField
+
+            // [start] Button
+            //ButtonDemo01()
+            // [end] Button
+
+            //MenuScreen01()
+            LoginScreen01()
+
+
 
             // [start] navigation compose
 //            val navController = rememberNavController()

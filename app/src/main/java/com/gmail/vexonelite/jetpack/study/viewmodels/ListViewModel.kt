@@ -2,8 +2,15 @@ package com.gmail.vexonelite.jetpack.study.viewmodels
 
 
 import androidx.compose.runtime.Immutable
+import androidx.compose.ui.graphics.Color
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.gmail.vexonelite.jetpack.study.ui.theme.DarkerGray
+import com.gmail.vexonelite.jetpack.study.ui.theme.HoloBlueLight
+import com.gmail.vexonelite.jetpack.study.ui.theme.HoloGreenLight
+import com.gmail.vexonelite.jetpack.study.ui.theme.HoloOrangeLight
+import com.gmail.vexonelite.jetpack.study.ui.theme.HoloPurple
+import com.gmail.vexonelite.jetpack.study.ui.theme.HoloRedLight
 //import kotlinx.collections.immutable.ImmutableList
 //import kotlinx.collections.immutable.persistentListOf
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -64,6 +71,40 @@ class ListViewModel : ViewModel() {
             _number.update { newNumber }
         }
     }
+
+    fun getGridMenuList(): List<MenuItemModel> =
+        listOf<MenuItemModel>(
+            MenuItemModel(
+                color = HoloRedLight,
+                description = "Auction Online",
+                action = "auction_online"
+            ),
+            MenuItemModel(
+                color = HoloOrangeLight,
+                description = "Auction Online 2nd",
+                action = "auction_online2"
+            ),
+            MenuItemModel(
+                color = HoloGreenLight,
+                description = "Auction Offline",
+                action = "auction_offline"
+            ),
+            MenuItemModel(
+                color = HoloBlueLight,
+                description = "Download",
+                action = "download"
+            ),
+            MenuItemModel(
+                color = HoloPurple,
+                description = "Upload",
+                action = "upload"
+            ),
+            MenuItemModel(
+                color = DarkerGray,
+                description = "Unit Test",
+                action = "unit_test"
+            ),
+        )
 }
 
 
@@ -81,8 +122,18 @@ data class ArticleList(
 )
 
 
+// Generic Immutable Object List
 @Immutable
 data class ImmutableObjectList<T>(
     val objectList: List<T> // List = Unstable or Article = Unstable
 )
+
+
+data class MenuItemModel(
+    val color: Color,
+    val description: String,
+    val action: String,
+    val id: String = description
+)
+
 

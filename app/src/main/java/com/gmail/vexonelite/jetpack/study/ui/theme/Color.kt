@@ -108,3 +108,18 @@ val AlphaPoint60black = Color(0x99000000)
 
 val AlphaPoint28black = Color(0x28000000)
 
+
+val HoloRedLight = Color(0xFFFF4444)
+val HoloRedDark = Color(0xFFCC0000)
+val HoloOrangeLight = Color(0xFFFFBB33)
+val HoloOrangeDark = Color(0xFFFF8800)
+val HoloGreenLight = Color(0xff99cc00)
+val HoloGreenDark = Color(0xFF669900)
+val HoloBlueLight = Color(0xFF33B5E5)
+val HoloBlueDark = Color(0xFF0099CC)
+val HoloBlueRright = Color(0xFF00DDFF)
+val HoloPurple = Color(0xFFAA66CC)
+val HoloGrayLight = Color(0x33999999)
+val HoloGrayBright = Color(0x33CCCCCC)
+val DarkerGray = Color(0xFFAAAAAA)
+
