@@ -2,6 +2,8 @@ package com.gmail.vexonelite.jetpack.study
 
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
@@ -23,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -105,8 +108,49 @@ class MainActivity : ComponentActivity() {
             // [end] Button
 
             //MenuScreen01()
-            LoginScreen01()
 
+            val progressDialogState: MutableState<Boolean> = remember { mutableStateOf(false) }
+            val singleActionDialogState: MutableState<Boolean> = remember { mutableStateOf(false) }
+            val twinActionsDialogState: MutableState<Boolean> = remember { mutableStateOf(false) }
+
+            LoginScreen01(
+                progressDialogState = progressDialogState,
+                singleActionDialogState = singleActionDialogState,
+                twinActionsDialogState = twinActionsDialogState,
+                onLoginButtonClick = {
+                    progressDialogState.value = true
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        progressDialogState.value = false
+                        twinActionsDialogState.value = true
+
+                    }, 2000L)
+                },
+                onProgressDialogDismiss = {
+                    progressDialogState.value = false
+                    println("Progress Dismiss")
+                },
+                onSingleActionDialogConfirmClick= {
+                    singleActionDialogState.value = false
+                    println("SingleAction Confirm")
+                },
+                onSingleActionDialogDismiss= {
+                    singleActionDialogState.value = false
+                    println("SingleAction Dismiss")
+                },
+                onTwinActionsDialogConfirmClick= {
+                    twinActionsDialogState.value = false
+                    println("TwinActions Confirm")
+                },
+                onTwinActionsDialogDismiss= {
+                    twinActionsDialogState.value = false
+                    println("TwinActions Dismiss")
+                },
+                progressDialogTitle = "Logging in...",
+                singleActionDialogTitle = "This is the Single Action dialog title",
+                singleActionDialogMessage = "This is the Dialog message: 1234567890 foo bar qoo zoo, balabala....",
+                twinActionsDialogTitle = "This is the Twin Actions    dialog title",
+                twinActionsDialogMessage = "This is the twin Dialog message: 1234567890 foo bar qoo zoo, balabala....",
+            )
 
 
             // [start] navigation compose

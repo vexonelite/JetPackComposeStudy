@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -33,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -105,16 +107,16 @@ fun FmProgressDialog(
 @Composable
 fun FmBuiltInSingleActionDialog(
     dialogState: State<Boolean>,
-    title: String = "",
+    title: String = "Title",
     titleFontSize: TextUnit = 26.sp,
     titleTextColor: Color = Blue003,
-    message: String = "",
+    message: String = "Message",
     messageFontSize: TextUnit = 20.sp,
     messageTextColor: Color = Blue003,
-    confirmTitle: String = "",
+    confirmTitle: String = "Confirm",
     confirmFontSize: TextUnit = 20.sp,
     confirmTextColor: Color = Blue003,
-    confirmBackgroundColor: Color = Blue003,
+    confirmBackgroundColor: Color = Color.Unspecified,
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {},
 ) {
@@ -130,8 +132,7 @@ fun FmBuiltInSingleActionDialog(
             modifier = Modifier
                 //.fillMaxWidth()
                 //.padding(all = 16.dp),  // when using wrapContentXXXX(), padding() has no effect!!
-                .wrapContentHeight(unbounded = true)
-                .background(Color.White),
+                .wrapContentHeight(unbounded = true),
             shape = RoundedCornerShape(16.dp),
 
             ) {
@@ -143,14 +144,17 @@ fun FmBuiltInSingleActionDialog(
                 Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
                 Text(
+                    modifier = Modifier.padding(horizontal = 12.dp),
                     text = title,
                     fontSize = titleFontSize,
                     color = titleTextColor,
+                    fontWeight = FontWeight.Bold,
                 )
 
                 Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
                 Text(
+                    modifier = Modifier.padding(horizontal = 12.dp),
                     text = message,
                     fontSize = messageFontSize,
                     color = messageTextColor,
@@ -168,7 +172,7 @@ fun FmBuiltInSingleActionDialog(
                         .fillMaxWidth()
                         .clickable(onClick = onConfirm,),
                     //shape = MaterialTheme.shapes.small,
-                    shape = RoundedCornerShape(10.dp),
+                    //shape = RoundedCornerShape(10.dp),
                     color = confirmBackgroundColor,
                     //contentColor = Color.White,
                     //border = BorderStroke(2.dp, Blue007),
@@ -178,7 +182,7 @@ fun FmBuiltInSingleActionDialog(
                         textAlign = TextAlign.Center,
                         color = confirmTextColor,
                         fontSize = confirmFontSize,
-                        modifier = Modifier.padding(all = 8.dp)
+                        modifier = Modifier.padding(all = 16.dp),
                     )
                 }
             }
@@ -190,20 +194,20 @@ fun FmBuiltInSingleActionDialog(
 @Composable
 fun FmBuiltInTwinActionsDialog(
     dialogState: State<Boolean>,
-    title: String = "",
+    title: String = "Title",
     titleFontSize: TextUnit = 26.sp,
     titleTextColor: Color = Blue003,
-    message: String = "",
+    message: String = "Message",
     messageFontSize: TextUnit = 20.sp,
     messageTextColor: Color = Blue003,
-    confirmTitle: String = "",
+    confirmTitle: String = "Confirm",
     confirmFontSize: TextUnit = 20.sp,
     confirmTextColor: Color = Blue003,
-    confirmBackgroundColor: Color = Blue003,
-    cancelTitle: String = "",
+    confirmBackgroundColor: Color = Color.Unspecified,
+    cancelTitle: String = "Cancel",
     cancelFontSize: TextUnit = 20.sp,
     cancelTextColor: Color = Grey20,
-    cancelBackgroundColor: Color = Blue003,
+    cancelBackgroundColor: Color = Color.Unspecified,
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {},
 ) {
@@ -219,8 +223,7 @@ fun FmBuiltInTwinActionsDialog(
             modifier = Modifier
                 //.fillMaxWidth()
                 //.padding(all = 16.dp),  // when using wrapContentXXXX(), padding() has no effect!!
-                .wrapContentHeight(unbounded = true)
-                .background(Color.White),
+                .wrapContentHeight(unbounded = true),
             shape = RoundedCornerShape(16.dp),
 
         ) {
@@ -232,14 +235,17 @@ fun FmBuiltInTwinActionsDialog(
                 Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
                 Text(
+                    modifier = Modifier.padding(horizontal = 12.dp),
                     text = title,
                     fontSize = titleFontSize,
                     color = titleTextColor,
+                    fontWeight = FontWeight.Bold,
                 )
 
                 Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
                 Text(
+                    modifier = Modifier.padding(horizontal = 12.dp),
                     text = message,
                     fontSize = messageFontSize,
                     color = messageTextColor,
@@ -258,7 +264,7 @@ fun FmBuiltInTwinActionsDialog(
                     Surface(
                         modifier = Modifier
                             .clickable(onClick = onDismiss,)
-                            .weight(1 / 2f),
+                            .weight(0.45f),
                         //shape = MaterialTheme.shapes.small,
                         //shape = RoundedCornerShape(10.dp),
                         color = cancelBackgroundColor,
@@ -270,11 +276,12 @@ fun FmBuiltInTwinActionsDialog(
                             textAlign = TextAlign.Center,
                             color = cancelTextColor,
                             fontSize = cancelFontSize,
-                            modifier = Modifier.padding(all = 8.dp)
+                            modifier = Modifier.padding(all = 16.dp),
                         )
                     }
 
                     VerticalDivider(
+                        modifier = Modifier.weight(0.1f),
                         thickness = 1.dp,
                         color = Color.Gray,
                     )
@@ -282,7 +289,7 @@ fun FmBuiltInTwinActionsDialog(
                     Surface(
                         modifier = Modifier
                             .clickable(onClick = onConfirm,)
-                            .weight(1 / 2f),
+                            .weight(0.45f),
                         //shape = MaterialTheme.shapes.small,
                         shape = RoundedCornerShape(10.dp),
                         color = confirmBackgroundColor,
@@ -294,7 +301,7 @@ fun FmBuiltInTwinActionsDialog(
                             textAlign = TextAlign.Center,
                             color = confirmTextColor,
                             fontSize = confirmFontSize,
-                            modifier = Modifier.padding(all = 8.dp)
+                            modifier = Modifier.padding(all = 16.dp),
                         )
                     }
                 }
