@@ -16,15 +16,25 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import coil.request.ImageRequest
+import com.gmail.vexonelite.jetpack.study.ArticleItem1
+import com.gmail.vexonelite.jetpack.study.ArticleItemDefault
 import com.gmail.vexonelite.jetpack.study.HolderItemClickDelegate
+import com.gmail.vexonelite.jetpack.study.R
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey80
 import com.gmail.vexonelite.jetpack.study.viewmodels.ImmutableObjectList
 import com.gmail.vexonelite.jetpack.study.viewmodels.ListViewModel
+import com.gmail.vexonelite.jetpack.study.viewmodels.MenuItemContentType
 import com.gmail.vexonelite.jetpack.study.viewmodels.MenuItemModel
+import com.gmail.vexonelite.jetpack.study.viewmodels.generateType1List
+import com.gmail.vexonelite.jetpack.study.viewmodels.generateType2List
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -38,7 +48,7 @@ fun MenuScreen01(viewModel: ListViewModel = viewModel()) {
         Logger.getLogger("MenuScreen01").log(Level.INFO, "itemClickCallback - delegate: [${dataObject.description}], action: [$action], position: [$position]")
     }
 
-    val menuItemList = ImmutableObjectList<MenuItemModel>(viewModel.getGridMenuList())
+    val menuItemList = ImmutableObjectList<MenuItemModel>(generateType2List())
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -53,16 +63,19 @@ fun MenuScreen01(viewModel: ListViewModel = viewModel()) {
         items(
             menuItemList.objectList,
             key = { menuItem -> menuItem.id },
-            //contentType = { article -> article.contentType },
+            contentType = { menuItem -> menuItem.contentType },
         ) { menuItem ->
-            MenuItemGrid01(menuItem, itemClickCallback)
+            when(menuItem.contentType) {
+                MenuItemContentType.TYPE2 -> { ImageMenuItemGrid01(menuItem, itemClickCallback) }
+                MenuItemContentType.TYPE1 -> { ColorMenuItemGrid01(menuItem, itemClickCallback) }
+            }
         }
     }
 }
 
 
 @Composable
-fun MenuItemGrid01(menuItem: MenuItemModel, itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null) {
+fun ColorMenuItemGrid01(menuItem: MenuItemModel, itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null) {
     Box(
         modifier = Modifier
             .clickable { itemClickCallback?.onHolderItemClicked(menuItem, menuItem.action, -1) }
@@ -88,4 +101,41 @@ fun MenuItemGrid01(menuItem: MenuItemModel, itemClickCallback: HolderItemClickDe
         }
     }
 }
+
+
+@Composable
+fun ImageMenuItemGrid01(menuItem: MenuItemModel, itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null) {
+    Box(
+        modifier = Modifier
+            .clickable { itemClickCallback?.onHolderItemClicked(menuItem, menuItem.action, -1) }
+            .padding(10.dp)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(menuItem.action)
+                    .crossfade(true)
+                    .build(),
+                // java.lang.IllegalArgumentException: Only VectorDrawables and rasterized asset types are supported ex. PNG, JPG, WEBP
+                //cannot use xml drawable!!
+                //placeholder = painterResource(R.drawable.rect_gray_01),
+                contentDescription = stringResource(R.string.image_description),
+                //contentScale = ContentScale.Crop,
+                //modifier = Modifier.clip(CircleShape)
+                modifier = Modifier.aspectRatio(ratio = 1.333f).fillMaxWidth(),
+            )
+            Text(
+                text = menuItem.description,
+                fontSize = 20.sp,
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+                maxLines = 2,
+                modifier = Modifier.fillMaxWidth().background(Grey80).padding(vertical = 12.dp)
+            )
+        }
+    }
+}
+
 
