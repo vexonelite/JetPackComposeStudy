@@ -29,12 +29,14 @@ import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
+import com.gmail.vexonelite.jetpack.study.ui.theme.Grey85
 import com.gmail.vexonelite.jetpack.study.ui.theme.HoloGrayLight
 
 
@@ -46,19 +48,24 @@ fun FmTextField01(
     paddingHorizontal: Dp = 12.dp,
     paddingVertical: Dp = 12.dp,
     textColor: Color = Blue003,
+    hintColor: Color = Grey85,
     fontSize: TextUnit = 20.sp,
     fontWeight: FontWeight = FontWeight.Normal,
-    strokeWidth: Dp = 2.dp,
-    strokeColor: Color = Blue,
-    backgroundColor: Color = Color.White,
+    underlineWidth: Dp = 2.dp,
+    underlineColor: Color = Blue,
+    backgroundColor: Color = Color.Transparent,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    singleLine: Boolean = true,
+    enabled: Boolean = true,
+    focusRequester: FocusRequester? = null
 ) {
     var textState: TextFieldValue by remember {
         mutableStateOf(
             TextFieldValue(text = initText, selection = TextRange(initText.length))
         )
     }
-
-    val focusRequester: FocusRequester = remember { FocusRequester() }
 
     val textStyle = TextStyle(
         color = textColor,
@@ -72,24 +79,27 @@ fun FmTextField01(
             .fillMaxWidth()
             .wrapContentHeight()
             .drawBehind {
-                val strokeWidthInPx = strokeWidth.toPx()
-                val y = size.height - (strokeWidthInPx / 2f)
+                val strokeWidth = underlineWidth.toPx()
+                val y = size.height - (strokeWidth / 2f)
                 drawLine(
-                    strokeColor,
+                    underlineColor,
                     start = Offset(0f, y),
                     end = Offset(size.width, y),
-                    strokeWidthInPx
+                    strokeWidth
                 )
             }
             .padding(horizontal = paddingHorizontal, vertical = paddingVertical),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        val textFieldModifier: Modifier = if (null != focusRequester) {
+            Modifier.focusRequester(focusRequester)
+        } else { Modifier }
+
         BasicTextField(
             value = textState,
             onValueChange = { textState = it },
             // https://proandroiddev.com/decorating-text-field-in-jetpack-compose-b033ade8ad6
-            modifier = Modifier
-                .focusRequester(focusRequester)
+            modifier = textFieldModifier
                 // .padding(horizontal = 8.dp, vertical = 16.dp) // margin
                 .fillMaxWidth()
                 .wrapContentHeight(), // work only for BasicTextField
@@ -97,20 +107,35 @@ fun FmTextField01(
                 //.border(BorderStroke(1.dp, Color.Transparent), shape = MaterialTheme.shapes.small)
             textStyle = textStyle,
             //colors = theAppTextFieldColor01(), // colors only works for TextField,
+            keyboardOptions = keyboardOptions,
+            keyboardActions = keyboardActions,
+            visualTransformation = visualTransformation,
+            singleLine = singleLine,
+            enabled = enabled,
+            decorationBox = { innerTextField ->
+                if (textState.text.isEmpty()) {
+                    Text(
+                        text = hint,
+                        color = hintColor,
+                        fontSize = fontSize,
+                        fontWeight = fontWeight,
+                    )
+                }
+                innerTextField()
+            },
         )
     }
 }
 
 @Composable
 fun FmTextField02(
-    modifier: Modifier = Modifier,
     initText: String = "",
     hint: String = "",
     //height: Dp = 40.dp,
     paddingHorizontal: Dp = 12.dp,
     paddingVertical: Dp = 12.dp,
     textColor: Color = Blue003,
-    hintColor: Color = HoloGrayLight,
+    hintColor: Color = Grey85,
     fontSize: TextUnit = 20.sp,
     fontWeight: FontWeight = FontWeight.Normal,
     elevation: Dp = 3.dp,
@@ -118,8 +143,10 @@ fun FmTextField02(
     backgroundColor: Color = Color.White,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
     singleLine: Boolean = true,
     enabled: Boolean = true,
+    focusRequester: FocusRequester? = null
 ) {
     var textState: TextFieldValue by remember {
         mutableStateOf(
@@ -135,8 +162,12 @@ fun FmTextField02(
             .background(color = backgroundColor, shape = cornerShape),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        val textModifier = if (null != focusRequester) {
+            Modifier.focusRequester(focusRequester)
+        }
+        else { Modifier }
         BasicTextField(
-            modifier = modifier
+            modifier = textModifier
                 .weight(5f)
                 .fillMaxWidth()
                 .padding(horizontal = paddingHorizontal, vertical = paddingVertical),
@@ -168,6 +199,7 @@ fun FmTextField02(
 //            keyboardActions = KeyboardActions(onSearch = { onSearchClicked() }),
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
+            visualTransformation = visualTransformation,
             singleLine = singleLine,
             enabled = enabled,
         )
