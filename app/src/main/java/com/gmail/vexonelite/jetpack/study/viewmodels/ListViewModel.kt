@@ -72,39 +72,8 @@ class ListViewModel : ViewModel() {
         }
     }
 
-    fun getGridMenuList(): List<MenuItemModel> =
-        listOf<MenuItemModel>(
-            MenuItemModel(
-                color = HoloRedLight,
-                description = "Auction Online",
-                action = "auction_online"
-            ),
-            MenuItemModel(
-                color = HoloOrangeLight,
-                description = "Auction Online 2nd",
-                action = "auction_online2"
-            ),
-            MenuItemModel(
-                color = HoloGreenLight,
-                description = "Auction Offline",
-                action = "auction_offline"
-            ),
-            MenuItemModel(
-                color = HoloBlueLight,
-                description = "Download",
-                action = "download"
-            ),
-            MenuItemModel(
-                color = HoloPurple,
-                description = "Upload",
-                action = "upload"
-            ),
-            MenuItemModel(
-                color = DarkerGray,
-                description = "Unit Test",
-                action = "unit_test"
-            ),
-        )
+
+
 }
 
 
@@ -128,12 +97,5 @@ data class ImmutableObjectList<T>(
     val objectList: List<T> // List = Unstable or Article = Unstable
 )
 
-
-data class MenuItemModel(
-    val color: Color,
-    val description: String,
-    val action: String,
-    val id: String = description
-)
 
 
