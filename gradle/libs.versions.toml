@@ -1,0 +1,281 @@
+[versions]
+androidGradlePlugin = "8.3.2"           # updated in 2024/05/02
+googleServicesPlugIn = "4.4.1"          # updated in 2024/04/01
+firebaseCrashlyticsPlugIn = "2.9.9"     # updated in 2024/03/28
+kotlinKSP = "1.9.22-1.0.17"             # updated in 2024/04/01
+
+
+kotlin = "1.9.22"                       # updated in 2024/04/01
+#kotlinPlugIn = "1.5.31"                # updated in 2021/10/20
+kotlinCoroutines = "1.8.0"              # updated in 2024/04/01
+kotlinCoreKtx = "1.10.1"                # updated in 2023/05/26
+ktor = "2.2.3"                          # updated in 2023/08/07
+koin2= "2.2.3"                          # updated in 2021/10/22
+koin3= "3.1.2"                          # updated in 2021/10/22
+kotlinSerialization = "1.6.3"           # updated in 2024/04/01
+
+
+coreKtx = "1.13.0"                      # updated in 2024/05/02
+androidX = "1.6.1"                      # updated in 2023/02/10
+annotationX = "1.7.1"                   # updated in 2024/05/03
+transitionX = "1.4.1"                   # updated in 2021/07/28
+
+composeBoM = "2024.04.01"               # updated in 2024/05/02
+composeCompilerExt = "1.5.10"           # updated in 2024/05/02
+
+constraintLayoutX = "2.1.4"             # updated in 2023/02/10
+materialX = "1.11.0"                    # updated in 2024/01/17
+viewpagerX = "1.0.0"
+viewpager2X = "1.0.0"
+recyclerviewX = "1.3.2"                 # updated in 2024/01/17
+cardviewX = "1.0.0"
+swiperefreshlayout = "1.1.0"            # added in 2020/08/11
+vectorDrawableX = "1.1.0"
+
+dataStore = "1.1.0"                     # updated in 2024/05/03
+protobuf = "3.14.0"                     # added in 2020/12/09
+
+activityX = "1.9.0"                     # updated in 2024/05/03
+fragmentX = "1.6.2"                     # updated in 2024/01/17
+lifecycleX = "2.7.0"                    # updated in 2024/01/17
+roomX = "2.6.1"                         # updated in 2024/05/03
+multidex = "2.0.1"                      # updated in 2023/02/10
+navigation = "2.7.7"                    # updated in 2024/05/03
+
+workManager = "2.9.0"                   # updated in 2024/01/17
+
+cameraX = "1.0.0-SNAPSHOT"              # updated in 2020/10/14
+
+# ML Kit
+mlkitBarcodeScanning = "16.0.3"         # updated in 2020/10/20
+mlkitObjectDetection = "16.2.1"         # updated in 2020/10/20
+mlkitObjectDetectionCustom = "16.2.1"   # updated in 2020/10/20
+mlkitFaceDetection = "16.2.1"           # updated in 2020/10/20
+mlkitImageLabeling = "17.0.0"           # updated in 2020/10/20
+mlkitImageLabelingAutoml = "16.2.1"     # updated in 2020/10/20
+mlkitImageLabelingCustom = "16.2.1"     # updated in 2020/10/20
+mlkitPoseDetection = "17.0.0"           # updated in 2020/10/20
+mlkitPoseDetectionAccurate = "17.0.0"   # updated in 2020/10/20
+
+flexbox = "3.0.0"                       # updated in 2023/06/09
+
+# 2021/04/08
+# https:#firebase.google.com/docs/android/setup#next_steps
+# The Firebase Android library firebase-core is no longer needed.
+# This SDK included the Firebase SDK for Google Analytics.
+# Now, to use Analytics or a product that recommends adding Analytics (see table below),
+# you need to explicitly declare the Analytics dependency:
+# com.google.firebase:firebase-analytics or com.google.firebase:firebase-analytics-ktx.
+firebaseBoM = "32.8.1"                  # updated in 2024/05/03
+firebaseAuth = "22.3.0"                 # updated in 2024/01/17
+firebaseMessaging = "21.0.1"            # updated in 2021/04/08
+firebaseAnalytics = "18.0.2"            # updated in 2021/04/08
+firebaseCrashlytics = "18.6.0"          # updated in 2024/01/17
+
+#https:#developers.google.com/android/guides/setup
+googlePlayCore = "1.10.3"               # updated in 2022/02/18
+googlePlayCoreKtx = "1.8.1"             # updated in 2021/04/08
+googleAuth = "20.7.0"                   # updated in 2024/01/17
+googleMobileAds = "16.0.0"
+googleAnalytics = "18.0.1"              # updated in 2022/02/18 (deprecated)
+googleLocation = "17.0.0"               # updated in 2020/08/31
+googleCloudMessaging = "17.0.0"         # updated in 2020/08/31
+
+rxJava3 = "3.1.5"                       # updated in 2023/02/10
+rxAndroid3 = "3.0.2"                    # updated in 2023/02/10
+rxJava3Extensions = "3.0.1"             # updated in 2020/08/24
+
+okHttp3 = "4.12.0"                      # updated in 2024/05/03
+
+retrofit2 = "2.9.0"                     # updated in 2020/07/15
+
+dagger2 = "2.28.3"                      # updated in 2020/07/29
+
+apacheCommonsNet = "3.6"
+
+rabbitmqClient = "5.10.0"               # updated in 2021/01/26
+hiveMqClient = "1.3.0"                  # updated in 2024/01/17
+
+seancfoleyIpaddress5 = "5.3.1"          # updated in 2020/07/15
+seancfoleyIpaddress4 = "4.3.3"          # updated in 2020/07/15
+
+glide = "4.16.0"                        # updated in 2024/03/21
+coil = "2.6.0"                          # updated in 2024/05/02
+
+gson = "2.10.1"                         # updated in 2024/01/17
+moshi = "1.9.3"                         # updated in 2020/11/10
+
+slf4Logback = "1.2.3"                   # updated in 2024/03/21
+dantSuESCPOS = "3.2.0"                  # updated in 2024/03/21
+
+facebook9 = "9.0.0"                     # updated in 2021/03/16
+facebook12 = "12.1.0"                   # updated in 2021/11/10
+
+twitter = "3.3.0"
+
+photoView = "1.3.0"
+
+leakcanary = "1.6.1"
+
+zxing = "3.3.0"
+zxingAndroidEmbedded = "4.3.0"
+
+socketIO = "1.0.0"
+
+atAAR = "@aar"
+
+# https:#developer.android.com/training/testing/set-up-project
+junit = "4.13.2"                        # updated in 2024/03/21
+testCore = "1.4.0"                      # updated in 2021/07/28
+testRunner = "1.4.0"                    # updated in 2021/07/28
+testRules = "1.3.0"                     # updated in 2020/08/27
+testExtensionJUnit = "1.1.5"            # updated in 2024/03/21
+testExtensionTruth = "1.3.0"            # updated in 2020/09/14
+espresso = "3.5.1"                      # updated in 2024/03/21
+mockito = "1.10.19"                     # updated in 2020/08/27
+mockito2 = "2.10.0"                     # updated in 2020/08/27
+googleTruth = "0.42"                    # updated in 2020/09/14
+
+
+minSdk = "26"                           # updated in 2024/01/17
+compileSdk = "34"                       # updated in 2023/06/25
+targetSdk = "34"                        # updated in 2023/06/25
+buildTools = "34.0.0"                   # updated in 2023/02/10
+
+
+# [start] updated in 2024/05/02
+# next would be 39
+versionCode = "1"
+# next might be 0.9.1
+versionName = "0.9.0"
+versionMeta = "DEBUG"
+# [end] updated in 2024/05/02
+
+
+[libraries]
+kotlinCoroutinesCore = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "kotlinCoroutines" }
+kotlinCoroutinesAndroid = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "kotlinCoroutines" }
+
+appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidX" }
+constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "constraintLayoutX" }
+material = { module = "com.google.android.material:material", version.ref = "materialX" }
+recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "recyclerviewX" }
+cardview = { module = "androidx.cardview:cardview", version.ref = "cardviewX" }
+swiperefreshlayout = { module = "androidx.swiperefreshlayout:swiperefreshlayout" , version.ref = "swiperefreshlayout" }
+transition = { module = "androidx.transition:transition", version.ref = "transitionX" }
+annotation = { module = "androidx.annotation:annotation", version.ref = "annotationX" }
+
+viewpager2 = { module = "androidx.viewpager2:viewpager2", version.ref = "viewpager2X" }
+
+multidex = { module = "androidx.multidex:multidex", version.ref = "multidex" }
+
+activity = { module = "androidx.activity:activity", version.ref = "activityX" }
+fragment = { module = "androidx.fragment:fragment", version.ref = "fragmentX" }
+
+navigationFragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
+navigationUi = { module = "androidx.navigation:navigation-ui", version.ref = "navigation" }
+
+# [start] Jetpack Compose
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+
+composeBoM = { module = "androidx.compose:compose-bom", version.ref = "composeBoM" }
+
+composeUI = { module = "androidx.compose.ui:ui" }
+composeUiGraphics = { module = "androidx.compose.ui:ui-graphics" }
+
+composeMaterial3 = { module = "androidx.compose.material3:material3" }
+composeMaterial3WindowSize = { module = "androidx.compose.material3:material3-window-size-class" }
+
+composeMaterialIconsCore = { module = "androidx.compose.material:material-icons-core" }
+composeMaterialiconsExt = { module = "androidx.compose.material:material-icons-extended" }
+
+composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
+composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
+
+activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityX" }
+
+lifecycleViewmodelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleX" }
+lifecycleRuntimeCompose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleX" }
+lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleX" }
+
+livedataRuntimeCompose = { module = "androidx.compose.runtime:runtime-livedata" }
+
+navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+
+coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+# [end] Jetpack Compose
+
+kspSymbolProcessingApi = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "kotlinKSP" }
+
+lifecycleViewmodelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleX" }
+lifecycleLivedataKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleX" }
+
+lifecycleViewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleX" }
+lifecycleLivedata = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "lifecycleX" }
+lifecycleCommonJava8 = { module = "androidx.lifecycle:lifecycle-common-java8", version.ref = "lifecycleX" }
+
+roomRruntime = { module = "androidx.room:room-runtime", version.ref = "roomX" }
+roomCompiler = { module = "androidx.room:room-compiler", version.ref = "roomX" }
+roomKtx = { module = "androidx.room:room-ktx", version.ref = "roomX" }
+
+workRuntimeKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "workManager" }
+
+datastorePreferences = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStore" }
+
+# RxJava 3.X
+rxJava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxJava3" }
+# RxAndroid 3.X
+rxAndroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxAndroid3" }
+
+okHttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okHttp3" }
+okHttpLoggingInterceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okHttp3" }
+
+ktor = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
+# engine coroutine
+ktorClientCIO = { module = "io.ktor:ktor-client-cio", version.ref = "ktor" }
+# support old Android version (e.g., 6.0)
+ktorClientAndroid = { module = "io.ktor:ktor-client-android", version.ref = "ktor" }
+# ContentNegotiaion
+ktorClientContentNegotiation = { module = "io.ktor:ktor-client-content-negotiation", version.ref = "ktor" }
+# json using kotlin serialization
+ktorJsonKotlinSerialization = { module = "io.ktor:ktor-serialization-kotlinx-json", version.ref = "ktor" }
+# json using Gson
+ktorJsonGson = { module = "io.ktor:ktor-serialization-gson", version.ref = "ktor" }
+# Loggin
+ktorLogging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
+# SLF4 logback - need by Ktor
+# org.gradle.api.InvalidUserDataException: Invalid TOML catalog definition:
+#  - Problem: In version catalog libs, on alias 'slf4Logback' module 'ch.qos.logback:logback-classic:1.2.3' is not a valid module notation.
+slf4Logback = { module = "ch.qos.logback:logback-classic", version.ref = "slf4Logback" }
+
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
+kotlinSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerialization" }
+
+firebaseBoM = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBoM" }
+firebaseCrashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+
+flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
+
+glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
+glideKsp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
+
+zxingCore = { module = "com.google.zxing:core", version.ref = "zxing" }
+zxingAndroidEmbedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
+
+dantSuESCPOS = { module = "com.github.DantSu:ESCPOS-ThermalPrinter-Android" , version.ref = "dantSuESCPOS" }
+
+junit = { module = "junit:junit", version.ref = "junit" }
+testExtJunit = { module = "androidx.test.ext:junit", version.ref = "testExtensionJUnit" }
+testEspresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "androidGradlePlugin" }
+androidLibrary = { id = "com.android.library", version.ref = "androidGradlePlugin" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+kotlinKSP = { id = "com.google.devtools.ksp", version.ref = "kotlinKSP" }
+googleServices = { id = "com.google.gms.google-services", version.ref = "googleServicesPlugIn" }
+firebaseCrashlytics = { id = "com.google.firebase.crashlytics", version.ref = "firebaseCrashlyticsPlugIn" }
+

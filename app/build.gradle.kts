@@ -1,16 +1,18 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.androidApplication)
+    alias(libs.plugins.kotlinAndroid)
 }
 
 android {
     namespace = "com.gmail.vexonelite.jetpack.study"
-    compileSdk = 34
+
+    compileSdk = libs.versions.compileSdk.get().toInt()
 
     defaultConfig {
         applicationId = "com.gmail.vexonelite.jetpack.study"
-        minSdk = 24
-        targetSdk = 34
+
+        minSdk = libs.versions.minSdk.get().toInt()
+        targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
 
@@ -21,12 +23,9 @@ android {
     }
 
     buildTypes {
-        release {
+        getByName("release") {
             isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
 
@@ -49,10 +48,11 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = libs.versions.composeCompilerExt.get()
     }
 
     packaging {
@@ -66,51 +66,54 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-collections-immutable:0.3.7")
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
+    implementation(libs.coreKtx)
 
-    val composeBom = platform("androidx.compose:compose-bom:2024.02.02")
+    val composeBom = platform(libs.composeBoM)
     implementation(composeBom)
-    // Material Design 3
-    implementation("androidx.compose.material3:material3")
 
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
+    // Material Design 3
+    implementation(libs.composeMaterial3)
+
+    implementation(libs.composeUI)
+    implementation(libs.composeUiGraphics)
 
     // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
+    implementation(libs.composeUiToolingPreview)
+    debugImplementation(libs.composeUiTooling)
 
     // Optional - Integration with activities
-    implementation("androidx.activity:activity-compose:1.8.2")
+    implementation(libs.activityCompose)
+
     // Optional - Integration with ViewModels
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
+    implementation(libs.lifecycleViewmodelCompose)
+    implementation(libs.lifecycleRuntimeCompose)
+    implementation(libs.lifecycleRuntimeKtx)
     // Optional - Integration with LiveData
-    implementation("androidx.compose.runtime:runtime-livedata")
+    implementation(libs.livedataRuntimeCompose)
 
     // Navigation Compose
-    implementation("androidx.navigation:navigation-compose:2.7.7")
+    implementation(libs.navigationCompose)
 
-    // Image Loader
-    implementation("io.coil-kt:coil-compose:2.6.0")
+    // Coil - Image Loader
+    implementation(libs.coilCompose)
 
     // Optional - Included automatically by material, only add when you need
     // the icons but not the material library (e.g. when using Material3 or a
     // custom design system based on Foundation)
-//    implementation("androidx.compose.material:material-icons-core")
+    implementation(libs.composeMaterialIconsCore)
     // Optional - Add full set of material icons
-//    implementation("androidx.compose.material:material-icons-extended")
+    implementation(libs.composeMaterialiconsExt)
     // Optional - Add window size utils
-//    implementation("androidx.compose.material3:material3-window-size-class")
+    implementation(libs.composeMaterial3WindowSize)
 
     // UI Tests
 //    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 //    debugImplementation("androidx.compose.ui:ui-test-manifest")
 
-//    testImplementation("junit:junit:4.13.2")
-//    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-//    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.testExtJunit)
+    androidTestImplementation(libs.testEspresso)
 
-//    androidTestImplementation(composeBom)
+    androidTestImplementation(composeBom)
 
 }
