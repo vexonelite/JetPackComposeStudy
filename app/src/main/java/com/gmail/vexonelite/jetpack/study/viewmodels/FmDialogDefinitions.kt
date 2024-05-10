@@ -123,12 +123,11 @@ fun FmBuiltInSingleActionDialog(
     ) {
         Card(
             modifier = Modifier
-                //.fillMaxWidth()
+                .fillMaxWidth()
                 //.padding(all = 16.dp),  // when using wrapContentXXXX(), padding() has no effect!!
                 .wrapContentHeight(unbounded = true),
             shape = RoundedCornerShape(16.dp),
-
-            ) {
+        ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
                 verticalArrangement = Arrangement.Center,
@@ -214,11 +213,9 @@ fun FmBuiltInTwinActionsDialog(
     ) {
         Card(
             modifier = Modifier
-                //.fillMaxWidth()
                 //.padding(all = 16.dp),  // when using wrapContentXXXX(), padding() has no effect!!
                 .wrapContentHeight(unbounded = true),
             shape = RoundedCornerShape(16.dp),
-
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
