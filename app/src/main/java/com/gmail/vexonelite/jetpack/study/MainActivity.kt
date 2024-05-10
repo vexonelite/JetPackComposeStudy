@@ -26,6 +26,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -41,9 +42,13 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.gmail.vexonelite.jetpack.study.screens.AppDialogs01
 import com.gmail.vexonelite.jetpack.study.screens.LoginScreen01
 import com.gmail.vexonelite.jetpack.study.screens.MenuScreen01
 import com.gmail.vexonelite.jetpack.study.ui.theme.JetPackComposeStudyTheme
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.gmail.vexonelite.jetpack.study.viewmodels.AppUiStateViewModel
 
 
 class MainActivity : ComponentActivity() {
@@ -109,49 +114,57 @@ class MainActivity : ComponentActivity() {
 
             //MenuScreen01()
 
-            val progressDialogState: MutableState<Boolean> = remember { mutableStateOf(false) }
-            val singleActionDialogState: MutableState<Boolean> = remember { mutableStateOf(false) }
-            val twinActionsDialogState: MutableState<Boolean> = remember { mutableStateOf(false) }
+            // 0508
 
+            val appUiStateViewModel: AppUiStateViewModel = viewModel()
+            val appDialogStates by appUiStateViewModel.appDialogStates.collectAsState()
             LoginScreen01(
-                progressDialogState = progressDialogState,
-                singleActionDialogState = singleActionDialogState,
-                twinActionsDialogState = twinActionsDialogState,
                 onLoginButtonClick = {
-                    progressDialogState.value = true
+                    appUiStateViewModel.alterProgressDialogState(
+                        newState = true, title = "12345...")
                     Handler(Looper.getMainLooper()).postDelayed({
-                        progressDialogState.value = false
-                        twinActionsDialogState.value = true
-
+                        appUiStateViewModel.alterProgressDialogState(newState = false)
+                        appUiStateViewModel.alterTwinActionsDialogState(
+                            newState = true,
+                            title = "Off work",
+                            message = "Go buy cakes!! LOL")
                     }, 2000L)
                 },
+            )
+
+            AppDialogs01(
+                appDialogStates = appDialogStates,
                 onProgressDialogDismiss = {
-                    progressDialogState.value = false
+                    appUiStateViewModel.alterProgressDialogState(false)
                     println("Progress Dismiss")
                 },
                 onSingleActionDialogConfirmClick= {
-                    singleActionDialogState.value = false
+                    appUiStateViewModel.alterSingleActionDialogState(false)
                     println("SingleAction Confirm")
                 },
                 onSingleActionDialogDismiss= {
-                    singleActionDialogState.value = false
+                    appUiStateViewModel.alterSingleActionDialogState(false)
                     println("SingleAction Dismiss")
                 },
                 onTwinActionsDialogConfirmClick= {
-                    twinActionsDialogState.value = false
+                    appUiStateViewModel.alterTwinActionsDialogState(false)
                     println("TwinActions Confirm")
                 },
                 onTwinActionsDialogDismiss= {
-                    twinActionsDialogState.value = false
+                    appUiStateViewModel.alterTwinActionsDialogState(false)
                     println("TwinActions Dismiss")
                 },
-                progressDialogTitle = "Logging in...",
-                singleActionDialogTitle = "This is the Single Action dialog title",
-                singleActionDialogMessage = "This is the Dialog message: 1234567890 foo bar qoo zoo, balabala....",
-                twinActionsDialogTitle = "This is the Twin Actions    dialog title",
-                twinActionsDialogMessage = "This is the twin Dialog message: 1234567890 foo bar qoo zoo, balabala....",
+//                progressDialogTitle = "Logging in...",
+//                singleActionDialogTitle = "This is the Single Action dialog title",
+//                singleActionDialogMessage = "This is the Dialog message: 1234567890 foo bar qoo zoo, balabala....",
+//                twinActionsDialogTitle = "This is the Twin Actions    dialog title",
+//                twinActionsDialogMessage = "This is the twin Dialog message: 1234567890 foo bar qoo zoo, balabala....",
             )
+            // 0508
 
+            //UiStateSample1()
+            //UiStateSample1Rev()
+            //SampleManageHome1()
 
             // [start] navigation compose
 //            val navController = rememberNavController()
