@@ -57,11 +57,11 @@ fun interface DialogDecisionDelegate2<T> {
 
 @Composable
 fun FmProgressDialog(
-    dialogState: State<Boolean>,
+    dialogState: Boolean,
     title: String = "",
     onDismiss: () -> Unit = {},
 ) {
-    if (!dialogState.value) { return }
+    if (!dialogState) { return }
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -99,7 +99,7 @@ fun FmProgressDialog(
 
 @Composable
 fun FmBuiltInSingleActionDialog(
-    dialogState: State<Boolean>,
+    dialogState: Boolean,
     title: String = "Title",
     titleFontSize: TextUnit = 26.sp,
     titleTextColor: Color = Blue003,
@@ -113,7 +113,7 @@ fun FmBuiltInSingleActionDialog(
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {},
 ) {
-    if (!dialogState.value) { return }
+    if (!dialogState) { return }
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -185,7 +185,7 @@ fun FmBuiltInSingleActionDialog(
 
 @Composable
 fun FmBuiltInTwinActionsDialog(
-    dialogState: State<Boolean>,
+    dialogState: Boolean,
     title: String = "Title",
     titleFontSize: TextUnit = 26.sp,
     titleTextColor: Color = Blue003,
@@ -203,7 +203,7 @@ fun FmBuiltInTwinActionsDialog(
     onDismiss: () -> Unit = {},
     onConfirm: () -> Unit = {},
 ) {
-    if (!dialogState.value) { return }
+    if (!dialogState) { return }
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -343,5 +343,29 @@ fun FmItemPickerDialog(
         }
     }
 }
+
+
+interface AppDialogStateDelegate {
+    val theProgressDialogState: Boolean
+    val theProgressDialogTitle: String
+    val singleActionDialogState: Boolean
+    val theSingleActionDialogTitle: String
+    val theSingleActionDialogMessage: String
+    val twinActionsDialogState: Boolean
+    val theTwinActionsDialogTitle: String
+    val theTwinActionsDialogMessage: String
+}
+
+
+data class DefaultAppDialogStates(
+    override val theProgressDialogState: Boolean = false,
+    override val theProgressDialogTitle: String = "",
+    override val singleActionDialogState: Boolean = false,
+    override val theSingleActionDialogTitle: String = "",
+    override val theSingleActionDialogMessage: String = "",
+    override val twinActionsDialogState: Boolean = false,
+    override val theTwinActionsDialogTitle: String = "",
+    override val theTwinActionsDialogMessage: String = "",
+) : AppDialogStateDelegate
 
 
