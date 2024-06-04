@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.3.2"           # updated in 2024/05/02
+androidGradlePlugin = "8.4.0"           # updated in 2024/05/02
 googleServicesPlugIn = "4.4.1"          # updated in 2024/04/01
 firebaseCrashlyticsPlugIn = "2.9.9"     # updated in 2024/03/28
 kotlinKSP = "1.9.22-1.0.17"             # updated in 2024/04/01
