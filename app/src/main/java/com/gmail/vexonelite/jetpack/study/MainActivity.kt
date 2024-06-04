@@ -116,50 +116,50 @@ class MainActivity : ComponentActivity() {
 
             // 0508
 
-            val appUiStateViewModel: AppUiStateViewModel = viewModel()
-            val appDialogStates by appUiStateViewModel.appDialogStates.collectAsState()
-            LoginScreen01(
-                onLoginButtonClick = {
-                    appUiStateViewModel.alterProgressDialogState(
-                        newState = true, title = "12345...")
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        appUiStateViewModel.alterProgressDialogState(newState = false)
-                        appUiStateViewModel.alterTwinActionsDialogState(
-                            newState = true,
-                            title = "Off work",
-                            message = "Go buy cakes!! LOL")
-                    }, 2000L)
-                },
-            )
-
-            AppDialogs01(
-                appDialogStates = appDialogStates,
-                onProgressDialogDismiss = {
-                    appUiStateViewModel.alterProgressDialogState(false)
-                    println("Progress Dismiss")
-                },
-                onSingleActionDialogConfirmClick= {
-                    appUiStateViewModel.alterSingleActionDialogState(false)
-                    println("SingleAction Confirm")
-                },
-                onSingleActionDialogDismiss= {
-                    appUiStateViewModel.alterSingleActionDialogState(false)
-                    println("SingleAction Dismiss")
-                },
-                onTwinActionsDialogConfirmClick= {
-                    appUiStateViewModel.alterTwinActionsDialogState(false)
-                    println("TwinActions Confirm")
-                },
-                onTwinActionsDialogDismiss= {
-                    appUiStateViewModel.alterTwinActionsDialogState(false)
-                    println("TwinActions Dismiss")
-                },
-//                progressDialogTitle = "Logging in...",
-//                singleActionDialogTitle = "This is the Single Action dialog title",
-//                singleActionDialogMessage = "This is the Dialog message: 1234567890 foo bar qoo zoo, balabala....",
-//                twinActionsDialogTitle = "This is the Twin Actions    dialog title",
-//                twinActionsDialogMessage = "This is the twin Dialog message: 1234567890 foo bar qoo zoo, balabala....",
-            )
+//            val appUiStateViewModel: AppUiStateViewModel = viewModel()
+//            val appDialogStates by appUiStateViewModel.appDialogStates.collectAsState()
+//            LoginScreen01(
+//                onLoginButtonClick = {
+//                    appUiStateViewModel.alterProgressDialogState(
+//                        newState = true, title = "12345...")
+//                    Handler(Looper.getMainLooper()).postDelayed({
+//                        appUiStateViewModel.alterProgressDialogState(newState = false)
+//                        appUiStateViewModel.alterTwinActionsDialogState(
+//                            newState = true,
+//                            title = "Off work",
+//                            message = "Go buy cakes!! LOL")
+//                    }, 2000L)
+//                },
+//            )
+//
+//            AppDialogs01(
+//                appDialogStates = appDialogStates,
+//                onProgressDialogDismiss = {
+//                    appUiStateViewModel.alterProgressDialogState(false)
+//                    println("Progress Dismiss")
+//                },
+//                onSingleActionDialogConfirmClick= {
+//                    appUiStateViewModel.alterSingleActionDialogState(false)
+//                    println("SingleAction Confirm")
+//                },
+//                onSingleActionDialogDismiss= {
+//                    appUiStateViewModel.alterSingleActionDialogState(false)
+//                    println("SingleAction Dismiss")
+//                },
+//                onTwinActionsDialogConfirmClick= {
+//                    appUiStateViewModel.alterTwinActionsDialogState(false)
+//                    println("TwinActions Confirm")
+//                },
+//                onTwinActionsDialogDismiss= {
+//                    appUiStateViewModel.alterTwinActionsDialogState(false)
+//                    println("TwinActions Dismiss")
+//                },
+////                progressDialogTitle = "Logging in...",
+////                singleActionDialogTitle = "This is the Single Action dialog title",
+////                singleActionDialogMessage = "This is the Dialog message: 1234567890 foo bar qoo zoo, balabala....",
+////                twinActionsDialogTitle = "This is the Twin Actions    dialog title",
+////                twinActionsDialogMessage = "This is the twin Dialog message: 1234567890 foo bar qoo zoo, balabala....",
+//            )
             // 0508
 
             //UiStateSample1()
@@ -183,12 +183,23 @@ class MainActivity : ComponentActivity() {
 //            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 //
 //            MyApp(navController)
+
+            //RadioGroupDemo01()
+            //BasicRadioButton001()
+            //CustomRadioButton001()
+
+            CheckBoxDemo001()
+            //CustomCheckboxExample()
+
             // [end] navigation compose
         }
 
 
     }
 }
+
+
+
 
 
 ///
