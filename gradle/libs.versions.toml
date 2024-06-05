@@ -1,7 +1,7 @@
 [versions]
-androidGradlePlugin = "8.4.0"           # updated in 2024/05/02
-googleServicesPlugIn = "4.4.1"          # updated in 2024/04/01
-firebaseCrashlyticsPlugIn = "2.9.9"     # updated in 2024/03/28
+androidGradlePlugin = "8.4.1"           # updated in 2024/06/05
+googleServicesPlugIn = "4.4.2"          # updated in 2024/06/05
+firebaseCrashlyticsPlugIn = "3.0.1"     # updated in 2024/06/25
 kotlinKSP = "1.9.22-1.0.17"             # updated in 2024/04/01
 
 
@@ -15,29 +15,29 @@ koin3= "3.1.2"                          # updated in 2021/10/22
 kotlinSerialization = "1.6.3"           # updated in 2024/04/01
 
 
-coreKtx = "1.13.0"                      # updated in 2024/05/02
-androidX = "1.6.1"                      # updated in 2023/02/10
-annotationX = "1.7.1"                   # updated in 2024/05/03
-transitionX = "1.4.1"                   # updated in 2021/07/28
+coreKtx = "1.13.1"                      # updated in 2024/06/05
+androidX = "1.7.0"                      # updated in 2024/06/05
+annotationX = "1.8.0"                   # updated in 2024/05/03
+transitionX = "1.5.0"                   # updated in 2021/07/28
 
-composeBoM = "2024.04.01"               # updated in 2024/05/02
+composeBoM = "2024.05.00"               # updated in 2024/06/05
 composeCompilerExt = "1.5.10"           # updated in 2024/05/02
 
 constraintLayoutX = "2.1.4"             # updated in 2023/02/10
-materialX = "1.11.0"                    # updated in 2024/01/17
+materialX = "1.12.0"                    # updated in 2024/06/05
 viewpagerX = "1.0.0"
-viewpager2X = "1.0.0"
+viewpager2X = "1.1.0"                   # updated in 2024/06/05
 recyclerviewX = "1.3.2"                 # updated in 2024/01/17
 cardviewX = "1.0.0"
 swiperefreshlayout = "1.1.0"            # added in 2020/08/11
 vectorDrawableX = "1.1.0"
 
-dataStore = "1.1.0"                     # updated in 2024/05/03
+dataStore = "1.1.1"                     # updated in 2024/06/05
 protobuf = "3.14.0"                     # added in 2020/12/09
 
 activityX = "1.9.0"                     # updated in 2024/05/03
-fragmentX = "1.6.2"                     # updated in 2024/01/17
-lifecycleX = "2.7.0"                    # updated in 2024/01/17
+fragmentX = "1.7.1"                     # updated in 2024/06/05
+lifecycleX = "2.8.1"                    # updated in 2024/06/05
 roomX = "2.6.1"                         # updated in 2024/05/03
 multidex = "2.0.1"                      # updated in 2023/02/10
 navigation = "2.7.7"                    # updated in 2024/05/03
@@ -66,7 +66,7 @@ flexbox = "3.0.0"                       # updated in 2023/06/09
 # Now, to use Analytics or a product that recommends adding Analytics (see table below),
 # you need to explicitly declare the Analytics dependency:
 # com.google.firebase:firebase-analytics or com.google.firebase:firebase-analytics-ktx.
-firebaseBoM = "32.8.1"                  # updated in 2024/05/03
+firebaseBoM = "33.1.0"                  # updated in 2024/06/05
 firebaseAuth = "22.3.0"                 # updated in 2024/01/17
 firebaseMessaging = "21.0.1"            # updated in 2021/04/08
 firebaseAnalytics = "18.0.2"            # updated in 2021/04/08
@@ -179,16 +179,14 @@ navigationUi = { module = "androidx.navigation:navigation-ui", version.ref = "na
 coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
 
 composeBoM = { module = "androidx.compose:compose-bom", version.ref = "composeBoM" }
-
 composeUI = { module = "androidx.compose.ui:ui" }
 composeUiGraphics = { module = "androidx.compose.ui:ui-graphics" }
-
 composeMaterial3 = { module = "androidx.compose.material3:material3" }
 composeMaterial3WindowSize = { module = "androidx.compose.material3:material3-window-size-class" }
-
 composeMaterialIconsCore = { module = "androidx.compose.material:material-icons-core" }
 composeMaterialiconsExt = { module = "androidx.compose.material:material-icons-extended" }
 
+# Android Studio Preview support
 composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
 
