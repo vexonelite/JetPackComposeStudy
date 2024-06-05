@@ -90,12 +90,3 @@ data class ArticleList(
     val articles: List<Article> = listOf() // List = Unstable or Article = Unstable
 )
 
-
-// Generic Immutable Object List
-@Immutable
-data class ImmutableObjectList<T>(
-    val objectList: List<T> = listOf() // List = Unstable or Article = Unstable
-)
-
-
-

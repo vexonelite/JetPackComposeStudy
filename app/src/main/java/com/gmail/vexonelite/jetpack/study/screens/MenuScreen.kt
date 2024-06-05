@@ -32,8 +32,8 @@ import coil.request.ImageRequest
 import com.gmail.vexonelite.jetpack.study.HolderItemClickDelegate
 import com.gmail.vexonelite.jetpack.study.R
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey80
+import com.gmail.vexonelite.jetpack.study.ui.theme.ImmutableObjectList
 import com.gmail.vexonelite.jetpack.study.viewmodels.AspectRatioReference
-import com.gmail.vexonelite.jetpack.study.viewmodels.ImmutableObjectList
 import com.gmail.vexonelite.jetpack.study.viewmodels.ListViewModel
 import com.gmail.vexonelite.jetpack.study.viewmodels.MenuItemContentType
 import com.gmail.vexonelite.jetpack.study.viewmodels.MenuItemModel
