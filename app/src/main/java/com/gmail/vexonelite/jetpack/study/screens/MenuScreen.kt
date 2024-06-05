@@ -1,6 +1,7 @@
 package com.gmail.vexonelite.jetpack.study.screens
 
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -20,8 +21,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -40,6 +43,7 @@ import com.gmail.vexonelite.jetpack.study.viewmodels.MenuItemModel
 import com.gmail.vexonelite.jetpack.study.viewmodels.aspectRatioReference
 import com.gmail.vexonelite.jetpack.study.viewmodels.generateType1List
 import com.gmail.vexonelite.jetpack.study.viewmodels.generateType2List
+import com.gmail.vexonelite.jetpack.study.viewmodels.generateType3List
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -47,13 +51,15 @@ import java.util.logging.Logger
 /**
  * https://foso.github.io/Jetpack-Compose-Playground/foundation/lazyverticalgrid/
  */
+@Preview
 @Composable
 fun MenuScreen01(viewModel: ListViewModel = viewModel()) {
     val itemClickCallback = HolderItemClickDelegate<MenuItemModel> { dataObject, action, position ->
         Logger.getLogger("MenuScreen01").log(Level.INFO, "itemClickCallback - delegate: [${dataObject.description}], action: [$action], position: [$position]")
     }
-
-    val menuItemList = ImmutableObjectList<MenuItemModel>(generateType2List())
+    val context = LocalContext.current
+    //val menuItemList = ImmutableObjectList<MenuItemModel>(generateType2List())
+    val menuItemList = ImmutableObjectList<MenuItemModel>(generateType3List(context))
 
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -71,16 +77,21 @@ fun MenuScreen01(viewModel: ListViewModel = viewModel()) {
             contentType = { menuItem -> menuItem.contentType },
         ) { menuItem ->
             when(menuItem.contentType) {
-                MenuItemContentType.TYPE2 -> { ImageMenuItemGrid01(menuItem, itemClickCallback) }
                 MenuItemContentType.TYPE1 -> { ColorMenuItemGrid01(menuItem, itemClickCallback) }
+                MenuItemContentType.TYPE2 -> { ImageMenuItemGrid01(menuItem, itemClickCallback) }
+                MenuItemContentType.TYPE3 -> { ImageMenuItemGrid02(menuItem, itemClickCallback) }
             }
         }
     }
 }
 
 
+@Preview
 @Composable
-fun ColorMenuItemGrid01(menuItem: MenuItemModel, itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null) {
+fun ColorMenuItemGrid01(
+    menuItem: MenuItemModel = MenuItemModel(),
+    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null
+) {
     Box(
         modifier = Modifier
             .clickable { itemClickCallback?.onHolderItemClicked(menuItem, menuItem.action, -1) }
@@ -115,8 +126,12 @@ fun ColorMenuItemGrid01(menuItem: MenuItemModel, itemClickCallback: HolderItemCl
 }
 
 
+@Preview
 @Composable
-fun ImageMenuItemGrid01(menuItem: MenuItemModel, itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null) {
+fun ImageMenuItemGrid01(
+    menuItem: MenuItemModel = MenuItemModel(),
+    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null
+) {
     Box(
         modifier = Modifier
             .clickable { itemClickCallback?.onHolderItemClicked(menuItem, menuItem.action, -1) }
@@ -137,7 +152,7 @@ fun ImageMenuItemGrid01(menuItem: MenuItemModel, itemClickCallback: HolderItemCl
             ) {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(menuItem.action)
+                        .data(menuItem.imageUrl)
                         .crossfade(true)
                         .build(),
                     // java.lang.IllegalArgumentException: Only VectorDrawables and rasterized asset types are supported ex. PNG, JPG, WEBP
@@ -163,6 +178,48 @@ fun ImageMenuItemGrid01(menuItem: MenuItemModel, itemClickCallback: HolderItemCl
 //                modifier = Modifier.aspectRatio(ratio = 1.333f).fillMaxWidth(),
 //            )
 
+            Text(
+                text = menuItem.description,
+                fontSize = 20.sp,
+                color = Color.Black,
+                textAlign = TextAlign.Center,
+                maxLines = 2,
+                modifier = Modifier.fillMaxWidth().background(Grey80).padding(vertical = 12.dp)
+            )
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun ImageMenuItemGrid02(
+    menuItem: MenuItemModel = MenuItemModel(),
+    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null
+) {
+    Box(
+        modifier = Modifier
+            .clickable { itemClickCallback?.onHolderItemClicked(menuItem, menuItem.action, -1) }
+            .padding(10.dp)
+    ) {
+        Column(
+            modifier = Modifier.fillMaxWidth(),
+        ) {
+            Box( // Child
+                modifier = Modifier
+                    .aspectRatioReference(
+                        ratioWidth = 5f,
+                        ratioHeight = 3f,
+                        AspectRatioReference.MIN_PARENT_WIDTH_PARENT_HEIGHT
+                    ),
+                //.align(Alignment.Center),
+                contentAlignment = Alignment.Center
+            ) {
+                Image(
+                    painter = painterResource(menuItem.imageResId),
+                    contentDescription = "Contact profile picture",
+                )
+            }
             Text(
                 text = menuItem.description,
                 fontSize = 20.sp,
