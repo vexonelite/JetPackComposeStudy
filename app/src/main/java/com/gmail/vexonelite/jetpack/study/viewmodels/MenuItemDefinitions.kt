@@ -1,6 +1,8 @@
 package com.gmail.vexonelite.jetpack.study.viewmodels
 
 
+import android.content.Context
+import androidx.annotation.DrawableRes
 import androidx.compose.ui.graphics.Color
 import com.gmail.vexonelite.jetpack.study.ui.theme.DarkerGray
 import com.gmail.vexonelite.jetpack.study.ui.theme.HoloBlueLight
@@ -14,15 +16,20 @@ import java.util.UUID
 object MenuItemContentType {
     const val TYPE1 = 401
     const val TYPE2 = 402
+    const val TYPE3 = 403
 }
 
 data class MenuItemModel(
-    val id: String = "",
+    val id: String = UUID.randomUUID().toString(),
     val contentType: Int = 1,
-    val description: String = "",
+    val description: String = "Test",
     val action: String = "",
     val color: Color = Color.Transparent,
+    val imageUrl: String = "",
+    @DrawableRes val imageResId: Int = 0,
 )
+
+///
 
 
 fun generateType1List(): List<MenuItemModel> {
@@ -72,7 +79,7 @@ fun generateType2List(): List<MenuItemModel> {
     val dataList: MutableList<MenuItemModel> = mutableListOf()
 
     val uuid = UUID.randomUUID().toString()
-    val urlArray = arrayOf(
+    val urlArray = arrayOf<String>(
 
         "https://diz36nn4q02zr.cloudfront.net/webapi/imagesV3/Cropped/SalePage/8504546/0/638229888195170000?v=1",
         "https://diz36nn4q02zr.cloudfront.net/webapi/imagesV3/Cropped/SalePage/8546390/0/638229888129470000?v=1",
@@ -101,18 +108,73 @@ fun generateType2List(): List<MenuItemModel> {
     )
 
     for (i in urlArray.indices) {
-        val identifier = "${uuid}_${i + 1}"
-        val description = "photo-${i + 1}"
         val delegate = MenuItemModel(
-            id = identifier,
-            description = description,
-            action = urlArray[i],
+            id = "${uuid}_${i + 1}",
+            description = "photo-${i + 1}",
             contentType = MenuItemContentType.TYPE2,
-            color = DarkerGray
+            color = DarkerGray,
+            imageUrl = urlArray[i],
         )
         dataList.add(delegate)
     }
 
     return dataList
 }
+
+
+object NtmofaMenuAction {
+    const val QUERY = "menu_action_query"
+    const val LOCATE = "menu_action_locate"
+    const val INVENTORY = "menu_action_inventory"
+    const val LOAN = "menu_action_loan"
+    const val STORAGE = "menu_action_storage"
+    const val RFID_TAG = "menu_action_rfid_tag"
+}
+
+
+fun generateType3List(context: Context): List<MenuItemModel> {
+    val dataList: MutableList<MenuItemModel> = mutableListOf()
+
+    val uuid = UUID.randomUUID().toString()
+    val descriptionArray = arrayOf<String>(
+        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_query),
+        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_locate),
+        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_inventory),
+        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_loan),
+        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_storage),
+        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_rfid_tag),
+    )
+    val imageResIdArray = arrayOf<Int>(
+        com.gmail.vexonelite.jetpack.study.R.drawable.ic_query,
+        com.gmail.vexonelite.jetpack.study.R.drawable.ic_locate,
+        com.gmail.vexonelite.jetpack.study.R.drawable.ic_inventory,
+        com.gmail.vexonelite.jetpack.study.R.drawable.ic_loan,
+        com.gmail.vexonelite.jetpack.study.R.drawable.ic_storage,
+        com.gmail.vexonelite.jetpack.study.R.drawable.transponder_256,
+    )
+    val actionArray = arrayOf<String>(
+        NtmofaMenuAction.QUERY,
+        NtmofaMenuAction.LOCATE,
+        NtmofaMenuAction.INVENTORY,
+        NtmofaMenuAction.LOAN,
+        NtmofaMenuAction.STORAGE,
+        NtmofaMenuAction.RFID_TAG
+    )
+
+    for (i in imageResIdArray.indices) {
+        val identifier = "${uuid}_${i + 1}"
+        val delegate = MenuItemModel(
+            id = identifier,
+            description = descriptionArray[i],
+            contentType = MenuItemContentType.TYPE3,
+            action = actionArray[i],
+            color = DarkerGray,
+            imageResId = imageResIdArray[i],
+        )
+        dataList.add(delegate)
+    }
+
+    return dataList
+}
+
 
