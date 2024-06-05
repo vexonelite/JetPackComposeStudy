@@ -81,20 +81,20 @@ class ListViewModel : ViewModel() {
 data class Article(
     val id: String = UUID.randomUUID().toString(),
     val contentType: Int = 1,
-    val name: String,
+    val name: String = "",
 )
 
 
 @Immutable
 data class ArticleList(
-    val articles: List<Article> // List = Unstable or Article = Unstable
+    val articles: List<Article> = listOf() // List = Unstable or Article = Unstable
 )
 
 
 // Generic Immutable Object List
 @Immutable
 data class ImmutableObjectList<T>(
-    val objectList: List<T> // List = Unstable or Article = Unstable
+    val objectList: List<T> = listOf() // List = Unstable or Article = Unstable
 )
 
 
