@@ -1,4 +1,4 @@
-package com.gmail.vexonelite.jetpack.study
+package com.gmail.vexonelite.jetpack.study.ntmofa
 
 
 import android.content.Context
@@ -16,6 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.gmail.vexonelite.jetpack.study.R
 import com.gmail.vexonelite.jetpack.study.screens.LoginScreenContent
 import com.gmail.vexonelite.jetpack.study.screens.MenuScreenContent
 import com.gmail.vexonelite.jetpack.study.screens.TextCenterScreenContent
@@ -128,20 +129,20 @@ fun generateType3List(context: Context): List<MenuItemModel> {
 
     val uuid = UUID.randomUUID().toString()
     val descriptionArray = arrayOf<String>(
-        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_query),
-        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_locate),
-        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_inventory),
-        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_loan),
-        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_storage),
-        context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_rfid_tag),
+        context.getString(R.string.menu_query),
+        context.getString(R.string.menu_locate),
+        context.getString(R.string.menu_inventory),
+        context.getString(R.string.menu_loan),
+        context.getString(R.string.menu_storage),
+        context.getString(R.string.menu_rfid_tag),
     )
     val imageResIdArray = arrayOf<Int>(
-        com.gmail.vexonelite.jetpack.study.R.drawable.ic_query,
-        com.gmail.vexonelite.jetpack.study.R.drawable.ic_locate,
-        com.gmail.vexonelite.jetpack.study.R.drawable.ic_inventory,
-        com.gmail.vexonelite.jetpack.study.R.drawable.ic_loan,
-        com.gmail.vexonelite.jetpack.study.R.drawable.ic_storage,
-        com.gmail.vexonelite.jetpack.study.R.drawable.transponder_256,
+        R.drawable.ic_query,
+        R.drawable.ic_locate,
+        R.drawable.ic_inventory,
+        R.drawable.ic_loan,
+        R.drawable.ic_storage,
+        R.drawable.transponder_256,
     )
     val actionArray = arrayOf<String>(
         NtmofaMenuAction.QUERY,
@@ -177,22 +178,40 @@ fun NtmofaMenuScreen(
         Logger.getLogger("NtmofaMenuScreen").log(Level.INFO, "itemClickCallback - delegate: [${dataObject.description}], action: [$action], position: [$position]")
         when(action) {
             NtmofaMenuAction.QUERY -> {
-                navController.navigateSingleTopTo(NtmofaRouteDestination.Query.theRoute, NtmofaRouteDestination.Menu.theRoute)
+                navController.navigateSingleTopTo(
+                    NtmofaRouteDestination.Query.theRoute,
+                    NtmofaRouteDestination.Menu.theRoute
+                )
             }
             NtmofaMenuAction.LOCATE -> {
-                navController.navigateSingleTopTo(NtmofaRouteDestination.Location.theRoute, NtmofaRouteDestination.Menu.theRoute)
+                navController.navigateSingleTopTo(
+                    NtmofaRouteDestination.Location.theRoute,
+                    NtmofaRouteDestination.Menu.theRoute
+                )
             }
             NtmofaMenuAction.INVENTORY -> {
-                navController.navigateSingleTopTo(NtmofaRouteDestination.Inventory.theRoute, NtmofaRouteDestination.Menu.theRoute)
+                navController.navigateSingleTopTo(
+                    NtmofaRouteDestination.Inventory.theRoute,
+                    NtmofaRouteDestination.Menu.theRoute
+                )
             }
             NtmofaMenuAction.LOAN -> {
-                navController.navigateSingleTopTo(NtmofaRouteDestination.Loan.theRoute, NtmofaRouteDestination.Menu.theRoute)
+                navController.navigateSingleTopTo(
+                    NtmofaRouteDestination.Loan.theRoute,
+                    NtmofaRouteDestination.Menu.theRoute
+                )
             }
             NtmofaMenuAction.STORAGE -> {
-                navController.navigateSingleTopTo(NtmofaRouteDestination.Storage.theRoute, NtmofaRouteDestination.Menu.theRoute)
+                navController.navigateSingleTopTo(
+                    NtmofaRouteDestination.Storage.theRoute,
+                    NtmofaRouteDestination.Menu.theRoute
+                )
             }
             NtmofaMenuAction.RFID_TAG -> {
-                navController.navigateSingleTopTo(NtmofaRouteDestination.RfidTag.theRoute, NtmofaRouteDestination.Menu.theRoute)
+                navController.navigateSingleTopTo(
+                    NtmofaRouteDestination.RfidTag.theRoute,
+                    NtmofaRouteDestination.Menu.theRoute
+                )
             }
         }
     }
@@ -208,7 +227,7 @@ fun QueryScreen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_query)
+    val title = context.getString(R.string.menu_query)
     TextCenterScreenContent(title)
 }
 
@@ -217,7 +236,7 @@ fun LocationScreen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_locate)
+    val title = context.getString(R.string.menu_locate)
     TextCenterScreenContent(title)
 }
 
@@ -226,7 +245,7 @@ fun InventoryScreen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_inventory)
+    val title = context.getString(R.string.menu_inventory)
     TextCenterScreenContent(title)
 }
 
@@ -235,7 +254,7 @@ fun LoanScreen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_loan)
+    val title = context.getString(R.string.menu_loan)
     TextCenterScreenContent(title)
 }
 
@@ -244,7 +263,7 @@ fun StorageScreen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_storage)
+    val title = context.getString(R.string.menu_storage)
     TextCenterScreenContent(title)
 }
 
@@ -253,7 +272,7 @@ fun RfidTagScreen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(com.gmail.vexonelite.jetpack.study.R.string.menu_rfid_tag)
+    val title = context.getString(R.string.menu_rfid_tag)
     TextCenterScreenContent(title)
 }
 
