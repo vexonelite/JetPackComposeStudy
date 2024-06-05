@@ -21,6 +21,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue007
@@ -34,6 +35,7 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.Grey004
  * ``enabled``: Whether the switch is enabled or disabled.
  * ``colors``: The colors used for the switch.
  */
+@Preview
 @Composable
 fun SwitchDemo01() {
     Column(

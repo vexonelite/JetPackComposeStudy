@@ -26,6 +26,7 @@ import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -44,8 +45,9 @@ import androidx.compose.ui.window.DialogProperties
  * you need to manually specify the ``size`` and ``shape`` of ``Dialog``.
  * You also need to provide an inner container.
  */
+@Preview
 @Composable
-fun MinimalDialog(onDismissRequest: () -> Unit) {
+fun MinimalDialog(onDismissRequest: () -> Unit= {}) {
     Dialog(onDismissRequest = { onDismissRequest() }) {
         Card(
             modifier = Modifier
@@ -138,6 +140,7 @@ fun DialogWithImage(
  *  * [Ref1](https://stackoverflow.com/questions/74506670/how-to-dismiss-a-composable-dialog)
  *  * [Ref2](https://www.sinasamaki.com/custom-dialog-animation-in-jetpack-compose/)
  */
+@Preview
 @Composable
 fun DialogDemo01() {
     val showDialog = remember { mutableStateOf(false) }

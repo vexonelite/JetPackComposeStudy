@@ -21,6 +21,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -35,6 +36,7 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.Yellow001
  * * ``color``: The color of the actual indicator. That is, the part of the component that reflects progress and which fully encompasses the component when progress is complete.
  * * ``trackColor``: The color of the track over which the indicator is drawn.
  */
+@Preview
 @Composable
 fun ProgressDemo01() {
     //var loading by remember { mutableStateOf(false) }
@@ -105,7 +107,7 @@ fun ProgressDialog(
 }
 
 
-
+@Preview
 @Composable
 fun ProgressDemo02() {
     val showDialog = remember { mutableStateOf(false) }

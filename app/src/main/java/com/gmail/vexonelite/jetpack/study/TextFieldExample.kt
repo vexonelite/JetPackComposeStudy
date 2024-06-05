@@ -47,6 +47,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -59,6 +60,7 @@ import com.gmail.vexonelite.jetpack.study.viewmodels.SignUpViewModel
 /**
  * [Ref](https://developer.android.com/develop/ui/compose/text/user-input)
  */
+@Preview
 @Composable
 fun SimpleFilledTextFieldSample() {
     var text by remember { mutableStateOf("Hello") }
@@ -71,6 +73,7 @@ fun SimpleFilledTextFieldSample() {
 }
 
 
+@Preview
 @Composable
 fun SimpleOutlinedTextFieldSample() {
     var text by remember { mutableStateOf("") }
@@ -84,6 +87,7 @@ fun SimpleOutlinedTextFieldSample() {
 }
 
 
+@Preview
 @Composable
 fun StyledTextField() {
     var value by remember { mutableStateOf("Hello\nWorld\nInvisible") }
@@ -101,6 +105,7 @@ fun StyledTextField() {
 }
 
 
+@Preview
 @Composable
 fun PasswordTextField() {
     var password by rememberSaveable { mutableStateOf("") }
@@ -115,6 +120,7 @@ fun PasswordTextField() {
 }
 
 
+@Preview
 @Composable
 fun NoLeadingZeroes() {
     var input by rememberSaveable { mutableStateOf("") }
@@ -128,6 +134,7 @@ fun NoLeadingZeroes() {
 }
 
 
+@Preview
 @Composable
 fun SignUpScreen(viewModel: SignUpViewModel = viewModel()) {
     OutlinedTextField(
@@ -138,6 +145,7 @@ fun SignUpScreen(viewModel: SignUpViewModel = viewModel()) {
 }
 
 
+@Preview
 @Composable
 fun TextFieldDemo01() {
     Column(
@@ -161,6 +169,7 @@ fun TextFieldDemo01() {
 /**
  * [Ref](https://foso.github.io/Jetpack-Compose-Playground/foundation/basictextfield/)
  */
+@Preview
 @Composable
 fun BasicTextFieldDemo01() {
     val initText = "Hello World"
@@ -188,6 +197,7 @@ fun BasicTextFieldDemo01() {
  * * [1](https://developer.android.com/develop/ui/compose/touch-input/focus/change-focus-behavior)
  * * [2]((https://developer.android.com/develop/ui/compose/touch-input/focus/react-to-focus))
  */
+@Preview
 @Composable
 fun FocusDemo01() {
     val initText = "Hello World"
@@ -247,6 +257,7 @@ fun FocusDemo01() {
 /**
  * * [Ref](https://rivaldy.medium.com/jetpack-compose-customize-your-searchbar-with-basictextfield-c1cdcbd3e3aa)
  */
+@Preview
 @Composable
 fun SearchBar(
     hint: String,
@@ -340,3 +351,4 @@ fun SearchBar(
         }
     }
 }
+

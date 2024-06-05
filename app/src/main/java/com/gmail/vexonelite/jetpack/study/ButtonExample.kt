@@ -39,6 +39,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
@@ -57,6 +58,7 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.Teal001
  * ``contentPadding``: The padding within the button.
  */
 @OptIn(ExperimentalMaterial3Api::class)
+@Preview
 @Composable
 fun ButtonDemo01() {
     Column(
@@ -265,12 +267,6 @@ fun ButtonDemo01() {
                 )
             }
         }
-
-
-
-
-
-
 
     }
 }

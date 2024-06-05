@@ -30,6 +30,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.util.logging.Level
@@ -39,6 +40,7 @@ import java.util.logging.Logger
 /**
  * [Ref](https://jetpackcompose.cn/docs/elements/text/)
  */
+@Preview
 @Composable
 fun TextDemo01() {
     Column{
@@ -53,6 +55,8 @@ fun TextDemo01() {
     }
 }
 
+
+@Preview
 @Composable
 fun TextDemo02() {
     val style = TextStyle(
@@ -81,6 +85,7 @@ fun TextDemo02() {
 }
 
 
+@Preview
 @Composable
 fun TextDemo03() {
     Column(
@@ -99,7 +104,7 @@ fun TextDemo03() {
 }
 
 
-
+@Preview
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun TextDemo04() {
@@ -134,6 +139,8 @@ fun TextDemo04() {
     }
 }
 
+
+@Preview
 @Composable
 fun TextDemo05() {
     Column(
@@ -159,6 +166,7 @@ fun TextDemo05() {
 }
 
 
+@Preview
 @Composable
 fun TextDemo05_1() {
     SelectionContainer {
@@ -167,6 +175,7 @@ fun TextDemo05_1() {
 }
 
 
+@Preview
 @Composable
 fun TextDemo06() {
     Column(
@@ -180,6 +189,7 @@ fun TextDemo06() {
 }
 
 
+@Preview
 @Composable
 fun TextDemo07() {
     val context = LocalContext.current
@@ -195,6 +205,7 @@ fun TextDemo07() {
 
 
 @SuppressLint("UnrememberedMutableInteractionSource")
+@Preview
 @Composable
 fun TextDemo07_1() {
     val context = LocalContext.current
@@ -211,6 +222,7 @@ fun TextDemo07_1() {
 }
 
 
+@Preview
 @Composable
 fun TextDemo08() {
     Column(
@@ -229,6 +241,7 @@ fun TextDemo08() {
 }
 
 
+@Preview
 @Composable
 fun TextDemo08_1() {
 
@@ -258,6 +271,7 @@ fun TextDemo08_1() {
 }
 
 
+@Preview
 @Composable
 fun TextDemo08_2() {
 
@@ -296,6 +310,7 @@ fun TextDemo08_2() {
 }
 
 
+@Preview
 @Composable
 fun TextDemo09() {
     Column{
@@ -314,6 +329,7 @@ fun TextDemo09() {
 /**
  * [Ref](https://medium.com/@andyphiri92/using-text-in-jetpack-compose-0fb812118809)
  */
+@Preview
 @Composable
 fun TextSampleCompose(modifier: Modifier = Modifier) {
     Text(
@@ -352,3 +368,4 @@ fun TextSampleCompose(modifier: Modifier = Modifier) {
 
     )
 }
+
