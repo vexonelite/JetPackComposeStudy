@@ -16,6 +16,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.gmail.vexonelite.jetpack.study.HolderItemClickDelegate
 import com.gmail.vexonelite.jetpack.study.R
 import com.gmail.vexonelite.jetpack.study.screens.LoginScreenContent
 import com.gmail.vexonelite.jetpack.study.screens.MenuScreenContent

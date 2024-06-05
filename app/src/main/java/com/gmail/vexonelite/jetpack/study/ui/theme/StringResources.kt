@@ -1,4 +1,4 @@
-package com.gmail.vexonelite.jetpack.study
+package com.gmail.vexonelite.jetpack.study.ui.theme
 
 
 import android.content.Context
@@ -27,7 +27,8 @@ sealed interface StringResource {
         }
     }
 
-    data class ResIdWithParams(@StringRes val stringId: Int, val params: List<Any>): StringResource {
+    data class ResIdWithParams(@StringRes val stringId: Int, val params: List<Any>):
+        StringResource {
         override fun resolve(context: Context): String {
             return context.getString(stringId, *params.toTypedArray())
         }

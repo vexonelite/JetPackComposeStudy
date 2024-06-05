@@ -40,6 +40,8 @@ import com.gmail.vexonelite.jetpack.study.SearchBar
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Green001
 import com.gmail.vexonelite.jetpack.study.ui.theme.Pink001
+import com.gmail.vexonelite.jetpack.study.ui.theme.theAppButtonColor01
+import com.gmail.vexonelite.jetpack.study.ui.theme.theAppTextFieldColor01
 import com.gmail.vexonelite.jetpack.study.viewmodels.FmTextField01
 import com.gmail.vexonelite.jetpack.study.viewmodels.FmTextField02
 

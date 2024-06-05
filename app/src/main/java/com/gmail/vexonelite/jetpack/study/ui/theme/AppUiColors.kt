@@ -1,4 +1,4 @@
-package com.gmail.vexonelite.jetpack.study.screens
+package com.gmail.vexonelite.jetpack.study.ui.theme
 
 
 import androidx.compose.material3.ButtonColors
