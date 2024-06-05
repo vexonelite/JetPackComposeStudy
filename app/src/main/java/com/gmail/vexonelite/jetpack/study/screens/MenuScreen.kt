@@ -76,9 +76,9 @@ fun MenuScreenContent(
     ) {
         items(
             menuItemList.objectList,
-            key = { menuItem -> menuItem.id },
-            contentType = { menuItem -> menuItem.contentType },
-        ) { menuItem ->
+            key = { menuItem: MenuItemModel -> menuItem.id },
+            contentType = { menuItem: MenuItemModel -> menuItem.contentType },
+        ) { menuItem: MenuItemModel ->
             when(menuItem.contentType) {
                 MenuItemContentType.TYPE1 -> { ColorMenuItemGrid01(menuItem, itemClickCallback) }
                 MenuItemContentType.TYPE2 -> { ImageMenuItemGrid01(menuItem, itemClickCallback) }
