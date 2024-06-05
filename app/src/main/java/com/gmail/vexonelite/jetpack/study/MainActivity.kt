@@ -43,7 +43,7 @@ import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.gmail.vexonelite.jetpack.study.screens.AppDialogs01
-import com.gmail.vexonelite.jetpack.study.screens.LoginScreen01
+import com.gmail.vexonelite.jetpack.study.screens.LoginScreenContent
 import com.gmail.vexonelite.jetpack.study.screens.MenuScreen01
 import com.gmail.vexonelite.jetpack.study.ui.theme.JetPackComposeStudyTheme
 import androidx.lifecycle.ViewModel
@@ -114,11 +114,41 @@ class MainActivity : ComponentActivity() {
 
             //MenuScreen01()
 
-            // 0508
+            //RadioGroupDemo01()
+            //BasicRadioButton001()
+            //CustomRadioButton001()
+
+            //CheckBoxDemo001()
+            //CustomCheckboxExample()
+
+            //UiStateSample1()
+            //UiStateSample1Rev()
+            //SampleManageHome1()
+
+            // [start] navigation compose
+//            val navController = rememberNavController()
+//            val onBackPressedCallback = object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    when (navController.currentBackStackEntry?.destination?.route) {
+//                        RouteDestination.Home.theRoute -> { finish() }
+//                        RouteDestination.Login.theRoute -> { finish() }
+//                        else ->  {
+//                            // Navigate back
+//                            navController.popBackStack()
+//                        }
+//                    }
+//                }
+//            }
+//            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+//
+//            MyApp(navController)
+            // [end] navigation compose
+
+            // [start] 2024/05/08
 
 //            val appUiStateViewModel: AppUiStateViewModel = viewModel()
 //            val appDialogStates by appUiStateViewModel.appDialogStates.collectAsState()
-//            LoginScreen01(
+//            LoginScreenContent(
 //                onLoginButtonClick = {
 //                    appUiStateViewModel.alterProgressDialogState(
 //                        newState = true, title = "12345...")
@@ -160,38 +190,30 @@ class MainActivity : ComponentActivity() {
 ////                twinActionsDialogTitle = "This is the Twin Actions    dialog title",
 ////                twinActionsDialogMessage = "This is the twin Dialog message: 1234567890 foo bar qoo zoo, balabala....",
 //            )
-            // 0508
-
-            //UiStateSample1()
-            //UiStateSample1Rev()
-            //SampleManageHome1()
+            // [end] 2024/05/08
 
             // [start] navigation compose
-//            val navController = rememberNavController()
-//            val onBackPressedCallback = object : OnBackPressedCallback(true) {
-//                override fun handleOnBackPressed() {
-//                    when (navController.currentBackStackEntry?.destination?.route) {
-//                        RouteDestination.Home.theRoute -> { finish() }
-//                        RouteDestination.Login.theRoute -> { finish() }
-//                        else ->  {
-//                            // Navigate back
-//                            navController.popBackStack()
-//                        }
-//                    }
-//                }
-//            }
-//            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-//
-//            MyApp(navController)
+            val navController = rememberNavController()
+            val onBackPressedCallback = object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    when (navController.currentBackStackEntry?.destination?.route) {
+                        NtmofaRouteDestination.Menu.theRoute -> { finish() }
+                        NtmofaRouteDestination.Login.theRoute -> { finish() }
+                        else ->  {
+                            // Navigate back
+                            navController.popBackStack()
+                        }
+                    }
+                }
+            }
+            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
-            //RadioGroupDemo01()
-            //BasicRadioButton001()
-            //CustomRadioButton001()
-
-            CheckBoxDemo001()
-            //CustomCheckboxExample()
-
+            NtmofaRfidApp(navController)
             // [end] navigation compose
+
+
+
+
         }
 
 
