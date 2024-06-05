@@ -16,6 +16,7 @@ import androidx.compose.ui.Alignment
 
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -26,6 +27,7 @@ import java.util.logging.Level
 import java.util.logging.Logger
 
 
+@Preview
 @Composable
 fun ListColumnDemo01(viewModel: ListViewModel = viewModel()) {
     LazyColumn() {
@@ -39,8 +41,12 @@ fun ListColumnDemo01(viewModel: ListViewModel = viewModel()) {
 }
 
 
+@Preview
 @Composable
-fun StableListColumn01(articleList: ArticleList, modifier: Modifier = Modifier) {
+fun StableListColumn01(
+    modifier: Modifier = Modifier,
+    articleList: ArticleList = ArticleList(),
+) {
     LazyColumn(modifier = modifier) {
         items(
             articleList.articles,
@@ -51,9 +57,12 @@ fun StableListColumn01(articleList: ArticleList, modifier: Modifier = Modifier) 
 }
 
 
-
+@Preview
 @Composable
-fun StableListColumn02(articleList: ArticleList, modifier: Modifier = Modifier) {
+fun StableListColumn02(
+    modifier: Modifier = Modifier,
+    articleList: ArticleList = ArticleList(),
+) {
     LazyColumn(modifier = modifier) {
         items(
             items = articleList.articles,
@@ -65,8 +74,12 @@ fun StableListColumn02(articleList: ArticleList, modifier: Modifier = Modifier) 
 }
 
 
+@Preview
 @Composable
-fun ArticleItem1(article: Article, itemClickCallback: HolderItemClickDelegate<Article>? = null) {
+fun ArticleItem1(
+    article: Article = Article(),
+    itemClickCallback: HolderItemClickDelegate<Article>? = null
+) {
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -87,8 +100,12 @@ fun ArticleItem1(article: Article, itemClickCallback: HolderItemClickDelegate<Ar
 }
 
 
+@Preview
 @Composable
-fun ArticleItemDefault(article: Article, itemClickCallback: HolderItemClickDelegate<Article>? = null) {
+fun ArticleItemDefault(
+    article: Article = Article(),
+    itemClickCallback: HolderItemClickDelegate<Article>? = null
+) {
     Box(
         modifier = Modifier
             .clickable { itemClickCallback?.onHolderItemClicked(article, "DEFAULT", -1) }
@@ -102,8 +119,13 @@ fun ArticleItemDefault(article: Article, itemClickCallback: HolderItemClickDeleg
 }
 
 
+@Preview
 @Composable
-fun StableListColumn03(articleList: ArticleList, modifier: Modifier = Modifier, itemClickCallback: HolderItemClickDelegate<Article>? = null) {
+fun StableListColumn03(
+    modifier: Modifier = Modifier,
+    articleList: ArticleList = ArticleList(),
+    itemClickCallback: HolderItemClickDelegate<Article>? = null
+) {
     LazyColumn(modifier = modifier) {
         items(
             items = articleList.articles,
@@ -118,24 +140,33 @@ fun StableListColumn03(articleList: ArticleList, modifier: Modifier = Modifier, 
     }
 }
 
+
+@Preview
 @Composable
 fun ListColumn01(modifier: Modifier = Modifier, viewModel: ListViewModel = viewModel()) {
     val articleList = ArticleList(viewModel.articles)
-    StableListColumn01(articleList, modifier)
+    StableListColumn01(modifier, articleList,)
 }
 
+
+@Preview
 @Composable
 fun ListColumn02(modifier: Modifier = Modifier, viewModel: ListViewModel = viewModel()) {
     val articleList = ArticleList(viewModel.articles)
-    StableListColumn02(articleList, modifier)
+    StableListColumn02(modifier, articleList,)
 }
 
+
+@Preview
 @Composable
-fun ListColumn03(modifier: Modifier = Modifier, itemClickCallback: HolderItemClickDelegate<Article>? = null, viewModel: ListViewModel = viewModel()) {
+fun ListColumn03(
+    modifier: Modifier = Modifier,
+    itemClickCallback: HolderItemClickDelegate<Article>? = null,
+    viewModel: ListViewModel = viewModel()
+) {
     val articleList = ArticleList(viewModel.articles)
-    StableListColumn03(articleList, modifier, itemClickCallback)
+    StableListColumn03(modifier, articleList, itemClickCallback)
 }
-
 
 
 fun interface HolderItemClickDelegate<T> {
@@ -143,7 +174,7 @@ fun interface HolderItemClickDelegate<T> {
 }
 
 
-
+@Preview
 @Composable
 fun ListColumnDemo02() {
     val itemClickCallback = HolderItemClickDelegate<Article> { dataObject, action, position ->
