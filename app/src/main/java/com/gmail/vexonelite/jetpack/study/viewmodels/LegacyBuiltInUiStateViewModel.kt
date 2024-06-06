@@ -1,9 +1,6 @@
 package com.gmail.vexonelite.jetpack.study.viewmodels
 
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -11,13 +8,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 
 
-class AppUiStateViewModel : ViewModel() {
-    private val _appDialogStates = MutableStateFlow<DefaultAppDialogStates>(DefaultAppDialogStates())
-    val appDialogStates: StateFlow<AppDialogStateDelegate> = _appDialogStates.asStateFlow()
+class LegacyBuiltInUiStateViewModel : ViewModel() {
+    private val _appDialogStates = MutableStateFlow<LegacyBuiltInDialogStateImpl>(LegacyBuiltInDialogStateImpl())
+    val appDialogStates: StateFlow<LegacyBuiltInDialogStateDelegate> = _appDialogStates.asStateFlow()
 
 
     fun alterProgressDialogState(newState: Boolean, title: String? = null) {
-        _appDialogStates.update { currentState ->
+        _appDialogStates.update { currentState: LegacyBuiltInDialogStateImpl ->
             currentState.copy(
                 theProgressDialogState = newState,
                 theProgressDialogTitle = title ?: currentState.theProgressDialogTitle,
@@ -27,7 +24,7 @@ class AppUiStateViewModel : ViewModel() {
 
 
     fun alterSingleActionDialogState(newState: Boolean, title: String? = null, message: String? = null) {
-        _appDialogStates.update { currentState ->
+        _appDialogStates.update { currentState: LegacyBuiltInDialogStateImpl ->
             currentState.copy(
                 singleActionDialogState = newState,
                 theSingleActionDialogTitle = title ?: currentState.theSingleActionDialogTitle,
@@ -38,7 +35,7 @@ class AppUiStateViewModel : ViewModel() {
 
 
     fun alterTwinActionsDialogState(newState: Boolean, title: String? = null, message: String? = null) {
-        _appDialogStates.update { currentState ->
+        _appDialogStates.update { currentState: LegacyBuiltInDialogStateImpl ->
             currentState.copy(
                 twinActionsDialogState = newState,
                 theTwinActionsDialogTitle = title ?: currentState.theTwinActionsDialogTitle,
@@ -47,8 +44,5 @@ class AppUiStateViewModel : ViewModel() {
         }
     }
 }
-
-
-
 
 

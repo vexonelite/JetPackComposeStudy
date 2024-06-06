@@ -2,11 +2,11 @@
     <string name="app_name">JetPackComposeStudy</string>
     <string name="image_description">Forza</string>
 
-    <string name="menu_query">藏品查詢</string>
-    <string name="menu_locate">藏品搜尋雷達</string>
-    <string name="menu_inventory">藏品盤點作業</string>
-    <string name="menu_loan">藏品出入管理</string>
-    <string name="menu_storage">藏品上下架作業</string>
-    <string name="menu_rfid_tag">標籤管理</string>
+    <string name="menu_func1">功能1</string>
+    <string name="menu_func2">功能2</string>
+    <string name="menu_func3">功能3</string>
+    <string name="menu_func4">功能4</string>
+    <string name="menu_func5">功能5</string>
+    <string name="menu_func6">功能6</string>
 
 </resources>

@@ -1,9 +1,9 @@
 package com.gmail.vexonelite.jetpack.study.ntmofa
 
 
-import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -11,28 +11,24 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.gmail.vexonelite.jetpack.study.HolderItemClickDelegate
 import com.gmail.vexonelite.jetpack.study.R
-import com.gmail.vexonelite.jetpack.study.screens.LoginScreenContent
-import com.gmail.vexonelite.jetpack.study.screens.MenuScreenContent
 import com.gmail.vexonelite.jetpack.study.screens.TextCenterScreenContent
-import com.gmail.vexonelite.jetpack.study.ui.theme.DarkerGray
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey001
-import com.gmail.vexonelite.jetpack.study.ui.theme.ImmutableObjectList
 import com.gmail.vexonelite.jetpack.study.ui.theme.JetPackComposeStudyTheme
 import com.gmail.vexonelite.jetpack.study.ui.theme.Pink001
 import com.gmail.vexonelite.jetpack.study.ui.theme.Purple003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Yellow001
-import com.gmail.vexonelite.jetpack.study.ui.theme.navigateSingleTopTo
-import com.gmail.vexonelite.jetpack.study.ui.theme.navigateToExt
-import com.gmail.vexonelite.jetpack.study.viewmodels.MenuItemContentType
-import com.gmail.vexonelite.jetpack.study.viewmodels.MenuItemModel
-import java.util.UUID
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInProgressDialog01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInSingleActionDialog01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInTwinActionsDialog01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInUiStateViewModel
+import com.gmail.vexonelite.jetpack.study.viewmodels.SignUpViewModel
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -40,13 +36,15 @@ import java.util.logging.Logger
 object NtmofaRoute {
     const val LOGIN = "route_login"
     const val MENU = "route_menu"
-    const val QUERY = "route_query"
-    const val LOCATION = "route_locate"
-    const val INVENTORY = "route_inventory"
-    const val LOAN = "route_loan"
-    const val STORAGE = "route_storage"
-    const val RFID_TAG = "route_rfid_tag"
+    const val FUNC1 = "route_func1"
+    const val FUNC2 = "route_func2"
+    const val FUNC3 = "route_func3"
+    const val FUNC4 = "route_func4"
+    const val FUNC5 = "route_func5"
+    const val FUNC6 = "route_func6"
 }
+
+
 sealed interface NtmofaRouteDestination {
     val theRoute: String
     val theTitle: String
@@ -65,216 +63,101 @@ sealed interface NtmofaRouteDestination {
     }
 
     data object Query: NtmofaRouteDestination {
-        override val theRoute: String = NtmofaRoute.QUERY
-        override val theTitle: String = "Query"
+        override val theRoute: String = NtmofaRoute.FUNC1
+        override val theTitle: String = "Function1"
         override val theColor: Color = Pink001
     }
 
     data object Location: NtmofaRouteDestination {
-        override val theRoute: String = NtmofaRoute.LOCATION
-        override val theTitle: String = "Location"
+        override val theRoute: String = NtmofaRoute.FUNC2
+        override val theTitle: String = "Function2"
         override val theColor: Color = Yellow001
     }
 
     data object Inventory: NtmofaRouteDestination {
-        override val theRoute: String = NtmofaRoute.INVENTORY
-        override val theTitle: String = "Inventory"
+        override val theRoute: String = NtmofaRoute.FUNC3
+        override val theTitle: String = "Function3"
         override val theColor: Color = Yellow001
     }
 
     data object Loan: NtmofaRouteDestination {
-        override val theRoute: String = NtmofaRoute.LOAN
-        override val theTitle: String = "Loan"
+        override val theRoute: String = NtmofaRoute.FUNC4
+        override val theTitle: String = "Function4"
         override val theColor: Color = Yellow001
     }
 
     data object Storage: NtmofaRouteDestination {
-        override val theRoute: String = NtmofaRoute.STORAGE
-        override val theTitle: String = "Storage"
+        override val theRoute: String = NtmofaRoute.FUNC5
+        override val theTitle: String = "Function5"
         override val theColor: Color = Yellow001
     }
 
     data object RfidTag: NtmofaRouteDestination {
-        override val theRoute: String = NtmofaRoute.RFID_TAG
-        override val theTitle: String = "RfidTag"
+        override val theRoute: String = NtmofaRoute.FUNC6
+        override val theTitle: String = "Function6"
         override val theColor: Color = Yellow001
     }
 }
 
 
 @Composable
-fun NtmofaLoginScreen(
-    navController: NavHostController,
-) {
-    LoginScreenContent(
-        onLoginButtonClick = {
-            //navController.navigate(NtmofaRouteDestination.Menu.theRoute)
-            navController.navigateToExt(NtmofaRouteDestination.Menu.theRoute, clearBackStack = true)
-        },
-    )
-}
-
-
-object NtmofaMenuAction {
-    const val QUERY = "menu_action_query"
-    const val LOCATE = "menu_action_locate"
-    const val INVENTORY = "menu_action_inventory"
-    const val LOAN = "menu_action_loan"
-    const val STORAGE = "menu_action_storage"
-    const val RFID_TAG = "menu_action_rfid_tag"
-}
-
-
-fun generateType3List(context: Context): List<MenuItemModel> {
-    val dataList: MutableList<MenuItemModel> = mutableListOf()
-
-    val uuid = UUID.randomUUID().toString()
-    val descriptionArray = arrayOf<String>(
-        context.getString(R.string.menu_query),
-        context.getString(R.string.menu_locate),
-        context.getString(R.string.menu_inventory),
-        context.getString(R.string.menu_loan),
-        context.getString(R.string.menu_storage),
-        context.getString(R.string.menu_rfid_tag),
-    )
-    val imageResIdArray = arrayOf<Int>(
-        R.drawable.ic_query,
-        R.drawable.ic_locate,
-        R.drawable.ic_inventory,
-        R.drawable.ic_loan,
-        R.drawable.ic_storage,
-        R.drawable.transponder_256,
-    )
-    val actionArray = arrayOf<String>(
-        NtmofaMenuAction.QUERY,
-        NtmofaMenuAction.LOCATE,
-        NtmofaMenuAction.INVENTORY,
-        NtmofaMenuAction.LOAN,
-        NtmofaMenuAction.STORAGE,
-        NtmofaMenuAction.RFID_TAG
-    )
-
-    for (i in imageResIdArray.indices) {
-        val identifier = "${uuid}_${i + 1}"
-        val delegate = MenuItemModel(
-            id = identifier,
-            description = descriptionArray[i],
-            contentType = MenuItemContentType.TYPE3,
-            action = actionArray[i],
-            color = DarkerGray,
-            imageResId = imageResIdArray[i],
-        )
-        dataList.add(delegate)
-    }
-
-    return dataList
-}
-
-
-@Composable
-fun NtmofaMenuScreen(
-    navController: NavHostController,
-) {
-    val itemClickCallback = HolderItemClickDelegate<MenuItemModel> { dataObject, action, position ->
-        Logger.getLogger("NtmofaMenuScreen").log(Level.INFO, "itemClickCallback - delegate: [${dataObject.description}], action: [$action], position: [$position]")
-        when(action) {
-            NtmofaMenuAction.QUERY -> {
-                navController.navigateSingleTopTo(
-                    NtmofaRouteDestination.Query.theRoute,
-                    NtmofaRouteDestination.Menu.theRoute
-                )
-            }
-            NtmofaMenuAction.LOCATE -> {
-                navController.navigateSingleTopTo(
-                    NtmofaRouteDestination.Location.theRoute,
-                    NtmofaRouteDestination.Menu.theRoute
-                )
-            }
-            NtmofaMenuAction.INVENTORY -> {
-                navController.navigateSingleTopTo(
-                    NtmofaRouteDestination.Inventory.theRoute,
-                    NtmofaRouteDestination.Menu.theRoute
-                )
-            }
-            NtmofaMenuAction.LOAN -> {
-                navController.navigateSingleTopTo(
-                    NtmofaRouteDestination.Loan.theRoute,
-                    NtmofaRouteDestination.Menu.theRoute
-                )
-            }
-            NtmofaMenuAction.STORAGE -> {
-                navController.navigateSingleTopTo(
-                    NtmofaRouteDestination.Storage.theRoute,
-                    NtmofaRouteDestination.Menu.theRoute
-                )
-            }
-            NtmofaMenuAction.RFID_TAG -> {
-                navController.navigateSingleTopTo(
-                    NtmofaRouteDestination.RfidTag.theRoute,
-                    NtmofaRouteDestination.Menu.theRoute
-                )
-            }
-        }
-    }
-
-    val context = LocalContext.current
-    val menuItemList = ImmutableObjectList<MenuItemModel>(generateType3List(context))
-    MenuScreenContent(menuItemList = menuItemList, itemClickCallback = itemClickCallback)
-}
-
-
-@Composable
-fun QueryScreen(
+fun Function1Screen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(R.string.menu_query)
+    val title = context.getString(R.string.menu_func1)
     TextCenterScreenContent(title)
 }
 
+
 @Composable
-fun LocationScreen(
+fun Function2Screen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(R.string.menu_locate)
+    val title = context.getString(R.string.menu_func2)
     TextCenterScreenContent(title)
 }
 
+
 @Composable
-fun InventoryScreen(
+fun Function3Screen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(R.string.menu_inventory)
+    val title = context.getString(R.string.menu_func3)
     TextCenterScreenContent(title)
 }
 
+
 @Composable
-fun LoanScreen(
+fun Function4Screen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(R.string.menu_loan)
+    val title = context.getString(R.string.menu_func4)
     TextCenterScreenContent(title)
 }
 
+
 @Composable
-fun StorageScreen(
+fun Function5Screen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(R.string.menu_storage)
+    val title = context.getString(R.string.menu_func5)
     TextCenterScreenContent(title)
 }
 
+
 @Composable
-fun RfidTagScreen(
+fun Function6Screen(
     navController: NavHostController,
 ) {
     val context = LocalContext.current
-    val title = context.getString(R.string.menu_rfid_tag)
+    val title = context.getString(R.string.menu_func6)
     TextCenterScreenContent(title)
+
 }
 
 
@@ -289,28 +172,28 @@ fun NtmofaRfidNavHost(
         modifier = modifier
     ) {
         composable(route = NtmofaRouteDestination.Login.theRoute) {
-            NtmofaLoginScreen(navController = navController,)
+            LegacyNtmofaLoginScreen(navController = navController,)
         }
         composable(NtmofaRouteDestination.Menu.theRoute) {
             NtmofaMenuScreen(navController = navController,)
         }
         composable(route = NtmofaRouteDestination.Query.theRoute) {
-            QueryScreen(navController = navController)
+            Function1Screen(navController = navController)
         }
         composable(route = NtmofaRouteDestination.Location.theRoute) {
-            LocationScreen(navController = navController)
+            Function2Screen(navController = navController)
         }
         composable(route = NtmofaRouteDestination.Inventory.theRoute) {
-            InventoryScreen(navController = navController)
+            Function3Screen(navController = navController)
         }
         composable(route = NtmofaRouteDestination.Loan.theRoute) {
-            LoanScreen(navController = navController)
+            Function4Screen(navController = navController)
         }
         composable(route = NtmofaRouteDestination.Storage.theRoute) {
-            StorageScreen(navController = navController)
+            Function5Screen(navController = navController)
         }
         composable(route = NtmofaRouteDestination.RfidTag.theRoute) {
-            RfidTagScreen(navController = navController)
+            Function6Screen(navController = navController)
         }
     }
 }
@@ -342,6 +225,20 @@ fun NtmofaRfidApp(
             navController = navController,
             modifier = Modifier.padding(all = 4.dp)
         )
+
+        val builtInUiStateViewModel: BuiltInUiStateViewModel = viewModel()
+
+        val progressDialogState by builtInUiStateViewModel.progressDialogState.collectAsState()
+        val singleActionDialogState by builtInUiStateViewModel.singleActionDialogState.collectAsState()
+        val twinActionsDialogState by builtInUiStateViewModel.twinActionsDialogState.collectAsState()
+
+        Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "progressDialogState: [${progressDialogState.theDialogType}, ${progressDialogState.theDialogState}]")
+        Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "singleActionDialogState: [${singleActionDialogState.theDialogType}, ${singleActionDialogState.theDialogState}]")
+        Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "twinActionsDialogState: [${twinActionsDialogState.theDialogType}, ${twinActionsDialogState.theDialogState}]")
+
+        BuiltInProgressDialog01(progressDialogState,)
+        BuiltInSingleActionDialog01(singleActionDialogState,)
+        BuiltInTwinActionsDialog01(twinActionsDialogState,)
     }
 }
 

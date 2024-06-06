@@ -2,4 +2,5 @@
 <resources>
 
     <style name="Theme.JetPackComposeStudy" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar" />
 </resources>

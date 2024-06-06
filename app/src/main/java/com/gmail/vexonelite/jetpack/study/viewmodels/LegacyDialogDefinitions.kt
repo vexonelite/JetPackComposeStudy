@@ -1,25 +1,24 @@
+@file:JvmName("LegacyBuiltInUiStateViewModelKt")
+
 package com.gmail.vexonelite.jetpack.study.viewmodels
 
 
-import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Surface
@@ -32,33 +31,49 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
-import com.gmail.vexonelite.jetpack.study.ui.theme.Blue007
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey20
 import com.gmail.vexonelite.jetpack.study.ui.theme.Pink001
 import com.gmail.vexonelite.jetpack.study.ui.theme.Yellow001
 
 
-enum class DialogAction {
-    CONFIRM,
-    CANCEL,
+interface LegacyBuiltInDialogStateDelegate {
+    val theProgressDialogState: Boolean
+    val theProgressDialogTitle: String
+    val singleActionDialogState: Boolean
+    val theSingleActionDialogTitle: String
+    val theSingleActionDialogMessage: String
+    val twinActionsDialogState: Boolean
+    val theTwinActionsDialogTitle: String
+    val theTwinActionsDialogMessage: String
 }
 
 
-fun interface DialogDecisionDelegate2<T> {
-    fun onDecisionMade(action: DialogAction, item: T?)
-}
+data class LegacyBuiltInDialogStateImpl(
+    override val theProgressDialogState: Boolean = false,
+    override val theProgressDialogTitle: String = "",
+    override val singleActionDialogState: Boolean = false,
+    override val theSingleActionDialogTitle: String = "",
+    override val theSingleActionDialogMessage: String = "",
+    override val twinActionsDialogState: Boolean = false,
+    override val theTwinActionsDialogTitle: String = "",
+    override val theTwinActionsDialogMessage: String = "",
+) : LegacyBuiltInDialogStateDelegate
 
 
+@Preview
 @Composable
-fun FmProgressDialog(
-    dialogState: Boolean,
-    title: String = "",
+fun LegacyBuiltInProgressDialog01(
+    dialogState: Boolean = true,
+    title: String = "Test",
+    titleFontSize: TextUnit = 20.sp,
+    titleTextColor: Color = Blue003,
     onDismiss: () -> Unit = {},
 ) {
     if (!dialogState) { return }
@@ -74,6 +89,9 @@ fun FmProgressDialog(
                 //.padding(all = 16.dp) // when using wrapContentXXXX(), padding() has no effect!!
                 .wrapContentSize(unbounded = true),
             shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors().copy(
+                containerColor = Color.White,
+            ),
         ) {
             Column(
                 modifier = Modifier.padding(all = 20.dp),
@@ -89,6 +107,8 @@ fun FmProgressDialog(
                 Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 Text(
                     text = title,
+                    fontSize = titleFontSize,
+                    color = titleTextColor,
                     //modifier = Modifier.padding(16.dp),
                 )
             }
@@ -97,9 +117,10 @@ fun FmProgressDialog(
 }
 
 
+@Preview
 @Composable
-fun FmBuiltInSingleActionDialog(
-    dialogState: Boolean,
+fun LegacyBuiltInSingleActionDialog01(
+    dialogState: Boolean = true,
     title: String = "Title",
     titleFontSize: TextUnit = 26.sp,
     titleTextColor: Color = Blue003,
@@ -127,6 +148,9 @@ fun FmBuiltInSingleActionDialog(
                 //.padding(all = 16.dp),  // when using wrapContentXXXX(), padding() has no effect!!
                 .wrapContentHeight(unbounded = true),
             shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors().copy(
+                containerColor = Color.White,
+            ),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -183,9 +207,10 @@ fun FmBuiltInSingleActionDialog(
 }
 
 
+@Preview
 @Composable
-fun FmBuiltInTwinActionsDialog(
-    dialogState: Boolean,
+fun LegacyBuiltInTwinActionsDialog01(
+    dialogState: Boolean = true,
     title: String = "Title",
     titleFontSize: TextUnit = 26.sp,
     titleTextColor: Color = Blue003,
@@ -216,6 +241,9 @@ fun FmBuiltInTwinActionsDialog(
                 //.padding(all = 16.dp),  // when using wrapContentXXXX(), padding() has no effect!!
                 .wrapContentHeight(unbounded = true),
             shape = RoundedCornerShape(16.dp),
+            colors = CardDefaults.cardColors().copy(
+                containerColor = Color.White,
+            ),
         ) {
             Column(
                 modifier = Modifier.fillMaxSize(),
@@ -304,7 +332,7 @@ fun FmBuiltInTwinActionsDialog(
 
 
 @Composable
-fun FmItemPickerDialog(
+fun LegacyBuiltInItemPickerDialog01(
     dialogState: State<Boolean>,
     title: String = "",
     onDismiss: () -> Unit = {},
@@ -345,27 +373,36 @@ fun FmItemPickerDialog(
 }
 
 
-interface AppDialogStateDelegate {
-    val theProgressDialogState: Boolean
-    val theProgressDialogTitle: String
-    val singleActionDialogState: Boolean
-    val theSingleActionDialogTitle: String
-    val theSingleActionDialogMessage: String
-    val twinActionsDialogState: Boolean
-    val theTwinActionsDialogTitle: String
-    val theTwinActionsDialogMessage: String
+@Composable
+fun LegacyBuiltInDialogSet01(
+    appDialogStates: LegacyBuiltInDialogStateDelegate,
+    onProgressDialogDismiss: () -> Unit,
+    onSingleActionDialogConfirmClick: () -> Unit,
+    onSingleActionDialogDismiss: () -> Unit,
+    onTwinActionsDialogConfirmClick: () -> Unit,
+    onTwinActionsDialogDismiss: () -> Unit,
+) {
+    LegacyBuiltInProgressDialog01(
+        title = appDialogStates.theProgressDialogTitle,
+        dialogState = appDialogStates.theProgressDialogState,
+        onDismiss = onProgressDialogDismiss,
+    )
+
+    LegacyBuiltInSingleActionDialog01(
+        dialogState = appDialogStates.singleActionDialogState,
+        onConfirm = onSingleActionDialogConfirmClick,
+        onDismiss = onSingleActionDialogDismiss,
+        title = appDialogStates.theSingleActionDialogTitle,
+        message = appDialogStates.theSingleActionDialogMessage,
+    )
+
+    LegacyBuiltInTwinActionsDialog01(
+        dialogState = appDialogStates.twinActionsDialogState,
+        onConfirm = onTwinActionsDialogConfirmClick,
+        onDismiss = onTwinActionsDialogDismiss,
+        title = appDialogStates.theTwinActionsDialogTitle,
+        message = appDialogStates.theTwinActionsDialogMessage,
+    )
 }
-
-
-data class DefaultAppDialogStates(
-    override val theProgressDialogState: Boolean = false,
-    override val theProgressDialogTitle: String = "",
-    override val singleActionDialogState: Boolean = false,
-    override val theSingleActionDialogTitle: String = "",
-    override val theSingleActionDialogMessage: String = "",
-    override val twinActionsDialogState: Boolean = false,
-    override val theTwinActionsDialogTitle: String = "",
-    override val theTwinActionsDialogMessage: String = "",
-) : AppDialogStateDelegate
 
 

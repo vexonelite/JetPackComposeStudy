@@ -2,53 +2,12 @@ package com.gmail.vexonelite.jetpack.study
 
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedTextField
-import androidx.compose.material3.Surface
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.compose.rememberNavController
-import coil.compose.AsyncImage
-import coil.request.ImageRequest
-import com.gmail.vexonelite.jetpack.study.screens.AppDialogs01
-import com.gmail.vexonelite.jetpack.study.screens.LoginScreenContent
-import com.gmail.vexonelite.jetpack.study.screens.MenuScreen01
-import com.gmail.vexonelite.jetpack.study.ui.theme.JetPackComposeStudyTheme
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.gmail.vexonelite.jetpack.study.viewmodels.AppUiStateViewModel
+import com.gmail.vexonelite.jetpack.study.ntmofa.NtmofaRfidApp
+import com.gmail.vexonelite.jetpack.study.ntmofa.NtmofaRouteDestination
 
 
 class MainActivity : ComponentActivity() {
@@ -192,7 +151,7 @@ class MainActivity : ComponentActivity() {
 //            )
             // [end] 2024/05/08
 
-            // [start] navigation compose
+            // [start] navigation compose 02
             val navController = rememberNavController()
             val onBackPressedCallback = object : OnBackPressedCallback(true) {
                 override fun handleOnBackPressed() {
@@ -209,13 +168,9 @@ class MainActivity : ComponentActivity() {
             onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
 
             NtmofaRfidApp(navController)
-            // [end] navigation compose
-
-
-
+            // [end] navigation compose 02
 
         }
-
 
     }
 }
