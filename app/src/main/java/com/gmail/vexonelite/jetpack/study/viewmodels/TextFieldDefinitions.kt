@@ -30,6 +30,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -37,14 +38,14 @@ import androidx.compose.ui.unit.sp
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey85
-import com.gmail.vexonelite.jetpack.study.ui.theme.HoloGrayLight
 
 
+@Preview
 @Composable
-fun FmTextField01(
+fun BuiltInTextField01(
     modifier: Modifier = Modifier,
     initText: String = "",
-    hint: String = "wtf",
+    hint: String = "Hint",
     paddingHorizontal: Dp = 12.dp,
     paddingVertical: Dp = 12.dp,
     textColor: Color = Blue003,
@@ -103,8 +104,8 @@ fun FmTextField01(
                 // .padding(horizontal = 8.dp, vertical = 16.dp) // margin
                 .fillMaxWidth()
                 .wrapContentHeight(), // work only for BasicTextField
-                //.border(width = 1.5.dp, color = Color.Black, RoundedCornerShape(12.dp)),
-                //.border(BorderStroke(1.dp, Color.Transparent), shape = MaterialTheme.shapes.small)
+            //.border(width = 1.5.dp, color = Color.Black, RoundedCornerShape(12.dp)),
+            //.border(BorderStroke(1.dp, Color.Transparent), shape = MaterialTheme.shapes.small)
             textStyle = textStyle,
             //colors = theAppTextFieldColor01(), // colors only works for TextField,
             keyboardOptions = keyboardOptions,
@@ -127,10 +128,12 @@ fun FmTextField01(
     }
 }
 
+
+@Preview
 @Composable
-fun FmTextField02(
+fun BuiltInTextField02(
     initText: String = "",
-    hint: String = "",
+    hint: String = "Hint",
     //height: Dp = 40.dp,
     paddingHorizontal: Dp = 12.dp,
     paddingVertical: Dp = 12.dp,
@@ -205,3 +208,5 @@ fun FmTextField02(
         )
     }
 }
+
+

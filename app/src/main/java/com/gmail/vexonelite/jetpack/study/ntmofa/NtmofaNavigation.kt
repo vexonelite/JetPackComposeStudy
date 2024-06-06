@@ -172,7 +172,7 @@ fun NtmofaRfidNavHost(
         modifier = modifier
     ) {
         composable(route = NtmofaRouteDestination.Login.theRoute) {
-            LegacyNtmofaLoginScreen(navController = navController,)
+            NtmofaLoginScreen(navController = navController,)
         }
         composable(NtmofaRouteDestination.Menu.theRoute) {
             NtmofaMenuScreen(navController = navController,)
@@ -196,6 +196,20 @@ fun NtmofaRfidNavHost(
             Function6Screen(navController = navController)
         }
     }
+
+    val builtInUiStateViewModel: BuiltInUiStateViewModel = viewModel()
+
+    val progressDialogState by builtInUiStateViewModel.progressDialogState.collectAsState()
+    val singleActionDialogState by builtInUiStateViewModel.singleActionDialogState.collectAsState()
+    val twinActionsDialogState by builtInUiStateViewModel.twinActionsDialogState.collectAsState()
+
+    Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "progressDialogState: [${progressDialogState.theDialogType}, ${progressDialogState.theDialogState}]")
+    Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "singleActionDialogState: [${singleActionDialogState.theDialogType}, ${singleActionDialogState.theDialogState}]")
+    Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "twinActionsDialogState: [${twinActionsDialogState.theDialogType}, ${twinActionsDialogState.theDialogState}]")
+
+    BuiltInProgressDialog01(progressDialogState,)
+    BuiltInSingleActionDialog01(singleActionDialogState,)
+    BuiltInTwinActionsDialog01(twinActionsDialogState,)
 }
 
 
@@ -226,19 +240,23 @@ fun NtmofaRfidApp(
             modifier = Modifier.padding(all = 4.dp)
         )
 
-        val builtInUiStateViewModel: BuiltInUiStateViewModel = viewModel()
+        // [start] dialog-test - 2024/06/06
+        // sine using Navigation Compose - the below dialog states will not get updated!
+//        val builtInUiStateViewModel: BuiltInUiStateViewModel = viewModel()
+//
+//        val progressDialogState by builtInUiStateViewModel.progressDialogState.collectAsState()
+//        val singleActionDialogState by builtInUiStateViewModel.singleActionDialogState.collectAsState()
+//        val twinActionsDialogState by builtInUiStateViewModel.twinActionsDialogState.collectAsState()
+//
+//        Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "progressDialogState: [${progressDialogState.theDialogType}, ${progressDialogState.theDialogState}]")
+//        Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "singleActionDialogState: [${singleActionDialogState.theDialogType}, ${singleActionDialogState.theDialogState}]")
+//        Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "twinActionsDialogState: [${twinActionsDialogState.theDialogType}, ${twinActionsDialogState.theDialogState}]")
+//
+//        BuiltInProgressDialog01(progressDialogState,)
+//        BuiltInSingleActionDialog01(singleActionDialogState,)
+//        BuiltInTwinActionsDialog01(twinActionsDialogState,)
+        // [end] dialog-test - 2024/06/06
 
-        val progressDialogState by builtInUiStateViewModel.progressDialogState.collectAsState()
-        val singleActionDialogState by builtInUiStateViewModel.singleActionDialogState.collectAsState()
-        val twinActionsDialogState by builtInUiStateViewModel.twinActionsDialogState.collectAsState()
-
-        Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "progressDialogState: [${progressDialogState.theDialogType}, ${progressDialogState.theDialogState}]")
-        Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "singleActionDialogState: [${singleActionDialogState.theDialogType}, ${singleActionDialogState.theDialogState}]")
-        Logger.getLogger("NtmofaRfidApp").log(Level.INFO, "twinActionsDialogState: [${twinActionsDialogState.theDialogType}, ${twinActionsDialogState.theDialogState}]")
-
-        BuiltInProgressDialog01(progressDialogState,)
-        BuiltInSingleActionDialog01(singleActionDialogState,)
-        BuiltInTwinActionsDialog01(twinActionsDialogState,)
     }
 }
 

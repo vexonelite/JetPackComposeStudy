@@ -11,7 +11,7 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.Grey136
 import com.gmail.vexonelite.jetpack.study.ui.theme.HoloBlueDark
 
 
-fun theAppButtonColor01(): ButtonColors
+fun theBuiltInButtonColor01(): ButtonColors
     = ButtonColors(
         containerColor = Blue001,
         contentColor = Color.White,
@@ -21,7 +21,7 @@ fun theAppButtonColor01(): ButtonColors
 
 
 @Composable
-fun theAppTextFieldColor01(): TextFieldColors
+fun theBuiltInTextFieldColor01(): TextFieldColors
     = TextFieldDefaults.colors().copy(
         focusedTextColor = HoloBlueDark,
         unfocusedTextColor = HoloBlueDark,

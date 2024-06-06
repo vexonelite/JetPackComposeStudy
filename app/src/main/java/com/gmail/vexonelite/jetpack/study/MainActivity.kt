@@ -5,9 +5,20 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
+import com.gmail.vexonelite.jetpack.study.ntmofa.NtmofaLoginScreen
 import com.gmail.vexonelite.jetpack.study.ntmofa.NtmofaRfidApp
 import com.gmail.vexonelite.jetpack.study.ntmofa.NtmofaRouteDestination
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInDialogStateImpl
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInProgressDialog01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInSingleActionDialog01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInTwinActionsDialog01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInUiStateViewModel
+import java.util.logging.Level
+import java.util.logging.Logger
 
 
 class MainActivity : ComponentActivity() {
@@ -151,6 +162,8 @@ class MainActivity : ComponentActivity() {
 //            )
             // [end] 2024/05/08
 
+
+
             // [start] navigation compose 02
             val navController = rememberNavController()
             val onBackPressedCallback = object : OnBackPressedCallback(true) {
@@ -169,6 +182,24 @@ class MainActivity : ComponentActivity() {
 
             NtmofaRfidApp(navController)
             // [end] navigation compose 02
+
+            // [start] dialog-test - 2024/06/06
+            // if not using Navigation Compose - the below dialog states get updated!
+//            NtmofaLoginScreen()
+//
+//            val builtInUiStateViewModel: BuiltInUiStateViewModel = viewModel()
+//            val progressDialogState by builtInUiStateViewModel.progressDialogState.collectAsState()
+//            val singleActionDialogState by builtInUiStateViewModel.singleActionDialogState.collectAsState()
+//            val twinActionsDialogState by builtInUiStateViewModel.twinActionsDialogState.collectAsState()
+//
+//            Logger.getLogger("MainActivity").log(Level.INFO, "progressDialogState: [${progressDialogState?.theDialogType}, ${progressDialogState?.theDialogState}]")
+//            Logger.getLogger("MainActivity").log(Level.INFO, "singleActionDialogState: [${singleActionDialogState?.theDialogType}, ${singleActionDialogState?.theDialogState}]")
+//            Logger.getLogger("MainActivity").log(Level.INFO, "twinActionsDialogState: [${twinActionsDialogState?.theDialogType}, ${twinActionsDialogState?.theDialogState}]")
+//
+//            BuiltInProgressDialog01(progressDialogState?: BuiltInDialogStateImpl(),)
+//            BuiltInSingleActionDialog01(singleActionDialogState?: BuiltInDialogStateImpl(),)
+//            BuiltInTwinActionsDialog01(twinActionsDialogState?: BuiltInDialogStateImpl(),)
+            // [end] dialog-test - 2024/06/06
 
         }
 

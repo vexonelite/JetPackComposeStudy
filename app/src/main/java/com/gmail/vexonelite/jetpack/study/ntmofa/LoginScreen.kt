@@ -10,6 +10,7 @@ import com.gmail.vexonelite.jetpack.study.screens.LoginScreenContent
 import com.gmail.vexonelite.jetpack.study.ui.theme.navigateToExt
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInProgressDialog01
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInSingleActionDialog01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInTwinActionsDialog01
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInUiStateViewModel
 import com.gmail.vexonelite.jetpack.study.viewmodels.DialogType
 import com.gmail.vexonelite.jetpack.study.viewmodels.SignUpViewModel
@@ -34,21 +35,17 @@ fun NtmofaLoginScreen(
 
     val progressDialogState by builtInUiStateViewModel.progressDialogState.collectAsState()
     val singleActionDialogState by builtInUiStateViewModel.singleActionDialogState.collectAsState()
-    //val twinActionsDialogState by builtInUiStateViewModel.twinActionsDialogState.collectAsState()
+    val twinActionsDialogState by builtInUiStateViewModel.twinActionsDialogState.collectAsState()
 
     Logger.getLogger("NtmofaLoginScreen").log(Level.INFO, "progressDialogState: [${progressDialogState.theDialogType}, ${progressDialogState.theDialogState}]")
     Logger.getLogger("NtmofaLoginScreen").log(Level.INFO, "singleActionDialogState: [${singleActionDialogState.theDialogType}, ${singleActionDialogState.theDialogState}]")
-    //Logger.getLogger("NtmofaLoginScreen").log(Level.INFO, "twinActionsDialogState: [${twinActionsDialogState.theDialogType}, ${twinActionsDialogState.theDialogState}]")
+    Logger.getLogger("NtmofaLoginScreen").log(Level.INFO, "twinActionsDialogState: [${twinActionsDialogState.theDialogType}, ${twinActionsDialogState.theDialogState}]")
 
     LoginScreenContent(
         onLoginButtonClick = {
             signUpViewModel.fakeLogin()
         },
     )
-
-//    BuiltInProgressDialog01(progressDialogState,)
-//
-//    BuiltInSingleActionDialog01(singleActionDialogState,)
 
     val loginState: SimpleLoginState by signUpViewModel.loginResultStates.collectAsState()
     Logger.getLogger("NtmofaLoginScreen").log(Level.INFO, "loginState.loginResult: [${loginState.loginResult}]")
@@ -108,6 +105,10 @@ fun NtmofaLoginScreen(
         }
         else -> { }
     }
+
+    BuiltInProgressDialog01(progressDialogState,)
+    BuiltInSingleActionDialog01(singleActionDialogState,)
+    BuiltInTwinActionsDialog01(twinActionsDialogState,)
 
 }
 

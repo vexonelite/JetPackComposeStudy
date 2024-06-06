@@ -40,15 +40,19 @@ import com.gmail.vexonelite.jetpack.study.SearchBar
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Green001
 import com.gmail.vexonelite.jetpack.study.ui.theme.Pink001
-import com.gmail.vexonelite.jetpack.study.ui.theme.theAppButtonColor01
-import com.gmail.vexonelite.jetpack.study.ui.theme.theAppTextFieldColor01
-import com.gmail.vexonelite.jetpack.study.viewmodels.FmTextField01
-import com.gmail.vexonelite.jetpack.study.viewmodels.FmTextField02
+import com.gmail.vexonelite.jetpack.study.ui.theme.theBuiltInButtonColor01
+import com.gmail.vexonelite.jetpack.study.ui.theme.theBuiltInTextFieldColor01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInTextField01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInTextField02
 
 
 @Preview
 @Composable
 fun LoginScreenContent(
+    title: String = "Title",
+    accountHint: String = "Account",
+    pwdHint: String = "Pass",
+    loginButtonTitle: String = "Login",
     onLoginButtonClick: () -> Unit = {},
 ) {
     val accountFocusRequester: FocusRequester = remember { FocusRequester() }
@@ -64,7 +68,7 @@ fun LoginScreenContent(
         Spacer(modifier = Modifier.padding(vertical = 30.dp))
 
         Text(
-            text = "Title",
+            text = title,
             fontSize = 26.sp,
             color = Blue003,
             //textAlign = TextAlign.Center,
@@ -78,10 +82,10 @@ fun LoginScreenContent(
 
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
-        FmTextField01(
+        BuiltInTextField01(
             modifier = Modifier.padding(horizontal = 20.dp),
             backgroundColor = Color.Transparent,
-            hint = "account",
+            hint = accountHint,
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Email,
                 imeAction = ImeAction.Next),
@@ -91,10 +95,10 @@ fun LoginScreenContent(
 
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
-        FmTextField01(
+        BuiltInTextField01(
             modifier = Modifier.padding(horizontal = 20.dp),
             backgroundColor = Color.Transparent,
-            hint = "pwd",
+            hint = pwdHint,
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(
                 keyboardType = KeyboardType.Password,
@@ -108,10 +112,10 @@ fun LoginScreenContent(
             onClick = onLoginButtonClick,
             enabled = true,
             shape = ButtonDefaults.shape, // | elevatedShape | outlinedShape | textShape
-            colors = theAppButtonColor01(),
+            colors = theBuiltInButtonColor01(),
         ) {
             Text(
-                text = "登入",
+                text = loginButtonTitle,
                 fontSize = 20.sp,
                 color = Color.White,
                 textAlign = TextAlign.Center,
@@ -170,14 +174,14 @@ fun TestLoginScreen01() {
 
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
-        FmTextField01(
+        BuiltInTextField01(
             modifier = Modifier.padding(horizontal = 20.dp),
             backgroundColor = Color.Transparent,
         )
 
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
-        FmTextField02()
+        BuiltInTextField02()
 
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
@@ -190,7 +194,7 @@ fun TestLoginScreen01() {
                     minWidth = 20.dp,
                     minHeight = 26.dp
                 ),
-            colors = theAppTextFieldColor01(),
+            colors = theBuiltInTextFieldColor01(),
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
         )
@@ -210,7 +214,7 @@ fun TestLoginScreen01() {
 //                .padding(16.dp), // padding
             enabled = true,
             shape = ButtonDefaults.shape, // | elevatedShape | outlinedShape | textShape
-            colors = theAppButtonColor01(),
+            colors = theBuiltInButtonColor01(),
         ) {
             Text(
                 text = "登入",
