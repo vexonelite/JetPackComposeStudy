@@ -260,8 +260,8 @@ fun FocusDemo01() {
 @Preview
 @Composable
 fun SearchBar(
-    hint: String,
     modifier: Modifier = Modifier,
+    hint: String = "Hint",
     isEnabled: (Boolean) = true,
     height: Dp = 40.dp,
     elevation: Dp = 4.dp,
