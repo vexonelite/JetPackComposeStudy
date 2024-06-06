@@ -2,17 +2,22 @@ package com.gmail.vexonelite.jetpack.study
 
 
 import android.widget.Toast
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import com.gmail.vexonelite.jetpack.study.ui.theme.StringResource
 
 
 /**
@@ -31,11 +36,16 @@ fun Modifier01() {
     Modifier.width(8.dp)
     Modifier.height(4.dp)
     Modifier.fillMaxWidth()
+    Modifier.background(Color.Green)
     //Modifier.weight(1f)
     Modifier.clickable(
         onClick = {
             Toast.makeText(context, "你点击了此文本", Toast.LENGTH_LONG).show()
         },)
+    Row(Modifier.background(Color.Green)) {
+        Text(text = "AAA")
+        Text(text = "BBB")
+    }
 }
 
 
