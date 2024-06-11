@@ -36,6 +36,8 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
+import com.gmail.vexonelite.jetpack.study.ui.theme.Blue004
+import com.gmail.vexonelite.jetpack.study.ui.theme.Blue005
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey005
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey20
 import com.gmail.vexonelite.jetpack.study.ui.theme.Pink001
@@ -51,6 +53,7 @@ enum class DialogType {
     ItemPicker,
     None,
 }
+
 
 interface BuiltInDialogStateDelegate {
     val theDialogType: DialogType
@@ -106,6 +109,87 @@ data class BuiltInDialogStateImpl(
 ) : BuiltInDialogStateDelegate
 
 
+interface MutableBuiltInDialogStateDelegate: BuiltInDialogStateDelegate {
+
+    override var theDialogState: Boolean
+
+    override var theTitle: String
+    override var theTitleFontSize: TextUnit
+    override var theTitleTextColor: Color
+
+    override var theMessage: String
+    override var theMessageFontSize: TextUnit
+    override var theMessageTextColor: Color
+
+    override var theConfirmTitle: String
+    override var theConfirmTitleFontSize: TextUnit
+    override var theConfirmTitleTextColor: Color
+    override var theConfirmBackgroundColor: Color
+
+    override var theCancelTitle: String
+    override var theCancelTitleFontSize: TextUnit
+    override var theCancelTitleTextColor: Color
+    override var theCancelBackgroundColor: Color
+
+    override var onDismiss: () -> Unit
+    override var onConfirm: () -> Unit
+}
+
+
+data class MutableBuiltInDialogStateImpl(
+    override val theDialogType: DialogType = DialogType.None,
+    override var theDialogState: Boolean = false,
+
+    override var theTitle: String = "Title",
+    override var theTitleFontSize: TextUnit = 26.sp,
+    override var theTitleTextColor: Color = Blue003,
+
+    override var theMessage: String = "Message",
+    override var theMessageFontSize: TextUnit = 26.sp,
+    override var theMessageTextColor: Color = Blue003,
+
+    override var theConfirmTitle: String = "Confirm",
+    override var theConfirmTitleFontSize: TextUnit = 26.sp,
+    override var theConfirmTitleTextColor: Color = Blue003,
+    override var theConfirmBackgroundColor: Color = Color.Unspecified,
+
+    override var theCancelTitle: String = "Cancel",
+    override var theCancelTitleFontSize: TextUnit = 26.sp,
+    override var theCancelTitleTextColor: Color = Grey005,
+    override var theCancelBackgroundColor: Color = Color.Unspecified,
+
+    override var onDismiss: () -> Unit = {},
+    override var onConfirm: () -> Unit = {},
+) : MutableBuiltInDialogStateDelegate
+
+
+fun MutableBuiltInDialogStateDelegate.toBuiltInDialogStateDelegate(): BuiltInDialogStateDelegate =
+    BuiltInDialogStateImpl(
+        theDialogType = this.theDialogType,
+        theDialogState = this.theDialogState,
+
+        theTitle = this.theTitle,
+        theTitleFontSize = this.theTitleFontSize,
+        theTitleTextColor = this.theTitleTextColor,
+
+        theMessage = this.theMessage,
+        theMessageFontSize = this.theMessageFontSize,
+        theMessageTextColor = this.theMessageTextColor,
+        theConfirmTitle = this.theConfirmTitle,
+        theConfirmTitleFontSize = this.theConfirmTitleFontSize,
+        theConfirmTitleTextColor = this.theConfirmTitleTextColor,
+        theConfirmBackgroundColor = this.theConfirmBackgroundColor,
+
+        theCancelTitle = this.theCancelTitle,
+        theCancelTitleFontSize = this.theCancelTitleFontSize,
+        theCancelTitleTextColor = this.theCancelTitleTextColor,
+        theCancelBackgroundColor = this.theCancelBackgroundColor,
+
+        onDismiss = this.onDismiss,
+        onConfirm = this.onConfirm,
+    )
+
+
 interface BuiltInWrapperDialogStateDelegate<T>: BuiltInDialogStateDelegate {
     val theWrappedObject: T?
 }
@@ -138,7 +222,7 @@ data class BuiltInWrapperDialogStateImpl<T>(
     override val onDismiss: () -> Unit = {},
     override val onConfirm: () -> Unit = {},
 
-) : BuiltInWrapperDialogStateDelegate<T>
+    ) : BuiltInWrapperDialogStateDelegate<T>
 
 
 @Preview
@@ -149,13 +233,16 @@ fun BuiltInProgressDialog01(
         theDialogState = true,
         theMessage = "Loading"
     ),
+    onDismiss: () -> Unit = dialogState.onDismiss,
+    progressColor: Color = Blue004,         // Pink001
+    progressTrackColor: Color = Blue005,    // Yellow001
 ) {
     Logger.getLogger("BuiltInProgressDialog01").log(Level.INFO, "theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
     if (dialogState.theDialogType != DialogType.Progress) { return }
     if (!dialogState.theDialogState) { return }
 
     Dialog(
-        onDismissRequest = dialogState.onDismiss,
+        onDismissRequest = onDismiss,
         properties = DialogProperties(
             dismissOnBackPress = true,
             dismissOnClickOutside = true),
@@ -177,8 +264,8 @@ fun BuiltInProgressDialog01(
                 ) {
                 CircularProgressIndicator(
                     modifier = Modifier.size(32.dp),
-                    color = Pink001,
-                    trackColor = Yellow001,
+                    color = progressColor,
+                    trackColor = progressTrackColor,
                 )
                 Spacer(modifier = Modifier.padding(vertical = 10.dp))
                 Text(
@@ -195,18 +282,56 @@ fun BuiltInProgressDialog01(
 
 @Preview
 @Composable
+fun BuiltInSingleActionBottom01(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
+        theDialogType = DialogType.SingleAction,
+        theDialogState = true,
+    ),
+    onDismiss: () -> Unit = dialogState.onDismiss,
+    onConfirm: () -> Unit = dialogState.onConfirm,
+) {
+    HorizontalDivider(
+        thickness = 1.dp,
+        color = Color.Gray,
+    )
+
+    Surface(
+        modifier = Modifier
+            .fillMaxWidth()
+            .clickable(onClick = onConfirm,),
+        //shape = MaterialTheme.shapes.small,
+        //shape = RoundedCornerShape(10.dp),
+        color = dialogState.theConfirmBackgroundColor,
+        //contentColor = Color.White,
+        //border = BorderStroke(2.dp, Blue007),
+    ) {
+        Text(
+            text = dialogState.theConfirmTitle,
+            textAlign = TextAlign.Center,
+            color = dialogState.theConfirmTitleTextColor,
+            fontSize = dialogState.theConfirmTitleFontSize,
+            modifier = Modifier.padding(all = 16.dp),
+        )
+    }
+}
+
+
+@Preview
+@Composable
 fun BuiltInSingleActionDialog01(
     dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
         theDialogType = DialogType.SingleAction,
         theDialogState = true,
     ),
+    onDismiss: () -> Unit = dialogState.onDismiss,
+    onConfirm: () -> Unit = dialogState.onConfirm,
 ) {
     Logger.getLogger("BuiltInSingleActionDialog01").log(Level.INFO, "theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
     if (dialogState.theDialogType != DialogType.SingleAction) { return }
     if (!dialogState.theDialogState) { return }
 
     Dialog(
-        onDismissRequest = dialogState.onDismiss,
+        onDismissRequest = onDismiss,
         properties = DialogProperties(
             dismissOnBackPress = true,
             dismissOnClickOutside = true),
@@ -247,30 +372,102 @@ fun BuiltInSingleActionDialog01(
 
                 Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
-                HorizontalDivider(
-                    thickness = 1.dp,
-                    color = Color.Gray,
+                BuiltInSingleActionBottom01(
+                    dialogState = dialogState, onDismiss = onDismiss, onConfirm = onConfirm,
                 )
 
-                Surface(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .clickable(onClick = dialogState.onConfirm,),
-                    //shape = MaterialTheme.shapes.small,
-                    //shape = RoundedCornerShape(10.dp),
-                    color = dialogState.theConfirmBackgroundColor,
-                    //contentColor = Color.White,
-                    //border = BorderStroke(2.dp, Blue007),
-                ) {
-                    Text(
-                        text = dialogState.theConfirmTitle,
-                        textAlign = TextAlign.Center,
-                        color = dialogState.theConfirmTitleTextColor,
-                        fontSize = dialogState.theConfirmTitleFontSize,
-                        modifier = Modifier.padding(all = 16.dp),
-                    )
-                }
+//                HorizontalDivider(
+//                    thickness = 1.dp,
+//                    color = Color.Gray,
+//                )
+//
+//                Surface(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .clickable(onClick = onConfirm,),
+//                    //shape = MaterialTheme.shapes.small,
+//                    //shape = RoundedCornerShape(10.dp),
+//                    color = dialogState.theConfirmBackgroundColor,
+//                    //contentColor = Color.White,
+//                    //border = BorderStroke(2.dp, Blue007),
+//                ) {
+//                    Text(
+//                        text = dialogState.theConfirmTitle,
+//                        textAlign = TextAlign.Center,
+//                        color = dialogState.theConfirmTitleTextColor,
+//                        fontSize = dialogState.theConfirmTitleFontSize,
+//                        modifier = Modifier.padding(all = 16.dp),
+//                    )
+//                }
             }
+        }
+    }
+}
+
+
+
+@Preview
+@Composable
+fun BuiltInTwinActionsBottom01(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
+        theDialogType = DialogType.TwinActions,
+        theDialogState = true,
+    ),
+    onDismiss: () -> Unit = dialogState.onDismiss,
+    onConfirm: () -> Unit = dialogState.onConfirm,
+) {
+    HorizontalDivider(
+        thickness = 1.dp,
+        color = Color.Gray,
+    )
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min) // needed - make sure have enough height to accommodate the ``VerticalDivider``
+    ) {
+        Surface(
+            modifier = Modifier
+                .clickable(onClick = onDismiss,)
+                .weight(1f),
+            //shape = MaterialTheme.shapes.small,
+            //shape = RoundedCornerShape(10.dp),
+            color = dialogState.theCancelBackgroundColor,
+            //contentColor = Color.White,
+            //border = BorderStroke(2.dp, Blue007),
+        ) {
+            Text(
+                text = dialogState.theCancelTitle,
+                textAlign = TextAlign.Center,
+                color = dialogState.theCancelTitleTextColor,
+                fontSize = dialogState.theCancelTitleFontSize,
+                modifier = Modifier.padding(all = 16.dp),
+            )
+        }
+
+        VerticalDivider(
+            //modifier = Modifier.fillMaxHeight().width(1.dp),
+            thickness = 1.dp,
+            color = Color.Gray,
+        )
+
+        Surface(
+            modifier = Modifier
+                .clickable(onClick = onConfirm,)
+                .weight(1f),
+            //shape = MaterialTheme.shapes.small,
+            //shape = RoundedCornerShape(10.dp),
+            color = dialogState.theConfirmBackgroundColor,
+            //contentColor = Color.White,
+            //border = BorderStroke(2.dp, Blue007),
+        ) {
+            Text(
+                text = dialogState.theConfirmTitle,
+                textAlign = TextAlign.Center,
+                color = dialogState.theConfirmTitleTextColor,
+                fontSize = dialogState.theConfirmTitleFontSize,
+                modifier = Modifier.padding(all = 16.dp),
+            )
         }
     }
 }
@@ -283,12 +480,14 @@ fun BuiltInTwinActionsDialog01(
         theDialogType = DialogType.TwinActions,
         theDialogState = true,
     ),
+    onDismiss: () -> Unit = dialogState.onDismiss,
+    onConfirm: () -> Unit = dialogState.onConfirm,
 ) {
     if (dialogState.theDialogType != DialogType.TwinActions) { return }
     if (!dialogState.theDialogState) { return }
 
     Dialog(
-        onDismissRequest = dialogState.onDismiss,
+        onDismissRequest = onDismiss,
         properties = DialogProperties(
             dismissOnBackPress = true,
             dismissOnClickOutside = true),
@@ -328,60 +527,64 @@ fun BuiltInTwinActionsDialog01(
 
                 Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
-                HorizontalDivider(
-                    thickness = 1.dp,
-                    color = Color.Gray,
+                BuiltInTwinActionsBottom01(
+                    dialogState = dialogState, onDismiss = onDismiss, onConfirm = onConfirm,
                 )
 
-                Row(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(IntrinsicSize.Min) // needed - make sure have enough height to accommodate the ``VerticalDivider``
-                ) {
-                    Surface(
-                        modifier = Modifier
-                            .clickable(onClick = dialogState.onDismiss,)
-                            .weight(1f),
-                        //shape = MaterialTheme.shapes.small,
-                        //shape = RoundedCornerShape(10.dp),
-                        color = dialogState.theCancelBackgroundColor,
-                        //contentColor = Color.White,
-                        //border = BorderStroke(2.dp, Blue007),
-                    ) {
-                        Text(
-                            text = dialogState.theCancelTitle,
-                            textAlign = TextAlign.Center,
-                            color = dialogState.theCancelTitleTextColor,
-                            fontSize = dialogState.theCancelTitleFontSize,
-                            modifier = Modifier.padding(all = 16.dp),
-                        )
-                    }
-
-                    VerticalDivider(
-                        //modifier = Modifier.fillMaxHeight().width(1.dp),
-                        thickness = 1.dp,
-                        color = Color.Gray,
-                    )
-
-                    Surface(
-                        modifier = Modifier
-                            .clickable(onClick = dialogState.onConfirm,)
-                            .weight(1f),
-                        //shape = MaterialTheme.shapes.small,
-                        //shape = RoundedCornerShape(10.dp),
-                        color = dialogState.theConfirmBackgroundColor,
-                        //contentColor = Color.White,
-                        //border = BorderStroke(2.dp, Blue007),
-                    ) {
-                        Text(
-                            text = dialogState.theConfirmTitle,
-                            textAlign = TextAlign.Center,
-                            color = dialogState.theConfirmTitleTextColor,
-                            fontSize = dialogState.theConfirmTitleFontSize,
-                            modifier = Modifier.padding(all = 16.dp),
-                        )
-                    }
-                }
+//                HorizontalDivider(
+//                    thickness = 1.dp,
+//                    color = Color.Gray,
+//                )
+//
+//                Row(
+//                    modifier = Modifier
+//                        .fillMaxWidth()
+//                        .height(IntrinsicSize.Min) // needed - make sure have enough height to accommodate the ``VerticalDivider``
+//                ) {
+//                    Surface(
+//                        modifier = Modifier
+//                            .clickable(onClick = onDismiss,)
+//                            .weight(1f),
+//                        //shape = MaterialTheme.shapes.small,
+//                        //shape = RoundedCornerShape(10.dp),
+//                        color = dialogState.theCancelBackgroundColor,
+//                        //contentColor = Color.White,
+//                        //border = BorderStroke(2.dp, Blue007),
+//                    ) {
+//                        Text(
+//                            text = dialogState.theCancelTitle,
+//                            textAlign = TextAlign.Center,
+//                            color = dialogState.theCancelTitleTextColor,
+//                            fontSize = dialogState.theCancelTitleFontSize,
+//                            modifier = Modifier.padding(all = 16.dp),
+//                        )
+//                    }
+//
+//                    VerticalDivider(
+//                        //modifier = Modifier.fillMaxHeight().width(1.dp),
+//                        thickness = 1.dp,
+//                        color = Color.Gray,
+//                    )
+//
+//                    Surface(
+//                        modifier = Modifier
+//                            .clickable(onClick = onConfirm,)
+//                            .weight(1f),
+//                        //shape = MaterialTheme.shapes.small,
+//                        //shape = RoundedCornerShape(10.dp),
+//                        color = dialogState.theConfirmBackgroundColor,
+//                        //contentColor = Color.White,
+//                        //border = BorderStroke(2.dp, Blue007),
+//                    ) {
+//                        Text(
+//                            text = dialogState.theConfirmTitle,
+//                            textAlign = TextAlign.Center,
+//                            color = dialogState.theConfirmTitleTextColor,
+//                            fontSize = dialogState.theConfirmTitleFontSize,
+//                            modifier = Modifier.padding(all = 16.dp),
+//                        )
+//                    }
+//                }
             }
         }
     }
