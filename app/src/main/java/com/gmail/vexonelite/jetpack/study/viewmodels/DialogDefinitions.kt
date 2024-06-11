@@ -35,9 +35,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.gmail.vexonelite.jetpack.study.ui.theme.Blue002
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue004
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue005
+import com.gmail.vexonelite.jetpack.study.ui.theme.Blue008
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey005
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey20
 import com.gmail.vexonelite.jetpack.study.ui.theme.Pink001
@@ -88,15 +90,15 @@ data class BuiltInDialogStateImpl(
 
     override val theTitle: String = "Title",
     override val theTitleFontSize: TextUnit = 26.sp,
-    override val theTitleTextColor: Color = Blue003,
+    override val theTitleTextColor: Color = Blue002,
 
     override val theMessage: String = "Message",
     override val theMessageFontSize: TextUnit = 26.sp,
-    override val theMessageTextColor: Color = Blue003,
+    override val theMessageTextColor: Color = Blue002,
 
     override val theConfirmTitle: String = "Confirm",
     override val theConfirmTitleFontSize: TextUnit = 26.sp,
-    override val theConfirmTitleTextColor: Color = Blue003,
+    override val theConfirmTitleTextColor: Color = Blue002,
     override val theConfirmBackgroundColor: Color = Color.Unspecified,
 
     override val theCancelTitle: String = "Cancel",
@@ -142,15 +144,15 @@ data class MutableBuiltInDialogStateImpl(
 
     override var theTitle: String = "Title",
     override var theTitleFontSize: TextUnit = 26.sp,
-    override var theTitleTextColor: Color = Blue003,
+    override var theTitleTextColor: Color = Blue002,
 
     override var theMessage: String = "Message",
     override var theMessageFontSize: TextUnit = 26.sp,
-    override var theMessageTextColor: Color = Blue003,
+    override var theMessageTextColor: Color = Blue002,
 
     override var theConfirmTitle: String = "Confirm",
     override var theConfirmTitleFontSize: TextUnit = 26.sp,
-    override var theConfirmTitleTextColor: Color = Blue003,
+    override var theConfirmTitleTextColor: Color = Blue002,
     override var theConfirmBackgroundColor: Color = Color.Unspecified,
 
     override var theCancelTitle: String = "Cancel",
@@ -203,15 +205,15 @@ data class BuiltInWrapperDialogStateImpl<T>(
 
     override val theTitle: String = "Title",
     override val theTitleFontSize: TextUnit = 26.sp,
-    override val theTitleTextColor: Color = Blue003,
+    override val theTitleTextColor: Color = Blue002,
 
     override val theMessage: String = "Message",
     override val theMessageFontSize: TextUnit = 26.sp,
-    override val theMessageTextColor: Color = Blue003,
+    override val theMessageTextColor: Color = Blue002,
 
     override val theConfirmTitle: String = "Confirm",
     override val theConfirmTitleFontSize: TextUnit = 26.sp,
-    override val theConfirmTitleTextColor: Color = Blue003,
+    override val theConfirmTitleTextColor: Color = Blue002,
     override val theConfirmBackgroundColor: Color = Color.Unspecified,
 
     override val theCancelTitle: String = "Cancel",
@@ -234,8 +236,10 @@ fun BuiltInProgressDialog01(
         theMessage = "Loading"
     ),
     onDismiss: () -> Unit = dialogState.onDismiss,
-    progressColor: Color = Blue004,         // Pink001
-    progressTrackColor: Color = Blue005,    // Yellow001
+    progressColor: Color = Blue003,         // Pink001
+    progressTrackColor: Color = Blue008,    // Yellow001
+    dismissOnBackPress: Boolean = true,
+    dismissOnClickOutside: Boolean = true,
 ) {
     Logger.getLogger("BuiltInProgressDialog01").log(Level.INFO, "theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
     if (dialogState.theDialogType != DialogType.Progress) { return }
@@ -244,8 +248,8 @@ fun BuiltInProgressDialog01(
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(
-            dismissOnBackPress = true,
-            dismissOnClickOutside = true),
+            dismissOnBackPress = dismissOnBackPress,
+            dismissOnClickOutside = dismissOnClickOutside),
     ) {
         Card(
             modifier = Modifier
@@ -475,6 +479,8 @@ fun BuiltInSingleActionDialog01(
     ),
     onDismiss: () -> Unit = dialogState.onDismiss,
     onConfirm: () -> Unit = dialogState.onConfirm,
+    dismissOnBackPress: Boolean = true,
+    dismissOnClickOutside: Boolean = true,
 ) {
     Logger.getLogger("BuiltInSingleActionDialog01").log(Level.INFO, "theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
     if (dialogState.theDialogType != DialogType.SingleAction) { return }
@@ -483,8 +489,8 @@ fun BuiltInSingleActionDialog01(
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(
-            dismissOnBackPress = true,
-            dismissOnClickOutside = true),
+            dismissOnBackPress = dismissOnBackPress,
+            dismissOnClickOutside = dismissOnClickOutside),
     ) {
         Card(
             modifier = Modifier
@@ -567,6 +573,8 @@ fun BuiltInTwinActionsDialog01(
     ),
     onDismiss: () -> Unit = dialogState.onDismiss,
     onConfirm: () -> Unit = dialogState.onConfirm,
+    dismissOnBackPress: Boolean = true,
+    dismissOnClickOutside: Boolean = true,
 ) {
     if (dialogState.theDialogType != DialogType.TwinActions) { return }
     if (!dialogState.theDialogState) { return }
@@ -574,8 +582,8 @@ fun BuiltInTwinActionsDialog01(
     Dialog(
         onDismissRequest = onDismiss,
         properties = DialogProperties(
-            dismissOnBackPress = true,
-            dismissOnClickOutside = true),
+            dismissOnBackPress = dismissOnBackPress,
+            dismissOnClickOutside = dismissOnClickOutside),
     ) {
         Card(
             modifier = Modifier
@@ -683,6 +691,8 @@ fun <T> BuiltInItemPickerDialog01(
     dialogState: BuiltInWrapperDialogStateDelegate<T> = BuiltInWrapperDialogStateImpl<T>(
         theDialogType = DialogType.ItemPicker,
     ),
+    dismissOnBackPress: Boolean = true,
+    dismissOnClickOutside: Boolean = true,
 ) {
     if (dialogState.theDialogType != DialogType.ItemPicker) { return }
     if (!dialogState.theDialogState) { return }
@@ -690,8 +700,8 @@ fun <T> BuiltInItemPickerDialog01(
     Dialog(
         onDismissRequest = dialogState.onDismiss,
         properties = DialogProperties(
-            dismissOnBackPress = true,
-            dismissOnClickOutside = true),
+            dismissOnBackPress = dismissOnBackPress,
+            dismissOnClickOutside = dismissOnClickOutside),
     ) {
         Card(
             modifier = Modifier

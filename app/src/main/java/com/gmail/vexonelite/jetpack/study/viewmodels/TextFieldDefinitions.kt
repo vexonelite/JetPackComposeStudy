@@ -40,8 +40,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue001
+import com.gmail.vexonelite.jetpack.study.ui.theme.Blue002
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue009
+import com.gmail.vexonelite.jetpack.study.ui.theme.Blue012
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey85
 
 
@@ -54,7 +56,7 @@ fun BuiltInTextField01(
     hint: String = "Hint",
     paddingHorizontal: Dp = 12.dp,
     paddingVertical: Dp = 12.dp,
-    textColor: Color = Blue003,
+    textColor: Color = Blue002,
     hintColor: Color = Grey85,
     fontSize: TextUnit = 20.sp,
     fontWeight: FontWeight = FontWeight.Normal,
@@ -145,7 +147,7 @@ fun BuiltInTextField02(
     height: Dp = 0.dp,
     paddingHorizontal: Dp = 12.dp,
     paddingVertical: Dp = 12.dp,
-    textColor: Color = Blue003,
+    textColor: Color = Blue002,
     hintColor: Color = Grey85,
     fontSize: TextUnit = 20.sp,
     fontWeight: FontWeight = FontWeight.Normal,
@@ -153,8 +155,8 @@ fun BuiltInTextField02(
     cornerShape: Shape = RoundedCornerShape(4.dp),
     borderEnabled: Boolean = true,
     borderWidth: Dp = 1.dp,
-    borderColor: Color = Blue001,
-    backgroundColor: Color = Blue009,
+    borderColor: Color = Blue002,
+    backgroundColor: Color = Blue012,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -345,7 +347,7 @@ fun BuiltInTextField03(
     //height: Dp = 40.dp,
     paddingHorizontal: Dp = 12.dp,
     paddingVertical: Dp = 12.dp,
-    textColor: Color = Blue003,
+    textColor: Color = Blue002,
     hintColor: Color = Grey85,
     fontSize: TextUnit = 20.sp,
     fontWeight: FontWeight = FontWeight.Normal,
@@ -353,8 +355,8 @@ fun BuiltInTextField03(
     cornerShape: Shape = RoundedCornerShape(4.dp),
     borderEnabled: Boolean = true,
     borderWidth: Dp = 1.dp,
-    borderColor: Color = Blue001,
-    backgroundColor: Color = Blue009,
+    borderColor: Color = Blue002,
+    backgroundColor: Color = Blue012,
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     visualTransformation: VisualTransformation = VisualTransformation.None,

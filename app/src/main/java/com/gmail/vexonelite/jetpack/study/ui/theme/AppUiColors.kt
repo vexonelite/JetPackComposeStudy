@@ -13,9 +13,9 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.Grey136
 import com.gmail.vexonelite.jetpack.study.ui.theme.HoloBlueDark
 
 
-fun theBuiltInButtonColor01(): ButtonColors
-    = ButtonColors(
-        containerColor = Blue001,
+fun theBuiltInButtonColor01(): ButtonColors =
+    ButtonColors(
+        containerColor = Blue002,
         contentColor = Color.White,
         disabledContainerColor = Grey136,
         disabledContentColor = Color.Gray,
@@ -23,8 +23,8 @@ fun theBuiltInButtonColor01(): ButtonColors
 
 
 @Composable
-fun theBuiltInTextFieldColor01(): TextFieldColors
-    = TextFieldDefaults.colors().copy(
+fun theBuiltInTextFieldColor01(): TextFieldColors =
+    TextFieldDefaults.colors().copy(
         focusedTextColor = HoloBlueDark,
         unfocusedTextColor = HoloBlueDark,
         focusedContainerColor = Color.Transparent,
@@ -35,7 +35,7 @@ fun theBuiltInTextFieldColor01(): TextFieldColors
 @Composable
 fun theBuiltInCheckboxColor01(): CheckboxColors =
     CheckboxDefaults.colors().copy(
-        checkedCheckmarkColor = Blue001,
+        checkedCheckmarkColor = Blue002,
         uncheckedCheckmarkColor = Grey27,
         checkedBorderColor = Grey27,
         uncheckedBorderColor = Grey27,
@@ -47,7 +47,7 @@ fun theBuiltInCheckboxColor01(): CheckboxColors =
 @Composable
 fun theBuiltInCheckboxColor02(): CheckboxColors =
     CheckboxDefaults.colors().copy(
-        checkedCheckmarkColor = Blue007,
+        checkedCheckmarkColor = Blue004,
         uncheckedCheckmarkColor = Blue002,
         checkedBorderColor = Blue002,
         uncheckedBorderColor = Blue002,
