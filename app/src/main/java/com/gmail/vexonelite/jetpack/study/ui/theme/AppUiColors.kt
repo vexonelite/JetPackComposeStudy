@@ -2,6 +2,8 @@ package com.gmail.vexonelite.jetpack.study.ui.theme
 
 
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.CheckboxColors
+import androidx.compose.material3.CheckboxDefaults
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -29,5 +31,28 @@ fun theBuiltInTextFieldColor01(): TextFieldColors
         unfocusedContainerColor = Color.Transparent,
     )
 
+
+@Composable
+fun theBuiltInCheckboxColor01(): CheckboxColors =
+    CheckboxDefaults.colors().copy(
+        checkedCheckmarkColor = Blue001,
+        uncheckedCheckmarkColor = Grey27,
+        checkedBorderColor = Grey27,
+        uncheckedBorderColor = Grey27,
+        checkedBoxColor = Color.Transparent,
+        //uncheckedBoxColor = Blue009,
+    )
+
+
+@Composable
+fun theBuiltInCheckboxColor02(): CheckboxColors =
+    CheckboxDefaults.colors().copy(
+        checkedCheckmarkColor = Blue007,
+        uncheckedCheckmarkColor = Blue002,
+        checkedBorderColor = Blue002,
+        uncheckedBorderColor = Blue002,
+        checkedBoxColor = Color.Transparent,
+        //uncheckedBoxColor = Blue009,
+    )
 
 
