@@ -282,6 +282,45 @@ fun BuiltInProgressDialog01(
 
 @Preview
 @Composable
+fun BuiltInTitleMessageContent01(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
+        theDialogType = DialogType.SingleAction,
+        theDialogState = true,
+    ),
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+        Text(
+            modifier = Modifier.padding(horizontal = 12.dp),
+            text = dialogState.theTitle,
+            fontSize = dialogState.theTitleFontSize,
+            color = dialogState.theTitleTextColor,
+            fontWeight = FontWeight.Bold,
+        )
+
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+        Text(
+            modifier = Modifier.padding(horizontal = 12.dp),
+            text = dialogState.theMessage,
+            fontSize = dialogState.theMessageFontSize,
+            color = dialogState.theMessageTextColor,
+        )
+
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+    }
+}
+
+
+@Preview
+@Composable
 fun BuiltInSingleActionBottom01(
     dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
         theDialogType = DialogType.SingleAction,
@@ -351,26 +390,29 @@ fun BuiltInSingleActionDialog01(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
-                Text(
-                    modifier = Modifier.padding(horizontal = 12.dp),
-                    text = dialogState.theTitle,
-                    fontSize = dialogState.theTitleFontSize,
-                    color = dialogState.theTitleTextColor,
-                    fontWeight = FontWeight.Bold,
-                )
+                BuiltInTitleMessageContent01(dialogState = dialogState,)
 
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
-
-                Text(
-                    modifier = Modifier.padding(horizontal = 12.dp),
-                    text = dialogState.theMessage,
-                    fontSize = dialogState.theMessageFontSize,
-                    color = dialogState.theMessageTextColor,
-                )
-
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+//
+//                Text(
+//                    modifier = Modifier.padding(horizontal = 12.dp),
+//                    text = dialogState.theTitle,
+//                    fontSize = dialogState.theTitleFontSize,
+//                    color = dialogState.theTitleTextColor,
+//                    fontWeight = FontWeight.Bold,
+//                )
+//
+//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+//
+//                Text(
+//                    modifier = Modifier.padding(horizontal = 12.dp),
+//                    text = dialogState.theMessage,
+//                    fontSize = dialogState.theMessageFontSize,
+//                    color = dialogState.theMessageTextColor,
+//                )
+//
+//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
                 BuiltInSingleActionBottom01(
                     dialogState = dialogState, onDismiss = onDismiss, onConfirm = onConfirm,
@@ -506,26 +548,28 @@ fun BuiltInTwinActionsDialog01(
                 verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally,
             ) {
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+                BuiltInTitleMessageContent01(dialogState = dialogState,)
 
-                Text(
-                    modifier = Modifier.padding(horizontal = 12.dp),
-                    text = dialogState.theTitle,
-                    fontSize = dialogState.theTitleFontSize,
-                    color = dialogState.theTitleTextColor,
-                    fontWeight = FontWeight.Bold,
-                )
-
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
-
-                Text(
-                    modifier = Modifier.padding(horizontal = 12.dp),
-                    text = dialogState.theMessage,
-                    fontSize = dialogState.theMessageFontSize,
-                    color = dialogState.theMessageTextColor,
-                )
-
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+//
+//                Text(
+//                    modifier = Modifier.padding(horizontal = 12.dp),
+//                    text = dialogState.theTitle,
+//                    fontSize = dialogState.theTitleFontSize,
+//                    color = dialogState.theTitleTextColor,
+//                    fontWeight = FontWeight.Bold,
+//                )
+//
+//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+//
+//                Text(
+//                    modifier = Modifier.padding(horizontal = 12.dp),
+//                    text = dialogState.theMessage,
+//                    fontSize = dialogState.theMessageFontSize,
+//                    color = dialogState.theMessageTextColor,
+//                )
+//
+//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
                 BuiltInTwinActionsBottom01(
                     dialogState = dialogState, onDismiss = onDismiss, onConfirm = onConfirm,
