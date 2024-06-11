@@ -282,11 +282,61 @@ fun BuiltInProgressDialog01(
 
 @Preview
 @Composable
+fun BuiltInTitleOnlyContent01(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(),
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+        Text(
+            modifier = Modifier.padding(horizontal = 12.dp),
+            text = dialogState.theTitle,
+            fontSize = dialogState.theTitleFontSize,
+            color = dialogState.theTitleTextColor,
+            fontWeight = FontWeight.Bold,
+        )
+
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+    }
+}
+
+
+@Preview
+@Composable
+fun BuiltInMessageOnlyContent01(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(),
+) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+        Text(
+            modifier = Modifier.padding(horizontal = 12.dp),
+            text = dialogState.theMessage,
+            fontSize = dialogState.theMessageFontSize,
+            color = dialogState.theMessageTextColor,
+        )
+
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+    }
+}
+
+
+@Preview
+@Composable
 fun BuiltInTitleMessageContent01(
-    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
-        theDialogType = DialogType.SingleAction,
-        theDialogState = true,
-    ),
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(),
 ) {
     Column(
         modifier = Modifier
@@ -322,10 +372,7 @@ fun BuiltInTitleMessageContent01(
 @Preview
 @Composable
 fun BuiltInSingleActionBottom01(
-    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
-        theDialogType = DialogType.SingleAction,
-        theDialogState = true,
-    ),
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(),
     onDismiss: () -> Unit = dialogState.onDismiss,
     onConfirm: () -> Unit = dialogState.onConfirm,
 ) {
@@ -351,6 +398,70 @@ fun BuiltInSingleActionBottom01(
             fontSize = dialogState.theConfirmTitleFontSize,
             modifier = Modifier.padding(all = 16.dp),
         )
+    }
+}
+
+
+@Preview
+@Composable
+fun BuiltInTwinActionsBottom01(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(),
+    onDismiss: () -> Unit = dialogState.onDismiss,
+    onConfirm: () -> Unit = dialogState.onConfirm,
+) {
+    HorizontalDivider(
+        thickness = 1.dp,
+        color = Color.Gray,
+    )
+
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(IntrinsicSize.Min) // needed - make sure have enough height to accommodate the ``VerticalDivider``
+    ) {
+        Surface(
+            modifier = Modifier
+                .clickable(onClick = onDismiss,)
+                .weight(1f),
+            //shape = MaterialTheme.shapes.small,
+            //shape = RoundedCornerShape(10.dp),
+            color = dialogState.theCancelBackgroundColor,
+            //contentColor = Color.White,
+            //border = BorderStroke(2.dp, Blue007),
+        ) {
+            Text(
+                text = dialogState.theCancelTitle,
+                textAlign = TextAlign.Center,
+                color = dialogState.theCancelTitleTextColor,
+                fontSize = dialogState.theCancelTitleFontSize,
+                modifier = Modifier.padding(all = 16.dp),
+            )
+        }
+
+        VerticalDivider(
+            //modifier = Modifier.fillMaxHeight().width(1.dp),
+            thickness = 1.dp,
+            color = Color.Gray,
+        )
+
+        Surface(
+            modifier = Modifier
+                .clickable(onClick = onConfirm,)
+                .weight(1f),
+            //shape = MaterialTheme.shapes.small,
+            //shape = RoundedCornerShape(10.dp),
+            color = dialogState.theConfirmBackgroundColor,
+            //contentColor = Color.White,
+            //border = BorderStroke(2.dp, Blue007),
+        ) {
+            Text(
+                text = dialogState.theConfirmTitle,
+                textAlign = TextAlign.Center,
+                color = dialogState.theConfirmTitleTextColor,
+                fontSize = dialogState.theConfirmTitleFontSize,
+                modifier = Modifier.padding(all = 16.dp),
+            )
+        }
     }
 }
 
@@ -442,74 +553,6 @@ fun BuiltInSingleActionDialog01(
 //                    )
 //                }
             }
-        }
-    }
-}
-
-
-
-@Preview
-@Composable
-fun BuiltInTwinActionsBottom01(
-    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
-        theDialogType = DialogType.TwinActions,
-        theDialogState = true,
-    ),
-    onDismiss: () -> Unit = dialogState.onDismiss,
-    onConfirm: () -> Unit = dialogState.onConfirm,
-) {
-    HorizontalDivider(
-        thickness = 1.dp,
-        color = Color.Gray,
-    )
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(IntrinsicSize.Min) // needed - make sure have enough height to accommodate the ``VerticalDivider``
-    ) {
-        Surface(
-            modifier = Modifier
-                .clickable(onClick = onDismiss,)
-                .weight(1f),
-            //shape = MaterialTheme.shapes.small,
-            //shape = RoundedCornerShape(10.dp),
-            color = dialogState.theCancelBackgroundColor,
-            //contentColor = Color.White,
-            //border = BorderStroke(2.dp, Blue007),
-        ) {
-            Text(
-                text = dialogState.theCancelTitle,
-                textAlign = TextAlign.Center,
-                color = dialogState.theCancelTitleTextColor,
-                fontSize = dialogState.theCancelTitleFontSize,
-                modifier = Modifier.padding(all = 16.dp),
-            )
-        }
-
-        VerticalDivider(
-            //modifier = Modifier.fillMaxHeight().width(1.dp),
-            thickness = 1.dp,
-            color = Color.Gray,
-        )
-
-        Surface(
-            modifier = Modifier
-                .clickable(onClick = onConfirm,)
-                .weight(1f),
-            //shape = MaterialTheme.shapes.small,
-            //shape = RoundedCornerShape(10.dp),
-            color = dialogState.theConfirmBackgroundColor,
-            //contentColor = Color.White,
-            //border = BorderStroke(2.dp, Blue007),
-        ) {
-            Text(
-                text = dialogState.theConfirmTitle,
-                textAlign = TextAlign.Center,
-                color = dialogState.theConfirmTitleTextColor,
-                fontSize = dialogState.theConfirmTitleFontSize,
-                modifier = Modifier.padding(all = 16.dp),
-            )
         }
     }
 }
