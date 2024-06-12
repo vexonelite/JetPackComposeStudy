@@ -1,6 +1,7 @@
 package com.gmail.vexonelite.jetpack.study
 
 
+import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,6 +41,8 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.Purple003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Yellow001
 import com.gmail.vexonelite.jetpack.study.ui.theme.navigateSingleTopTo
 import com.gmail.vexonelite.jetpack.study.ui.theme.navigateToExt
+import com.gmail.vexonelite.jetpack.study.viewmodels.slideInExt
+import com.gmail.vexonelite.jetpack.study.viewmodels.slideOutExt
 
 
 sealed interface RouteDestination {
@@ -231,20 +234,79 @@ fun AppNavHost(
         startDestination = RouteDestination.Login.theRoute,
         modifier = modifier
     ) {
-        composable(route = RouteDestination.Login.theRoute) {
+        composable(
+            route = RouteDestination.Login.theRoute,
+            enterTransition = {
+                slideInExt(AnimatedContentTransitionScope.SlideDirection.Up)
+            },
+            exitTransition = {
+                slideOutExt(AnimatedContentTransitionScope.SlideDirection.Start)
+            },
+        ) {
             LoginScreen(navController)
         }
-        composable(RouteDestination.Home.theRoute) {
+
+        composable(
+            RouteDestination.Home.theRoute,
+//            popEnterTransition = {
+//                slideInExt()
+//            },
+//            popExitTransition = {
+//                slideOutExt()
+//            },
+            enterTransition = {
+                slideInExt(AnimatedContentTransitionScope.SlideDirection.Up)
+            },
+            exitTransition = {
+                slideOutExt(AnimatedContentTransitionScope.SlideDirection.Start)
+            },
+            popEnterTransition = {
+                slideInExt(AnimatedContentTransitionScope.SlideDirection.End)
+            },
+            popExitTransition = {
+                slideOutExt(AnimatedContentTransitionScope.SlideDirection.Start)
+            },
+        ) {
             val menuItemList: List<RouteDestination> = listOf(
                 RouteDestination.Vendue, RouteDestination.Transaction
             )
             val menuItems: ImmutableObjectList<RouteDestination> = ImmutableObjectList(menuItemList)
             HomeScreen(navController = navController, menuItems = menuItems)
         }
-        composable(route = RouteDestination.Vendue.theRoute) {
+
+        composable(
+            route = RouteDestination.Vendue.theRoute,
+            enterTransition  = {
+                slideInExt(AnimatedContentTransitionScope.SlideDirection.Start)
+            },
+            exitTransition = {
+                slideOutExt(AnimatedContentTransitionScope.SlideDirection.Start)
+            },
+            popEnterTransition = {
+                slideInExt(AnimatedContentTransitionScope.SlideDirection.End)
+            },
+            popExitTransition = {
+                slideOutExt(AnimatedContentTransitionScope.SlideDirection.End)
+            },
+        ) {
             VendueScreen(navController)
         }
-        composable(route = RouteDestination.Transaction.theRoute) {
+
+        composable(
+            route = RouteDestination.Transaction.theRoute,
+            enterTransition  = {
+                slideInExt(AnimatedContentTransitionScope.SlideDirection.Start)
+            },
+            exitTransition = {
+                slideOutExt(AnimatedContentTransitionScope.SlideDirection.Start)
+            },
+            popEnterTransition = {
+                slideInExt(AnimatedContentTransitionScope.SlideDirection.End)
+            },
+            popExitTransition = {
+                slideOutExt(AnimatedContentTransitionScope.SlideDirection.End)
+            },
+        ) {
             TransactionScreen(navController)
         }
     }
