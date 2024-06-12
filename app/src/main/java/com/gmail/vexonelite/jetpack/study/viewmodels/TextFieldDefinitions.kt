@@ -3,7 +3,13 @@ package com.gmail.vexonelite.jetpack.study.viewmodels
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -12,6 +18,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowDropDown
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -24,15 +37,19 @@ import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
@@ -44,7 +61,9 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.Blue002
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue009
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue012
+import com.gmail.vexonelite.jetpack.study.ui.theme.Grey005
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey85
+import com.gmail.vexonelite.jetpack.study.ui.theme.theBuiltInOutlinedTextFieldColor01
 
 
 @Preview
@@ -423,4 +442,260 @@ fun BuiltInTextField03(
         )
     }
 }
+
+///
+
+@Preview
+@Composable
+fun BuiltInDropDownMenu01(
+    value: TextFieldValue = TextFieldValue(),
+    onValueChange: (TextFieldValue) -> Unit = {},
+    items: List<String> = listOf("Option 1", "Option 2", "Option 3", "Option 4"),
+    hint: String = "Hint",
+    textColor: Color = Blue002,
+    hintColor: Color = Grey85,
+    paddingHorizontal: Dp = 12.dp,
+    paddingVertical: Dp = 12.dp,
+    fontSize: TextUnit = 20.sp,
+    fontWeight: FontWeight = FontWeight.Normal,
+    dropDownMenuBackgroundColor: Color = Blue012,
+    dropDownMenuTextColor: Color = Grey005,
+    dropDownMenuTextBackgroundColor: Color = Blue012,
+    dropDownMenuTextUnderlineWidth: Dp = 1.dp,
+    dropDownMenuTextUnderlineColor: Color = Grey85,
+) {
+    var expanded by remember { mutableStateOf(false) }
+
+//    val initText: String = if (items.isNotEmpty()) { items[0] } else { "" }
+//    var selectedText: String by remember { mutableStateOf(initText) }
+    var selectedText: String by remember { mutableStateOf("") }
+
+    val keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
+
+    Column {
+        OutlinedTextField(
+            value = selectedText,
+            onValueChange = { selectedText = it },
+            label = {
+                Text(
+                    text = hint,
+                    color = hintColor,
+                    fontSize = fontSize,
+                    fontWeight = fontWeight,
+                )
+            },
+            trailingIcon = {
+                Icon(
+                    imageVector = Icons.Filled.ArrowDropDown,
+                    contentDescription = null,
+                    Modifier.clickable { expanded = !expanded }
+                )
+            },
+            colors = theBuiltInOutlinedTextFieldColor01(),
+            readOnly = true, // key: preventing text input via the keyboard.
+            modifier = Modifier
+                .fillMaxWidth()
+                //.background(color = Color.Cyan)
+                .clickable { expanded = !expanded }
+                .onFocusChanged {
+                    if (it.isFocused) {
+                        keyboardController?.hide() // Hides the keyboard when the TextField gains focus
+                    }
+                },
+        )
+
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = dropDownMenuBackgroundColor)
+        ) {
+            items.forEach { label: String ->
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = label,
+                            textAlign = TextAlign.Start,
+                            color = dropDownMenuTextColor,
+                            fontSize = fontSize,
+                            fontWeight = fontWeight,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(color = dropDownMenuTextBackgroundColor)
+                                .drawBehind {
+                                    val strokeWidth = dropDownMenuTextUnderlineWidth.toPx()
+                                    val y = size.height - (strokeWidth / 2f)
+                                    drawLine(
+                                        dropDownMenuTextUnderlineColor,
+                                        start = Offset(0f, y),
+                                        end = Offset(size.width, y),
+                                        strokeWidth
+                                    )
+                                }
+                                .padding(horizontal = paddingHorizontal, vertical = paddingVertical)
+                        )
+                    },
+                    onClick = {
+                        selectedText = label
+                        expanded = false
+                    },
+                    contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
+//                    colors = MenuDefaults.itemColors(
+//                        textColor = Color.Red,
+//                    ),
+                )
+            }
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun BuiltInDropDownMenu02(
+    value: TextFieldValue = TextFieldValue(),
+    onValueChange: (TextFieldValue) -> Unit = {},
+    items: List<String> = listOf("Option 1", "Option 2", "Option 3", "Option 4"),
+    hint: String = "Hint",
+    paddingHorizontal: Dp = 12.dp,
+    paddingVertical: Dp = 12.dp,
+    textColor: Color = Blue002,
+    hintColor: Color = Grey85,
+    fontSize: TextUnit = 20.sp,
+    fontWeight: FontWeight = FontWeight.Normal,
+    elevation: Dp = 3.dp,
+    cornerShape: Shape = RoundedCornerShape(4.dp),
+    borderEnabled: Boolean = true,
+    borderWidth: Dp = 1.dp,
+    borderColor: Color = Blue002,
+    backgroundColor: Color = Blue012,
+    dropDownMenuBackgroundColor: Color = Blue012,
+    dropDownMenuTextColor: Color = Grey005,
+    dropDownMenuTextBackgroundColor: Color = Blue012,
+    dropDownMenuTextUnderlineWidth: Dp = 1.dp,
+    dropDownMenuTextUnderlineColor: Color = Grey85,
+) {
+    var expanded: Boolean by remember { mutableStateOf(false) }
+
+//    val initText: String = if (items.isNotEmpty()) { items[0] } else { "" }
+//    var selectedText: String by remember { mutableStateOf(initText) }
+    var selectedText: String by remember { mutableStateOf("") }
+
+    val keyboardController: SoftwareKeyboardController? = LocalSoftwareKeyboardController.current
+
+    Column {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                //.padding(16.dp)
+                .clickable { expanded = !expanded }
+                .then(
+                    if (borderEnabled) {
+                        Modifier.border(1.dp, SolidColor(borderColor), cornerShape)
+                    }
+                    else {
+                        Modifier.shadow(elevation = elevation, shape = cornerShape)
+                    }
+                )
+                .background(color = backgroundColor, shape = cornerShape),
+            //.border(1.dp, Color.Gray, RoundedCornerShape(4.dp))
+            //.padding(horizontal = 8.dp, vertical = 12.dp)
+        ) {
+
+            Box(
+                Modifier.fillMaxWidth(),
+            ) {
+                BasicTextField(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(color = backgroundColor)
+                        .padding(horizontal = paddingHorizontal, vertical = paddingVertical)
+                        .onFocusChanged {
+                            if (it.isFocused) {
+                                keyboardController?.hide() // Hides the keyboard when the TextField gains focus
+                            }
+                        },
+                    value = selectedText,
+                    onValueChange = { selectedText = it },
+                    textStyle = TextStyle(
+                        textAlign = TextAlign.Start,
+                        color = textColor,
+                        fontSize = fontSize,
+                        fontWeight = fontWeight
+                    ),
+                    readOnly = true, // key: preventing text input via the keyboard.
+                    decorationBox = { innerTextField ->
+                        if (selectedText.isEmpty()) {
+                            Text(
+                                text = hint,
+                                color = hintColor,
+                                fontSize = fontSize,
+                                fontWeight = fontWeight,
+                            )
+                        }
+                        innerTextField()
+                    },
+                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.End,
+
+                    ) {
+                    IconButton(onClick = { expanded = !expanded }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowDropDown,
+                            contentDescription = null,
+                        )
+                    }
+                }
+            }
+        }
+        DropdownMenu(
+            expanded = expanded,
+            onDismissRequest = { expanded = false },
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(color = dropDownMenuBackgroundColor)
+        ) {
+            items.forEach { label: String ->
+                DropdownMenuItem(
+                    text = {
+                        Text(
+                            text = label,
+                            textAlign = TextAlign.Start,
+                            color = dropDownMenuTextColor,
+                            fontSize = fontSize,
+                            fontWeight = fontWeight,
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(color = dropDownMenuTextBackgroundColor)
+                                .drawBehind {
+                                    val strokeWidth = dropDownMenuTextUnderlineWidth.toPx()
+                                    val y = size.height - (strokeWidth / 2f)
+                                    drawLine(
+                                        dropDownMenuTextUnderlineColor,
+                                        start = Offset(0f, y),
+                                        end = Offset(size.width, y),
+                                        strokeWidth
+                                    )
+                                }
+                                .padding(horizontal = paddingHorizontal, vertical = paddingVertical)
+                        )
+                    },
+                    onClick = {
+                        selectedText = label
+                        expanded = false
+                    },
+                    contentPadding = PaddingValues(horizontal = 0.dp, vertical = 0.dp),
+//                    colors = MenuDefaults.itemColors(
+//                        textColor = Color.Red,
+//                    ),
+                )
+            }
+        }
+    }
+}
+
 

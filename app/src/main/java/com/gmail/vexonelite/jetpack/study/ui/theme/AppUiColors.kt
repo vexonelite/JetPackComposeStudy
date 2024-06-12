@@ -4,6 +4,7 @@ package com.gmail.vexonelite.jetpack.study.ui.theme
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -24,11 +25,55 @@ fun theBuiltInButtonColor01(): ButtonColors =
 
 @Composable
 fun theBuiltInTextFieldColor01(): TextFieldColors =
-    TextFieldDefaults.colors().copy(
-        focusedTextColor = HoloBlueDark,
-        unfocusedTextColor = HoloBlueDark,
-        focusedContainerColor = Color.Transparent,
-        unfocusedContainerColor = Color.Transparent,
+    TextFieldDefaults.colors(
+        focusedTextColor = Blue001,
+        focusedLabelColor = Blue001,
+        focusedLeadingIconColor = Blue001,
+        focusedContainerColor = Blue012,
+
+        unfocusedTextColor = Blue003,
+        unfocusedLabelColor = Blue003,
+        unfocusedLeadingIconColor = Blue003,
+        unfocusedContainerColor = Blue012,
+
+        errorTextColor = Pink001,
+        errorLeadingIconColor = Pink001,
+        errorLabelColor = Pink001,
+        errorContainerColor = Pink80,
+
+        disabledTextColor = Grey85,
+        disabledLeadingIconColor = Grey85,
+        disabledLabelColor = Grey85,
+        disabledContainerColor = Grey94,
+    )
+
+
+@Composable
+fun theBuiltInOutlinedTextFieldColor01(): TextFieldColors =
+    OutlinedTextFieldDefaults.colors(
+        focusedTextColor = Blue001,
+        focusedBorderColor = Blue001,
+        focusedLabelColor = Blue001,
+        focusedLeadingIconColor = Blue001,
+        focusedContainerColor = Blue012,
+
+        unfocusedTextColor = Blue003,
+        unfocusedBorderColor = Blue003,
+        unfocusedLabelColor = Blue003,
+        unfocusedLeadingIconColor = Blue003,
+        unfocusedContainerColor = Blue012,
+
+        errorTextColor = Pink001,
+        errorBorderColor = Pink001,
+        errorLeadingIconColor = Pink001,
+        errorLabelColor = Pink001,
+        errorContainerColor = Pink80,
+
+        disabledTextColor = Grey85,
+        disabledBorderColor = Grey85,
+        disabledLeadingIconColor = Grey85,
+        disabledLabelColor = Grey85,
+        disabledContainerColor = Grey94,
     )
 
 
