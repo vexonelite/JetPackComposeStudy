@@ -40,6 +40,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
@@ -213,6 +214,54 @@ fun BasicTextFieldDemo01() {
 }
 
 
+fun TextFieldValue.builtInTextFieldValueChangeHandler01(
+    selectAllOnFocus: Boolean,
+    focusIndicator: Int
+): Pair<TextFieldValue, Int> {
+    var focusIndicatorX: Int = focusIndicator
+
+    val returnedValue: TextFieldValue = if (selectAllOnFocus) {
+        Logger.getLogger("TextFieldValue Ktx").log(Level.INFO, "builtInTextFieldValueChangeHandler01() - onValueChange() - focusIndicator: [$focusIndicator], newValue： [${this.text}]")
+        if (focusIndicatorX == 2) {
+            focusIndicatorX--
+            TextFieldValue(
+                text = this.text, selection = TextRange(0, this.text.length)
+            )
+        }
+        else {
+            this
+        }
+    }
+    else {
+        this
+    }
+
+    return Pair<TextFieldValue, Int>(returnedValue, focusIndicatorX)
+}
+
+
+fun TextFieldValue.builtInTextFieldFocusChangedHandler01(
+    selectAllOnFocus: Boolean,
+    focusState: FocusState
+): Pair<TextFieldValue, Int> {
+    val focusIndicator: Int = if (focusState.isFocused) { 2 } else { 0 }
+    Logger.getLogger("TextFieldValue Ktx").log(Level.INFO, "builtInTextFieldFocusChangedHandler01 - onFocusChanged() - isFocused： [${focusState.isFocused}], focusIndicator: [$focusIndicator]")
+
+    val returnedValue: TextFieldValue = if (selectAllOnFocus && (focusIndicator == 2)) {
+        TextFieldValue(
+            text = this.text, selection = TextRange(0, this.text.length)
+        )
+    }
+    else {
+        TextFieldValue(
+            text = this.text, selection = TextRange(this.text.length)
+        )
+    }
+
+    return Pair<TextFieldValue, Int>(returnedValue, focusIndicator)
+}
+
+
 /**
  * Refs:
  * * [1](https://developer.android.com/develop/ui/compose/touch-input/focus/change-focus-behavior)
@@ -220,7 +269,9 @@ fun BasicTextFieldDemo01() {
  */
 @Preview
 @Composable
-fun FocusDemo01() {
+fun FocusDemo01(
+    selectAllOnFocus: Boolean = true,
+) {
 
     val textFieldColors = TextFieldDefaults.colors().copy(
         focusedTextColor = Pink002,
@@ -248,12 +299,17 @@ fun FocusDemo01() {
     var focusIndicator1 by remember { mutableIntStateOf(0) }
     var focusIndicator2 by remember { mutableIntStateOf(0) }
 
+
+
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
         TextField(
             value = textValue1,
             onValueChange = { newValue: TextFieldValue ->
+                if (selectAllOnFocus) {
+
+                }
                 Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onValueChange() - focusIndicator1: [$focusIndicator1], newValue： [${textValue1.text}]")
                 if (focusIndicator1 == 2) {
                     focusIndicator1--
@@ -302,32 +358,38 @@ fun FocusDemo01() {
         TextField(
             value = textValue2,
             onValueChange = { newValue: TextFieldValue ->
-                Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onValueChange() - focusIndicator2: [$focusIndicator2], newValue： [${textValue1.text}]")
-                if (focusIndicator2 == 2) {
-                    focusIndicator2--
-                    textValue2 = TextFieldValue(
-                        text = newValue.text, selection = TextRange(0, newValue.text.length)
-                    )
-                }
-                else {
-                    textValue2 = newValue
-                }
+                val pair: Pair<TextFieldValue, Int> = newValue.builtInTextFieldValueChangeHandler01(selectAllOnFocus, focusIndicator2)
+                focusIndicator2 = pair.second
+                textValue2 = pair.first
+//                Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onValueChange() - focusIndicator2: [$focusIndicator2], newValue： [${textValue1.text}]")
+//                if (focusIndicator2 == 2) {
+//                    focusIndicator2--
+//                    textValue2 = TextFieldValue(
+//                        text = newValue.text, selection = TextRange(0, newValue.text.length)
+//                    )
+//                }
+//                else {
+//                    textValue2 = newValue
+//                }
             },
             modifier = Modifier
                 .focusRequester(focusRequester2)
                 .onFocusChanged {
-                    focusIndicator2 = if (it.isFocused) { 2 } else { 0 }
+                    val pair: Pair<TextFieldValue, Int> = textValue2.builtInTextFieldFocusChangedHandler01(selectAllOnFocus, it)
+                    focusIndicator2 = pair.second
+                    textValue2 = pair.first
+                    //focusIndicator2 = if (it.isFocused) { 2 } else { 0 }
                     Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onFocusChanged() - isFocused： [${it.isFocused}], focusIndicator2: [$focusIndicator2]")
-                    if (focusIndicator2 == 2) {
-                        textValue2 = TextFieldValue(
-                            text = textValue2.text, selection = TextRange(0, textValue2.text.length)
-                        )
-                    }
-                    else {
-                        textValue2 = TextFieldValue(
-                            text = textValue2.text, selection = TextRange(textValue2.text.length)
-                        )
-                    }
+//                    if (focusIndicator2 == 2) {
+//                        textValue2 = TextFieldValue(
+//                            text = textValue2.text, selection = TextRange(0, textValue2.text.length)
+//                        )
+//                    }
+//                    else {
+//                        textValue2 = TextFieldValue(
+//                            text = textValue2.text, selection = TextRange(textValue2.text.length)
+//                        )
+//                    }
                 }
                 .padding(all = 10.dp)
                 .fillMaxWidth()
