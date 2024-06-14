@@ -219,21 +219,17 @@ fun TextFieldValue.builtInTextFieldValueChangeHandler01(
     focusIndicator: Int
 ): Pair<TextFieldValue, Int> {
     var focusIndicatorX: Int = focusIndicator
-
-    val returnedValue: TextFieldValue = if (selectAllOnFocus) {
-        Logger.getLogger("TextFieldValue Ktx").log(Level.INFO, "builtInTextFieldValueChangeHandler01() - onValueChange() - focusIndicator: [$focusIndicator], newValue： [${this.text}]")
-        if (focusIndicatorX == 2) {
-            focusIndicatorX--
-            TextFieldValue(
-                text = this.text, selection = TextRange(0, this.text.length)
-            )
-        }
-        else {
-            this
-        }
+    Logger.getLogger("TextFieldValue Ktx").log(Level.INFO, "builtInTextFieldValueChangeHandler01() - onValueChange() - focusIndicator: [$focusIndicator], newValue： [${this.text}]")
+    val returnedValue: TextFieldValue = if (selectAllOnFocus && (focusIndicatorX == 2)) {
+        focusIndicatorX--
+        TextFieldValue(
+            text = this.text, selection = TextRange(0, this.text.length)
+        )
     }
     else {
-        this
+        TextFieldValue(
+            text = this.text, selection = TextRange(this.text.length)
+        )
     }
 
     return Pair<TextFieldValue, Int>(returnedValue, focusIndicatorX)
@@ -299,43 +295,44 @@ fun FocusDemo01(
     var focusIndicator1 by remember { mutableIntStateOf(0) }
     var focusIndicator2 by remember { mutableIntStateOf(0) }
 
-
-
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
         TextField(
             value = textValue1,
             onValueChange = { newValue: TextFieldValue ->
-                if (selectAllOnFocus) {
-
-                }
-                Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onValueChange() - focusIndicator1: [$focusIndicator1], newValue： [${textValue1.text}]")
-                if (focusIndicator1 == 2) {
-                    focusIndicator1--
-                    textValue1 = TextFieldValue(
-                        text = newValue.text, selection = TextRange(0, newValue.text.length)
-                    )
-                }
-                else {
-                    textValue1 = newValue
-                }
+                val pair: Pair<TextFieldValue, Int> = newValue.builtInTextFieldValueChangeHandler01(selectAllOnFocus, focusIndicator2)
+                focusIndicator1 = pair.second
+                textValue1 = pair.first
+//                Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onValueChange() - focusIndicator1: [$focusIndicator1], newValue： [${textValue1.text}]")
+//                if (focusIndicator1 == 2) {
+//                    focusIndicator1--
+//                    textValue1 = TextFieldValue(
+//                        text = newValue.text, selection = TextRange(0, newValue.text.length)
+//                    )
+//                }
+//                else {
+//                    textValue1 = newValue
+//                }
             },
             modifier = Modifier
                 .focusRequester(focusRequester1)
                 .onFocusChanged {
-                    focusIndicator1 = if (it.isFocused) { 2 } else { 0 }
+                    val pair: Pair<TextFieldValue, Int> = textValue1.builtInTextFieldFocusChangedHandler01(selectAllOnFocus, it)
+                    focusIndicator1 = pair.second
+                    textValue1 = pair.first
+                    //focusIndicator1 = if (it.isFocused) { 2 } else { 0 }
                     Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onFocusChanged() - isFocused： [${it.isFocused}], focusIndicator1: [$focusIndicator1]")
-                    if (focusIndicator1 == 2) {
-                        textValue1 = TextFieldValue(
-                            text = textValue1.text, selection = TextRange(0, textValue1.text.length)
-                        )
-                    }
-                    else {
-                        textValue1 = TextFieldValue(
-                            text = textValue1.text, selection = TextRange(textValue1.text.length)
-                        )
-                    }
+//                    if (focusIndicator1 == 2) {
+//                        textValue1 = TextFieldValue(
+//                            text = textValue1.text, selection = TextRange(0, textValue1.text.length)
+//                        )
+//                    }
+//                    else {
+//                        textValue1 = TextFieldValue(
+//                            text = textValue1.text, selection = TextRange(textValue1.text.length)
+//                        )
+//                    }
                 }
                 .padding(all = 10.dp)
                 .fillMaxWidth()
