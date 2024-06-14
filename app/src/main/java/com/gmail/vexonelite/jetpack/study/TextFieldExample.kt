@@ -5,6 +5,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
@@ -29,6 +31,7 @@ import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
@@ -38,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.TextRange
@@ -52,9 +56,16 @@ import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.gmail.vexonelite.jetpack.study.ui.theme.Blue012
 import com.gmail.vexonelite.jetpack.study.ui.theme.Green001
 import com.gmail.vexonelite.jetpack.study.ui.theme.Pink001
+import com.gmail.vexonelite.jetpack.study.ui.theme.Pink002
+import com.gmail.vexonelite.jetpack.study.ui.theme.Purple002
+import com.gmail.vexonelite.jetpack.study.ui.theme.Teal700
+import com.gmail.vexonelite.jetpack.study.ui.theme.Yellow002
 import com.gmail.vexonelite.jetpack.study.viewmodels.SignUpViewModel
+import java.util.logging.Level
+import java.util.logging.Logger
 
 
 /**
@@ -173,21 +184,31 @@ fun TextFieldDemo01() {
 @Composable
 fun BasicTextFieldDemo01() {
     val initText = "Hello World"
-    var textState by remember {
+    var textValue by remember {
         mutableStateOf(
             //TextFieldValue("Hello World")
             TextFieldValue(text = initText, selection = TextRange(initText.length))
         )
     }
 
+
     Column(
         modifier = Modifier.fillMaxSize(),
+
     ) {
         BasicTextField(
-            value = textState,
-            onValueChange = { textState = it }
+
+            value = textValue,
+            onValueChange = { newValue: TextFieldValue -> textValue = newValue },
+            modifier = Modifier
+                .padding(all = 10.dp)
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .background(color = Blue012)
+                .padding(vertical = 10.dp)
         )
-        Text("The textfield has this text: " + textState.text)
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        Text("The textfield has this text: " + textValue.text)
     }
 }
 
@@ -200,32 +221,74 @@ fun BasicTextFieldDemo01() {
 @Preview
 @Composable
 fun FocusDemo01() {
+
+    val textFieldColors = TextFieldDefaults.colors().copy(
+        focusedTextColor = Pink002,
+        unfocusedTextColor = Purple002,
+        focusedContainerColor = Yellow002,
+        unfocusedContainerColor = Blue012,
+    )
+
     val initText = "Hello World"
-    var textState by remember {
+    var textValue1 by remember {
         mutableStateOf(
             //TextFieldValue("Hello World")
+            TextFieldValue(text = initText, selection = TextRange(initText.length))
+        )
+    }
+    var textValue2 by remember {
+        mutableStateOf(
             TextFieldValue(text = initText, selection = TextRange(initText.length))
         )
     }
 
     val focusRequester1 = remember { FocusRequester() }
     val focusRequester2 = remember { FocusRequester() }
-    val textFieldColors = TextFieldDefaults.colors().copy(
-        focusedTextColor = Color.Black,
-        unfocusedTextColor = Color.White,
-        focusedContainerColor = Green001,
-        unfocusedContainerColor = Pink001,
-    )
+
+    var focusIndicator1 by remember { mutableIntStateOf(0) }
+    var focusIndicator2 by remember { mutableIntStateOf(0) }
 
     Column(
         modifier = Modifier.fillMaxSize(),
     ) {
         TextField(
-            value = textState,
-            onValueChange = { textState = it },
-            modifier = Modifier.focusRequester(focusRequester1),
+            value = textValue1,
+            onValueChange = { newValue: TextFieldValue ->
+                Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onValueChange() - focusIndicator1: [$focusIndicator1], newValue： [${textValue1.text}]")
+                if (focusIndicator1 == 2) {
+                    focusIndicator1--
+                    textValue1 = TextFieldValue(
+                        text = newValue.text, selection = TextRange(0, newValue.text.length)
+                    )
+                }
+                else {
+                    textValue1 = newValue
+                }
+            },
+            modifier = Modifier
+                .focusRequester(focusRequester1)
+                .onFocusChanged {
+                    focusIndicator1 = if (it.isFocused) { 2 } else { 0 }
+                    Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onFocusChanged() - isFocused： [${it.isFocused}], focusIndicator1: [$focusIndicator1]")
+                    if (focusIndicator1 == 2) {
+                        textValue1 = TextFieldValue(
+                            text = textValue1.text, selection = TextRange(0, textValue1.text.length)
+                        )
+                    }
+                    else {
+                        textValue1 = TextFieldValue(
+                            text = textValue1.text, selection = TextRange(textValue1.text.length)
+                        )
+                    }
+                }
+                .padding(all = 10.dp)
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .background(color = Blue012)
+                .padding(vertical = 10.dp),
             colors = textFieldColors
         )
+
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
         Button(
@@ -237,9 +300,40 @@ fun FocusDemo01() {
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
         TextField(
-            value = textState,
-            onValueChange = { textState = it },
-            modifier = Modifier.focusRequester(focusRequester2),
+            value = textValue2,
+            onValueChange = { newValue: TextFieldValue ->
+                Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onValueChange() - focusIndicator2: [$focusIndicator2], newValue： [${textValue1.text}]")
+                if (focusIndicator2 == 2) {
+                    focusIndicator2--
+                    textValue2 = TextFieldValue(
+                        text = newValue.text, selection = TextRange(0, newValue.text.length)
+                    )
+                }
+                else {
+                    textValue2 = newValue
+                }
+            },
+            modifier = Modifier
+                .focusRequester(focusRequester2)
+                .onFocusChanged {
+                    focusIndicator2 = if (it.isFocused) { 2 } else { 0 }
+                    Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onFocusChanged() - isFocused： [${it.isFocused}], focusIndicator2: [$focusIndicator2]")
+                    if (focusIndicator2 == 2) {
+                        textValue2 = TextFieldValue(
+                            text = textValue2.text, selection = TextRange(0, textValue2.text.length)
+                        )
+                    }
+                    else {
+                        textValue2 = TextFieldValue(
+                            text = textValue2.text, selection = TextRange(textValue2.text.length)
+                        )
+                    }
+                }
+                .padding(all = 10.dp)
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .background(color = Blue012)
+                .padding(vertical = 10.dp),
             colors = textFieldColors
         )
 
