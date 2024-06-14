@@ -242,7 +242,6 @@ fun TextFieldValue.builtInTextFieldFocusChangedHandler01(
 ): Pair<TextFieldValue, Int> {
     val focusIndicator: Int = if (focusState.isFocused) { 2 } else { 0 }
     Logger.getLogger("TextFieldValue Ktx").log(Level.INFO, "builtInTextFieldFocusChangedHandler01 - onFocusChanged() - isFocused： [${focusState.isFocused}], focusIndicator: [$focusIndicator]")
-
     val returnedValue: TextFieldValue = if (selectAllOnFocus && (focusIndicator == 2)) {
         TextFieldValue(
             text = this.text, selection = TextRange(0, this.text.length)
@@ -268,7 +267,6 @@ fun TextFieldValue.builtInTextFieldFocusChangedHandler01(
 fun FocusDemo01(
     selectAllOnFocus: Boolean = true,
 ) {
-
     val textFieldColors = TextFieldDefaults.colors().copy(
         focusedTextColor = Pink002,
         unfocusedTextColor = Purple002,
@@ -301,7 +299,7 @@ fun FocusDemo01(
         TextField(
             value = textValue1,
             onValueChange = { newValue: TextFieldValue ->
-                val pair: Pair<TextFieldValue, Int> = newValue.builtInTextFieldValueChangeHandler01(selectAllOnFocus, focusIndicator2)
+                val pair: Pair<TextFieldValue, Int> = newValue.builtInTextFieldValueChangeHandler01(selectAllOnFocus, focusIndicator1)
                 focusIndicator1 = pair.second
                 textValue1 = pair.first
 //                Logger.getLogger("FocusDemo01").log(Level.INFO, "FocusDemo01 - onValueChange() - focusIndicator1: [$focusIndicator1], newValue： [${textValue1.text}]")
