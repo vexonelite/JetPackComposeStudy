@@ -24,7 +24,14 @@ fun NavHostController.navigateSingleTopTo(route: String) =
     }
 
 
-fun NavHostController.navigateSingleTopTo(route: String, specifiedStartDestination: String) =
+fun NavHostController.navigateSingleTopTo(
+    route: String,
+    specifiedStartDestination: String,
+    restoreState: Boolean = true,
+    launchSingleTop: Boolean = true,
+    saveState: Boolean = true,
+    inclusive: Boolean = false,
+) =
     this.navigate(route) {
 
         // Pop up to the start destination of the graph to
@@ -33,27 +40,37 @@ fun NavHostController.navigateSingleTopTo(route: String, specifiedStartDestinati
         popUpTo(
             specifiedStartDestination
         ) {
-            saveState = true
+            this@popUpTo.saveState = saveState
         }
         // Avoid multiple copies of the same destination when
         // reselecting the same item
-        launchSingleTop = true
+        this@navigate.launchSingleTop = launchSingleTop
         // Restore state when reselecting a previously selected item
-        restoreState = true
+        this@navigate.restoreState = restoreState
     }
 
 
 
-fun NavHostController.navigateToExt(route: String, clearBackStack: Boolean = false) =
-    this.navigate(route) {
-        if(clearBackStack) {
-            popUpTo(
-                this@navigateToExt.graph.id
-            ) {
-                inclusive  = true
-            }
+fun NavHostController.navigateToExt(
+    route: String,
+    clearBackStack: Boolean = false,
+    restoreState: Boolean = true,
+    launchSingleTop: Boolean = true,
+    inclusive: Boolean = true,
+    saveState: Boolean = true,
+) = this.navigate(route) {
+    if(clearBackStack) {
+        popUpTo(
+            this@navigateToExt.graph.id
+        ) {
+            this@popUpTo.inclusive = inclusive
+            this@popUpTo.saveState = saveState
         }
-
-        launchSingleTop = true
     }
+    // Avoid multiple copies of the same destination when
+    // reselecting the same item
+    this@navigate.launchSingleTop = launchSingleTop
+    // Restore state when reselecting a previously selected item
+    this@navigate.restoreState = restoreState
+}
 
