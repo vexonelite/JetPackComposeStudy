@@ -36,12 +36,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawBehind
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.FocusState
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.text.TextRange
@@ -64,13 +66,71 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.Blue012
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey005
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey85
 import com.gmail.vexonelite.jetpack.study.ui.theme.theBuiltInOutlinedTextFieldColor01
+import java.util.logging.Level
+import java.util.logging.Logger
+
+
+fun DrawScope.drawUnderlineExt(underlineWidth: Dp = 1.dp, underlineColor: Color = Grey85, ) {
+    val strokeWidth = underlineWidth.toPx()
+    val y = size.height - (strokeWidth / 2f)
+    drawLine(
+        underlineColor,
+        start = Offset(0f, y),
+        end = Offset(size.width, y),
+        strokeWidth
+    )
+}
+
+
+fun TextFieldValue.builtInTextFieldValueChangeHandler01(
+    selectAllOnFocus: Boolean,
+    focusIndicator: Int
+): Pair<TextFieldValue, Int> {
+    var focusIndicatorX: Int = focusIndicator
+    Logger.getLogger("TextFieldValue Ktx").log(Level.INFO, "builtInTextFieldValueChangeHandler01() - onValueChange() - focusIndicator: [$focusIndicator], newValue： [${this.text}]")
+    val returnedValue: TextFieldValue = if (selectAllOnFocus && (focusIndicatorX == 2)) {
+        focusIndicatorX--
+        TextFieldValue(
+            text = this.text, selection = TextRange(0, this.text.length)
+        )
+    }
+    else {
+        TextFieldValue(
+            text = this.text, selection = TextRange(this.text.length)
+        )
+    }
+
+    return Pair<TextFieldValue, Int>(returnedValue, focusIndicatorX)
+}
+
+
+fun TextFieldValue.builtInTextFieldFocusChangedHandler01(
+    selectAllOnFocus: Boolean,
+    focusState: FocusState
+): Pair<TextFieldValue, Int> {
+    val focusIndicator: Int = if (focusState.isFocused) { 2 } else { 0 }
+    Logger.getLogger("TextFieldValue Ktx").log(Level.INFO, "builtInTextFieldFocusChangedHandler01 - onFocusChanged() - isFocused： [${focusState.isFocused}], focusIndicator: [$focusIndicator]")
+
+    val returnedValue: TextFieldValue = if (selectAllOnFocus && (focusIndicator == 2)) {
+        TextFieldValue(
+            text = this.text, selection = TextRange(0, this.text.length)
+        )
+    }
+    else {
+        TextFieldValue(
+            text = this.text, selection = TextRange(this.text.length)
+        )
+    }
+
+    return Pair<TextFieldValue, Int>(returnedValue, focusIndicator)
+}
 
 
 @Preview
 @Composable
 fun BuiltInTextField01(
     modifier: Modifier = Modifier,
-    value: TextFieldValue = TextFieldValue(),
+    textValue: TextFieldValue = TextFieldValue(),
     onValueChange: (TextFieldValue) -> Unit = {},
     hint: String = "Hint",
     paddingHorizontal: Dp = 12.dp,
@@ -87,6 +147,8 @@ fun BuiltInTextField01(
     visualTransformation: VisualTransformation = VisualTransformation.None,
     singleLine: Boolean = true,
     enabled: Boolean = true,
+    selectAllOnFocus: Boolean = false,
+    onFocusChanged: (FocusState) -> Unit = {},
     focusRequester: FocusRequester? = null
 ) {
 //    var textState: TextFieldValue by remember {
@@ -94,6 +156,13 @@ fun BuiltInTextField01(
 //            TextFieldValue(text = initText, selection = TextRange(initText.length))
 //        )
 //    }
+//    val textState: MutableState<TextFieldValue> = remember {
+//        mutableStateOf(
+//            TextFieldValue(text = initText, selection = TextRange(initText.length))
+//        )
+//    }
+
+    Logger.getLogger("BuiltInTextField01").log(Level.INFO, "BuiltInTextField01 - textValue: [${textValue.text}]")
 
     val textStyle = TextStyle(
         color = textColor,
@@ -107,14 +176,15 @@ fun BuiltInTextField01(
             .fillMaxWidth()
             .wrapContentHeight()
             .drawBehind {
-                val strokeWidth = underlineWidth.toPx()
-                val y = size.height - (strokeWidth / 2f)
-                drawLine(
-                    underlineColor,
-                    start = Offset(0f, y),
-                    end = Offset(size.width, y),
-                    strokeWidth
-                )
+                this.drawUnderlineExt(underlineWidth, underlineColor)
+//                val strokeWidth = underlineWidth.toPx()
+//                val y = size.height - (strokeWidth / 2f)
+//                drawLine(
+//                    underlineColor,
+//                    start = Offset(0f, y),
+//                    end = Offset(size.width, y),
+//                    strokeWidth
+//                )
             }
             .padding(horizontal = paddingHorizontal, vertical = paddingVertical),
         verticalAlignment = Alignment.CenterVertically,
@@ -122,15 +192,23 @@ fun BuiltInTextField01(
         val textFieldModifier: Modifier = if (null != focusRequester) {
             Modifier.focusRequester(focusRequester)
         } else { Modifier }
+            .then(
+                if(selectAllOnFocus) {
+                    Modifier.onFocusChanged(onFocusChanged)
+                }
+                else { Modifier }
+            )
+            .fillMaxWidth()
+            .wrapContentHeight()
 
         BasicTextField(
-            value = value,
+            value = textValue,
             onValueChange = onValueChange,
             // https://proandroiddev.com/decorating-text-field-in-jetpack-compose-b033ade8ad6
-            modifier = textFieldModifier
-                // .padding(horizontal = 8.dp, vertical = 16.dp) // margin
-                .fillMaxWidth()
-                .wrapContentHeight(), // work only for BasicTextField
+            modifier = textFieldModifier,
+            // .padding(horizontal = 8.dp, vertical = 16.dp) // margin
+            //.fillMaxWidth()
+            //.wrapContentHeight(), // work only for BasicTextField
             //.border(width = 1.5.dp, color = Color.Black, RoundedCornerShape(12.dp)),
             //.border(BorderStroke(1.dp, Color.Transparent), shape = MaterialTheme.shapes.small),
             textStyle = textStyle,
@@ -141,7 +219,7 @@ fun BuiltInTextField01(
             singleLine = singleLine,
             enabled = enabled,
             decorationBox = { innerTextField ->
-                if (value.text.isEmpty()) {
+                if (textValue.text.isEmpty()) {
                     Text(
                         text = hint,
                         color = hintColor,
@@ -156,11 +234,12 @@ fun BuiltInTextField01(
 }
 
 
+///////////////////////not yet
 @Preview
 @Composable
 fun BuiltInTextField02(
     modifier: Modifier = Modifier,
-    value: TextFieldValue = TextFieldValue(),
+    textValue: TextFieldValue = TextFieldValue(),
     onValueChange: (TextFieldValue) -> Unit = {},
     hint: String = "Hint",
     height: Dp = 0.dp,
@@ -183,6 +262,8 @@ fun BuiltInTextField02(
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
     enabled: Boolean = true,
+    selectAllOnFocus: Boolean = false,
+    onFocusChanged: (FocusState) -> Unit = {},
     focusRequester: FocusRequester? = null
 ) {
 
@@ -308,6 +389,12 @@ fun BuiltInTextField02(
         Modifier.focusRequester(focusRequester)
     }
     else { Modifier }
+        .then(
+            if(selectAllOnFocus) {
+                Modifier.onFocusChanged(onFocusChanged)
+            }
+            else { Modifier }
+        )
         .fillMaxWidth()
         .then(
             if (height > 0.dp) { Modifier.height(height) } else { Modifier }
@@ -325,7 +412,7 @@ fun BuiltInTextField02(
 
     BasicTextField(
         modifier = textModifier,
-        value = value,
+        value = textValue,
         onValueChange = onValueChange,
         textStyle = TextStyle(
             color = textColor,
@@ -333,7 +420,7 @@ fun BuiltInTextField02(
             fontWeight = fontWeight
         ),
         decorationBox = { innerTextField ->
-            if (value.text.isEmpty()) {
+            if (textValue.text.isEmpty()) {
                 Text(
                     text = hint,
                     color = hintColor,
@@ -356,6 +443,8 @@ fun BuiltInTextField02(
     )
 }
 
+
+///////////////////////////////////not yet
 @Preview
 @Composable
 fun BuiltInTextField03(
@@ -383,6 +472,8 @@ fun BuiltInTextField03(
     maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
     minLines: Int = 1,
     enabled: Boolean = true,
+    selectAllOnFocus: Boolean = false,
+    onFocusChanged: (FocusState) -> Unit = {},
     focusRequester: FocusRequester? = null
 ) {
     val rowModifier = Modifier
@@ -405,12 +496,20 @@ fun BuiltInTextField03(
             Modifier.focusRequester(focusRequester)
         }
         else { Modifier }
+            .then(
+                if(selectAllOnFocus) {
+                    Modifier.onFocusChanged(onFocusChanged)
+                }
+                else { Modifier }
+            )
+            .fillMaxWidth()
+            .padding(horizontal = paddingHorizontal, vertical = paddingVertical)
 
         BasicTextField(
-            modifier = textModifier
-                //.weight(5f)
-                .fillMaxWidth()
-                .padding(horizontal = paddingHorizontal, vertical = paddingVertical),
+            modifier = textModifier,
+            //.weight(5f)
+            //.fillMaxWidth()
+            //.padding(horizontal = paddingHorizontal, vertical = paddingVertical),
             value = value,
             onValueChange = onValueChange,
             textStyle = TextStyle(
@@ -444,6 +543,7 @@ fun BuiltInTextField03(
 }
 
 ///
+
 
 @Preview
 @Composable
@@ -524,14 +624,15 @@ fun BuiltInDropDownMenu01(
                                 .fillMaxSize()
                                 .background(color = dropDownMenuTextBackgroundColor)
                                 .drawBehind {
-                                    val strokeWidth = dropDownMenuTextUnderlineWidth.toPx()
-                                    val y = size.height - (strokeWidth / 2f)
-                                    drawLine(
-                                        dropDownMenuTextUnderlineColor,
-                                        start = Offset(0f, y),
-                                        end = Offset(size.width, y),
-                                        strokeWidth
-                                    )
+                                    this.drawUnderlineExt(dropDownMenuTextUnderlineWidth, dropDownMenuTextUnderlineColor)
+//                                    val strokeWidth = dropDownMenuTextUnderlineWidth.toPx()
+//                                    val y = size.height - (strokeWidth / 2f)
+//                                    drawLine(
+//                                        dropDownMenuTextUnderlineColor,
+//                                        start = Offset(0f, y),
+//                                        end = Offset(size.width, y),
+//                                        strokeWidth
+//                                    )
                                 }
                                 .padding(horizontal = paddingHorizontal, vertical = paddingVertical)
                         )
@@ -672,14 +773,15 @@ fun BuiltInDropDownMenu02(
                                 .fillMaxSize()
                                 .background(color = dropDownMenuTextBackgroundColor)
                                 .drawBehind {
-                                    val strokeWidth = dropDownMenuTextUnderlineWidth.toPx()
-                                    val y = size.height - (strokeWidth / 2f)
-                                    drawLine(
-                                        dropDownMenuTextUnderlineColor,
-                                        start = Offset(0f, y),
-                                        end = Offset(size.width, y),
-                                        strokeWidth
-                                    )
+                                    this.drawUnderlineExt(dropDownMenuTextUnderlineWidth, dropDownMenuTextUnderlineColor)
+//                                    val strokeWidth = dropDownMenuTextUnderlineWidth.toPx()
+//                                    val y = size.height - (strokeWidth / 2f)
+//                                    drawLine(
+//                                        dropDownMenuTextUnderlineColor,
+//                                        start = Offset(0f, y),
+//                                        end = Offset(size.width, y),
+//                                        strokeWidth
+//                                    )
                                 }
                                 .padding(horizontal = paddingHorizontal, vertical = paddingVertical)
                         )
