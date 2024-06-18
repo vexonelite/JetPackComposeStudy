@@ -9,7 +9,7 @@ import com.gmail.vexonelite.jetpack.study.R
 import com.gmail.vexonelite.jetpack.study.screens.MenuScreenContent
 import com.gmail.vexonelite.jetpack.study.ui.theme.DarkerGray
 import com.gmail.vexonelite.jetpack.study.ui.theme.ImmutableObjectList
-import com.gmail.vexonelite.jetpack.study.ui.theme.navigateSingleTopTo
+import com.gmail.vexonelite.jetpack.study.viewmodels.navigateSingleTopTo
 import com.gmail.vexonelite.jetpack.study.viewmodels.MenuItemContentType
 import com.gmail.vexonelite.jetpack.study.viewmodels.MenuItemModel
 import java.util.UUID

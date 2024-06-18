@@ -1,10 +1,13 @@
-package com.gmail.vexonelite.jetpack.study.ui.theme
+package com.gmail.vexonelite.jetpack.study.viewmodels
 
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
@@ -29,7 +32,7 @@ fun DisposableEffectWithLifecycle(
     val currentOnDestroy by rememberUpdatedState(onDestroy)
 
     DisposableEffect(lifecycleOwner) {
-        val lifecycleEventObserver = LifecycleEventObserver { _, event ->
+        val lifecycleEventObserver = LifecycleEventObserver { _: LifecycleOwner, event: Lifecycle.Event  ->
             when (event) {
                 Lifecycle.Event.ON_CREATE -> currentOnCreate()
                 Lifecycle.Event.ON_START -> currentOnStart()
@@ -39,6 +42,48 @@ fun DisposableEffectWithLifecycle(
                 Lifecycle.Event.ON_DESTROY -> currentOnDestroy()
                 else -> {}
             }
+        }
+
+        lifecycleOwner.lifecycle.addObserver(lifecycleEventObserver)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(lifecycleEventObserver)
+        }
+    }
+}
+
+
+@Composable
+fun rememberLifecycleEvent01(
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current
+): Lifecycle.Event {
+
+    var lifeCycleEvent by remember { mutableStateOf(Lifecycle.Event.ON_ANY) }
+
+    DisposableEffect(lifecycleOwner) {
+        val lifecycleEventObserver = LifecycleEventObserver { _: LifecycleOwner, event: Lifecycle.Event  ->
+            lifeCycleEvent = event
+        }
+
+        lifecycleOwner.lifecycle.addObserver(lifecycleEventObserver)
+
+        onDispose {
+            lifecycleOwner.lifecycle.removeObserver(lifecycleEventObserver)
+        }
+    }
+
+    return  lifeCycleEvent
+}
+
+
+@Composable
+fun LifecycleEventWatcher01(
+    lifecycleOwner: LifecycleOwner = LocalLifecycleOwner.current,
+    lifecycleEventWatcher: (Lifecycle.Event) -> Unit = {}
+) {
+    DisposableEffect(lifecycleOwner) {
+        val lifecycleEventObserver = LifecycleEventObserver { _: LifecycleOwner, event: Lifecycle.Event  ->
+            lifecycleEventWatcher(event)
         }
 
         lifecycleOwner.lifecycle.addObserver(lifecycleEventObserver)

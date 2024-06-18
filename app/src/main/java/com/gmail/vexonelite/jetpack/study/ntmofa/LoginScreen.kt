@@ -7,7 +7,7 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.gmail.vexonelite.jetpack.study.screens.LoginScreenContent
-import com.gmail.vexonelite.jetpack.study.ui.theme.navigateToExt
+import com.gmail.vexonelite.jetpack.study.viewmodels.navigateToExt
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInProgressDialog01
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInSingleActionDialog01
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInTwinActionsDialog01

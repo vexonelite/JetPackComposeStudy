@@ -1,4 +1,4 @@
-package com.gmail.vexonelite.jetpack.study.ui.theme
+package com.gmail.vexonelite.jetpack.study.viewmodels
 
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController

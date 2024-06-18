@@ -39,8 +39,8 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.JetPackComposeStudyTheme
 import com.gmail.vexonelite.jetpack.study.ui.theme.Pink001
 import com.gmail.vexonelite.jetpack.study.ui.theme.Purple003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Yellow001
-import com.gmail.vexonelite.jetpack.study.ui.theme.navigateSingleTopTo
-import com.gmail.vexonelite.jetpack.study.ui.theme.navigateToExt
+import com.gmail.vexonelite.jetpack.study.viewmodels.navigateSingleTopTo
+import com.gmail.vexonelite.jetpack.study.viewmodels.navigateToExt
 import com.gmail.vexonelite.jetpack.study.viewmodels.slideInExt
 import com.gmail.vexonelite.jetpack.study.viewmodels.slideOutExt
 
