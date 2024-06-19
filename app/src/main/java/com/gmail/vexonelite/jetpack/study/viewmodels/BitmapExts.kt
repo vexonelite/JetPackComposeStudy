@@ -11,25 +11,9 @@ import androidx.compose.ui.graphics.asAndroidBitmap
 import java.io.ByteArrayInputStream
 import java.io.ByteArrayOutputStream
 import java.io.InputStream
+import java.io.OutputStream
 import java.util.logging.Level
 import java.util.logging.Logger
-
-
-fun Bitmap.toInputStreamExt(
-    compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, // Bitmap.CompressFormat.PNG
-    quality: Int = 100
-): FmApiResult<InputStream> =
-    try {
-        val byteArrayOutputStream = ByteArrayOutputStream()
-        this.compress(compressFormat, quality, byteArrayOutputStream)
-        val byteArray: ByteArray = byteArrayOutputStream.toByteArray()
-        val byteArrayInputStream = ByteArrayInputStream(byteArray)
-        FmApiResult.Success<InputStream>(byteArrayInputStream)
-    }
-    catch (cause: Exception) {
-        Logger.getLogger("Bitmap Ktx").log(Level.SEVERE, "toInputStreamExt() - error!!", cause)
-        FmApiResult.Error<InputStream>(FmRuntimeException(cause, "9487"))
-    }
 
 
 // Complete Dark image
@@ -68,10 +52,50 @@ fun ImageBitmap.toProcessedAndroidBitmapExt(
     }
 
 
-fun ImageBitmap.toInputStreamExt(): FmApiResult<InputStream> =
-    toAndroidBitmapExt()
+fun ImageBitmap.toInputStreamExt(
+    @ColorInt signatureColor: Int = GraphicsColor.BLACK,
+    @ColorInt backgroundColor: Int = GraphicsColor.WHITE,
+): FmApiResult<InputStream> =
+    toProcessedAndroidBitmapExt(signatureColor = signatureColor, backgroundColor = backgroundColor)
     .then { bitmap: Bitmap ->
         bitmap.toInputStreamExt()
+    }
+
+
+fun Bitmap.toInputStreamExt(
+    compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, // Bitmap.CompressFormat.PNG
+    quality: Int = 100
+): FmApiResult<InputStream> =
+    try {
+        ByteArrayOutputStream().use { outputStream: ByteArrayOutputStream ->
+            this.compress(compressFormat, quality, outputStream)
+            val byteArray: ByteArray = outputStream.toByteArray()
+            val byteArrayInputStream = ByteArrayInputStream(byteArray)
+            FmApiResult.Success<InputStream>(byteArrayInputStream)
+        }
+    }
+    catch (cause: Exception) {
+        Logger.getLogger("Bitmap Ktx").log(Level.SEVERE, "toInputStreamExt() - error!!", cause)
+        FmApiResult.Error<InputStream>(FmRuntimeException(cause, "9487"))
+    }
+
+
+fun Bitmap.saveToFileViaOutputStreamExt(
+    outputStream: OutputStream,
+    compressFormat: Bitmap.CompressFormat = Bitmap.CompressFormat.JPEG, // Bitmap.CompressFormat.PNG
+    quality: Int = 100
+): FmApiResult<Int> =
+    try {
+        Logger.getLogger("OutputStream Ktx").log(Level.INFO, "saveToFileViaOutputStreamExt() - Bitmap - w: [${this.width}], h: [${this.height}]")
+        outputStream.use { self: OutputStream ->
+            // Save the new Bitmap as a file
+            this.compress(compressFormat, quality, self)
+            FmApiResult.Success(0)
+        }
+    }
+    catch (cause: Exception) {
+        Logger.getLogger("OutputStream Ktx").log(Level.SEVERE, "error on saveToFileViaOutputStreamExt()", cause)
+        FmApiResult.Error(FmRuntimeException(cause, "54088"))
     }
 
 
