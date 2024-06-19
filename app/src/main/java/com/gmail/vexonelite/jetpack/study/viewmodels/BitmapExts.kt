@@ -3,6 +3,7 @@ package com.gmail.vexonelite.jetpack.study.viewmodels
 
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Matrix
 import android.graphics.Color as GraphicsColor
 import android.graphics.Paint
 import androidx.annotation.ColorInt
@@ -24,7 +25,7 @@ fun ImageBitmap.toAndroidBitmapExt(): FmApiResult<Bitmap> =
     }
     catch (cause: Exception) {
         Logger.getLogger("ImageBitmap Ktx").log(Level.SEVERE, "toAndroidBitmapExt() - error on ImageBitmap.asAndroidBitmap()", cause)
-        FmApiResult.Error<Bitmap>(FmRuntimeException(cause, "9487"))
+        FmApiResult.Error<Bitmap>(FmRuntimeException(cause, "5487"))
     }
 
 
@@ -48,7 +49,7 @@ fun ImageBitmap.toProcessedAndroidBitmapExt(
     }
     catch (cause: Exception) {
         Logger.getLogger("ImageBitmap Ktx").log(Level.SEVERE, "toProcessedAndroidBitmapExt() - error on ImageBitmap.toProcessedAndroidBitmapExt()", cause)
-        FmApiResult.Error<Bitmap>(FmRuntimeException(cause, "9487"))
+        FmApiResult.Error<Bitmap>(FmRuntimeException(cause, "5487"))
     }
 
 
@@ -57,9 +58,9 @@ fun ImageBitmap.toInputStreamExt(
     @ColorInt backgroundColor: Int = GraphicsColor.WHITE,
 ): FmApiResult<InputStream> =
     toProcessedAndroidBitmapExt(signatureColor = signatureColor, backgroundColor = backgroundColor)
-    .then { bitmap: Bitmap ->
-        bitmap.toInputStreamExt()
-    }
+        .then { bitmap: Bitmap ->
+            bitmap.toInputStreamExt()
+        }
 
 
 fun Bitmap.toInputStreamExt(
@@ -76,7 +77,52 @@ fun Bitmap.toInputStreamExt(
     }
     catch (cause: Exception) {
         Logger.getLogger("Bitmap Ktx").log(Level.SEVERE, "toInputStreamExt() - error!!", cause)
-        FmApiResult.Error<InputStream>(FmRuntimeException(cause, "9487"))
+        FmApiResult.Error<InputStream>(FmRuntimeException(cause, "5487"))
+    }
+
+
+fun Bitmap.resizeRefToWidthExt(newWidth: Int): Bitmap {
+    val scaleFactor = newWidth.toFloat() / this.width
+    return resizeExt(
+        newWidth,
+        (this.height * scaleFactor).toInt()
+    )
+}
+
+
+fun Bitmap.resizeRefToWidthExtR(newWidth: Int): FmApiResult<Bitmap> =
+    try {
+        val scaleFactor = newWidth.toFloat() / this.width
+        val scaledBitmap = resizeExt(
+            newWidth,
+            (this.height * scaleFactor).toInt()
+        )
+        FmApiResult.Success<Bitmap>(scaledBitmap)
+    }
+    catch (cause: Exception) {
+        Logger.getLogger("Bitmap Ktx").log(Level.SEVERE, "resizeRefToWidthExtR() - error!!", cause)
+        FmApiResult.Error<Bitmap>(FmRuntimeException(cause, "5487"))
+    }
+
+
+fun Bitmap.resizeExt(newWidth: Int, newHeight: Int): Bitmap {
+    val matrix = Matrix()
+    matrix.postScale(
+        (newWidth.toFloat() / this.width.toFloat()),
+        (newHeight.toFloat() / this.height.toFloat())
+    )
+    return Bitmap.createBitmap(this, 0, 0, this.width, this.height, matrix, true)
+}
+
+
+fun Bitmap.resizeExtR(newWidth: Int, newHeight: Int): FmApiResult<Bitmap> =
+    try {
+        val scaledBitmap = resizeExt(newWidth, newHeight)
+        FmApiResult.Success<Bitmap>(scaledBitmap)
+    }
+    catch (cause: Exception) {
+        Logger.getLogger("Bitmap Ktx").log(Level.SEVERE, "resizeExtR() - error!!", cause)
+        FmApiResult.Error<Bitmap>(FmRuntimeException(cause, "5487"))
     }
 
 
