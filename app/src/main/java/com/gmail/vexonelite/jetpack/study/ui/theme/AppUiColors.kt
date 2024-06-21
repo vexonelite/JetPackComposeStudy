@@ -138,3 +138,19 @@ fun DoubleUpCircle01(
     }
 }
 
+
+@Preview
+@Composable
+fun ColorCircle01(
+    arcColor: Color = Teal200,
+    size: Dp = 200.dp,
+) {
+    Canvas(
+        modifier = Modifier.size(size)
+    ) {
+        drawCircle(
+            color = arcColor,
+        )
+    }
+}
+
