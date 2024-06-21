@@ -166,7 +166,13 @@ fun BottomSheetExample02() {
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetContent = {
-            BottomSheetExample02SheetContent()
+            BottomSheetExample02SheetContent(
+                onClick = {
+                    coroutineScope.launch {
+                        scaffoldState.bottomSheetState.partialExpand()
+                    }
+                },
+            )
         },
         sheetPeekHeight = 35.dp, // The height of the visible part of the sheet when collapsed
         sheetDragHandle = {
@@ -186,12 +192,13 @@ fun BottomSheetExample02() {
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = {
                 coroutineScope.launch {
-                    if (scaffoldState.bottomSheetState.isVisible) {
-                        scaffoldState.bottomSheetState.partialExpand()
-                    }
-                    else {
-                        scaffoldState.bottomSheetState.expand()
-                    }
+                    scaffoldState.bottomSheetState.expand()
+//                    if (scaffoldState.bottomSheetState.hasExpandedState) {
+//                        scaffoldState.bottomSheetState.partialExpand()
+//                    }
+//                    else {
+//                        scaffoldState.bottomSheetState.expand()
+//                    }
                 }
             }) {
                 Text(text = "Toggle Bottom Sheet")
@@ -238,7 +245,9 @@ fun BottomSheetExample02SheetDragHandle01() {
 
 @Preview
 @Composable
-fun BottomSheetExample02SheetContent() {
+fun BottomSheetExample02SheetContent(
+    onClick: () -> Unit = {},
+) {
     val initText = ""
     var keywordValue: TextFieldValue by remember {
         mutableStateOf(
@@ -292,16 +301,7 @@ fun BottomSheetExample02SheetContent() {
 
         Spacer(modifier = Modifier.padding(vertical = 8.dp))
 
-        Button(onClick = {
-//                        coroutineScope.launch {
-//                            if (scaffoldState.bottomSheetState.isVisible) {
-//                                scaffoldState.bottomSheetState.partialExpand()
-//                            }
-//                            else {
-//                                scaffoldState.bottomSheetState.expand()
-//                            }
-//                        }
-        }) {
+        Button(onClick = onClick,) {
             Text(text = "Search")
         }
     }
