@@ -11,12 +11,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardDoubleArrowUp
 import androidx.compose.material3.BottomSheetDefaults
 import androidx.compose.material3.BottomSheetScaffold
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.SheetValue
 import androidx.compose.material3.SnackbarHostState
@@ -26,19 +36,35 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.material3.rememberStandardBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clipToBounds
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextRange
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.gmail.vexonelite.jetpack.study.ui.theme.Blue012
+import com.gmail.vexonelite.jetpack.study.ui.theme.ColorCircle01
 import com.gmail.vexonelite.jetpack.study.ui.theme.DoubleUpCircle01
 import com.gmail.vexonelite.jetpack.study.ui.theme.ImmutableObjectList
 import com.gmail.vexonelite.jetpack.study.ui.theme.Pink002
+import com.gmail.vexonelite.jetpack.study.ui.theme.Teal200
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInBottomSheetDragHandle02
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInDropDownMenu02
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInTextField02
 import kotlinx.coroutines.launch
+import java.util.logging.Level
+import java.util.logging.Logger
 
 
 /**
@@ -140,27 +166,13 @@ fun BottomSheetExample02() {
     BottomSheetScaffold(
         scaffoldState = scaffoldState,
         sheetContent = {
-            Box(
-                Modifier
-                    .background(color = Pink002)
-                    .fillMaxWidth()
-                    .height(200.dp),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(text = "This is a bottom sheet", fontSize = 20.sp)
-            }
+            BottomSheetExample02SheetContent()
         },
-        sheetPeekHeight = 40.dp, // The height of the visible part of the sheet when collapsed
+        sheetPeekHeight = 35.dp, // The height of the visible part of the sheet when collapsed
         sheetDragHandle = {
-            Column(
-                Modifier
-                    .fillMaxSize()
-                    .padding(top = 20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center)
-            { DoubleUpCircle01(size = 20.dp) }
-
-        }
+            BuiltInBottomSheetDragHandle02()
+        },
+        sheetContainerColor = Color.White,
     ) {
         // Main content of the scaffold
         Column(
@@ -174,8 +186,6 @@ fun BottomSheetExample02() {
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = {
                 coroutineScope.launch {
-
-
                     if (scaffoldState.bottomSheetState.isVisible) {
                         scaffoldState.bottomSheetState.partialExpand()
                     }
@@ -192,5 +202,149 @@ fun BottomSheetExample02() {
 
 
 
+@Preview
+@Composable
+fun BottomSheetExample02SheetDragHandle01() {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight(),
+        //.padding(start = 10.dp, end = 10.dp, top = 0.dp, bottom = 10.dp),
+        contentAlignment = Alignment.TopCenter,
+    )
+    {
+        ColorCircle01(size = 80.dp)
+        Icon(
+            modifier = Modifier.size(40.dp),
+            imageVector = Icons.Filled.KeyboardDoubleArrowUp,
+            tint = Color.White,
+            contentDescription = null,
+        )
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .wrapContentHeight()
+                .padding(top = 35.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Top
+        ) {
+            HorizontalDivider(
+                thickness = 45.dp, color = Color.White
+            )
+        }
+    }
+}
 
 
+@Preview
+@Composable
+fun BottomSheetExample02SheetContent() {
+    val initText = ""
+    var keywordValue: TextFieldValue by remember {
+        mutableStateOf(
+            TextFieldValue(text = initText, selection = TextRange(initText.length))
+        )
+    }
+    var keywordFocusIndicator by remember { mutableIntStateOf(0) }
+    val keywordFocusRequester: FocusRequester = remember { FocusRequester() }
+
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .wrapContentHeight()
+            .padding(start = 15.dp, end = 15.dp, top = 0.dp, bottom = 10.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top
+    ) {
+        Spacer(modifier = Modifier.padding(vertical = 6.dp))
+
+        BuiltInTextField02(
+            modifier = Modifier
+                .padding(horizontal = 20.dp),
+            textValue = keywordValue,
+            onValueChange = { newValue: TextFieldValue ->
+                val pair: Pair<TextFieldValue, Int> = newValue.builtInTextFieldValueChangeHandler01(true, keywordFocusIndicator)
+                keywordFocusIndicator = pair.second
+                keywordValue = pair.first
+            },
+            cornerShape = RoundedCornerShape(4.dp),
+            //backgroundColor = Yellow002,
+            hint = "Keyword",
+            keyboardOptions = KeyboardOptions(
+                keyboardType = KeyboardType.Email,
+                imeAction = ImeAction.Done),
+            //keyboardActions = KeyboardActions(onNext = { keyboardFocusRequester.requestFocus() }),
+            selectAllOnFocus = true,
+            onFocusChanged = {
+                val pair: Pair<TextFieldValue, Int> = keywordValue.builtInTextFieldFocusChangedHandler01(true, it)
+                keywordFocusIndicator = pair.second
+                keywordValue = pair.first
+            },
+            focusRequester = keywordFocusRequester,
+        )
+
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+        BuiltInDropDownMenu02(
+            items = listOf<String>("AAA", "BBB", "CCC", "DDD", "EEE"),
+            hint = "Hint",
+        )
+
+        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+
+        Button(onClick = {
+//                        coroutineScope.launch {
+//                            if (scaffoldState.bottomSheetState.isVisible) {
+//                                scaffoldState.bottomSheetState.partialExpand()
+//                            }
+//                            else {
+//                                scaffoldState.bottomSheetState.expand()
+//                            }
+//                        }
+        }) {
+            Text(text = "Search")
+        }
+    }
+
+}
+
+
+
+@Preview
+@Composable
+fun Top50DpOfChildren() {
+    Box(
+        modifier = Modifier
+            .width(200.dp)
+            .height(50.dp)
+            //.clipToBounds() // Ensure the content is clipped to the box's size
+            .background(Color.Gray) // Just for visibility
+    ) {
+        // Child content with height greater than the container's height
+        Column(
+            modifier = Modifier
+                .height(120.dp)
+                .background(Color.Blue)
+        ) {
+            // Sample child content
+            Box(
+                modifier = Modifier
+                    .height(40.dp)
+                    .fillMaxWidth()
+                    .background(Color.Red)
+            )
+            Box(
+                modifier = Modifier
+                    .height(40.dp)
+                    .fillMaxWidth()
+                    .background(Color.Green)
+            )
+            Box(
+                modifier = Modifier
+                    .height(40.dp)
+                    .fillMaxWidth()
+                    .background(Color.Yellow)
+            )
+        }
+    }
+}

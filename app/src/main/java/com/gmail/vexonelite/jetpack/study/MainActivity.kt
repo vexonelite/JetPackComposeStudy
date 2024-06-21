@@ -5,18 +5,29 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.rememberNavController
 import com.gmail.vexonelite.jetpack.study.ntmofa.NtmofaLoginScreen
 import com.gmail.vexonelite.jetpack.study.ntmofa.NtmofaRfidApp
 import com.gmail.vexonelite.jetpack.study.ntmofa.NtmofaRouteDestination
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInDialogStateImpl
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInDropDownMenu01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInDropDownMenu02
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInProgressDialog01
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInSingleActionDialog01
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInTwinActionsDialog01
 import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInUiStateViewModel
+import com.gmail.vexonelite.jetpack.study.viewmodels.RequestBluetoothPermissionIfNeeded01
+import com.gmail.vexonelite.jetpack.study.viewmodels.RequestCameraPermissionIfNeeded01
+import com.gmail.vexonelite.jetpack.study.viewmodels.RequestTakePhotoPermissionIfNeeded01
+import com.gmail.vexonelite.jetpack.study.viewmodels.RequestWriteStoragePermissionIfNeeded01
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -78,6 +89,18 @@ class MainActivity : ComponentActivity() {
             //FocusDemo01()
             // [end] TextField
 
+            //ScaffoldExample02()
+            //ScaffoldExample03()
+
+            //SainSignatureExample01()
+
+            BottomSheetExample02()
+
+            //RequestCameraPermissionIfNeeded01()
+            //RequestWriteStoragePermissionIfNeeded01()
+            //RequestTakePhotoPermissionIfNeeded01()
+            //RequestBluetoothPermissionIfNeeded01()
+
             // [start] Button
             //ButtonDemo01()
             // [end] Button
@@ -94,6 +117,24 @@ class MainActivity : ComponentActivity() {
             //UiStateSample1()
             //UiStateSample1Rev()
             //SampleManageHome1()
+
+            // [start] DropDownMenu test - 2024/06/11
+//            Column {
+//                ExposedDropdownMenuSample01()
+//
+//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+//
+//                ExposedDropDownMenuWithBasicTextField01()
+//
+//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+//
+//                BuiltInDropDownMenu01()
+//
+//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
+//
+//                BuiltInDropDownMenu02()
+//            }
+            // [end] DropDownMenu test - 2024/06/11
 
             // [start] navigation compose
 //            val navController = rememberNavController()
@@ -165,22 +206,22 @@ class MainActivity : ComponentActivity() {
 
 
             // [start] navigation compose 02
-            val navController = rememberNavController()
-            val onBackPressedCallback = object : OnBackPressedCallback(true) {
-                override fun handleOnBackPressed() {
-                    when (navController.currentBackStackEntry?.destination?.route) {
-                        NtmofaRouteDestination.Menu.theRoute -> { finish() }
-                        NtmofaRouteDestination.Login.theRoute -> { finish() }
-                        else ->  {
-                            // Navigate back
-                            navController.popBackStack()
-                        }
-                    }
-                }
-            }
-            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
-
-            NtmofaRfidApp(navController)
+//            val navController = rememberNavController()
+//            val onBackPressedCallback = object : OnBackPressedCallback(true) {
+//                override fun handleOnBackPressed() {
+//                    when (navController.currentBackStackEntry?.destination?.route) {
+//                        NtmofaRouteDestination.Menu.theRoute -> { finish() }
+//                        NtmofaRouteDestination.Login.theRoute -> { finish() }
+//                        else ->  {
+//                            // Navigate back
+//                            navController.popBackStack()
+//                        }
+//                    }
+//                }
+//            }
+//            onBackPressedDispatcher.addCallback(this, onBackPressedCallback)
+//
+//            NtmofaRfidApp(navController)
             // [end] navigation compose 02
 
             // [start] dialog-test - 2024/06/06
