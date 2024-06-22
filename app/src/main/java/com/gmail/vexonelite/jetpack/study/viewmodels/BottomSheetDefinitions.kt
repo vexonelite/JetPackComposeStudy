@@ -12,7 +12,10 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardDoubleArrowUp
+import androidx.compose.material3.BottomSheetScaffoldState
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.SheetValue
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +25,8 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gmail.vexonelite.jetpack.study.ui.theme.Teal200
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 
 @Preview
@@ -130,5 +135,20 @@ fun BuiltInBottomSheetDragHandle03(
         }
     }
 }
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+fun BottomSheetScaffoldState.dragIconClickerExt01(coroutineScope: CoroutineScope) {
+    val bottomSheetScaffoldState = this
+    coroutineScope.launch {
+        if (bottomSheetScaffoldState.bottomSheetState.targetValue == SheetValue.PartiallyExpanded) {
+            bottomSheetScaffoldState.bottomSheetState.expand()
+        }
+        else {
+            bottomSheetScaffoldState.bottomSheetState.partialExpand()
+        }
+    }
+}
+
 
 
