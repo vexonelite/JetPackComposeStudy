@@ -78,9 +78,11 @@ sealed interface ListDataState<T> {
 fun <T> ListDataContent01(
     listDataState: ListDataState<T> = ListDataState.None(),
     itemClickCallback: HolderItemClickDelegate<T>? = null,
-    unavailableOnClick: () -> Unit = {},
-    initContent: @Composable () -> Unit = { },
+    //unavailableOnClick: () -> Unit = {},
+    initContent: @Composable () -> Unit = { ListDataInitContent01() },
+    loadingContent: @Composable () -> Unit = { ListDataLoading01() },
     availableContent: @Composable (ListDataState<T>, HolderItemClickDelegate<T>?) -> Unit = { _, _ -> },
+    unavailableContent: @Composable () -> Unit = { ListDataUnavailable01() },
 ) {
     when(listDataState) {
         is ListDataState.Init -> {
@@ -89,20 +91,20 @@ fun <T> ListDataContent01(
         }
         is ListDataState.Loading -> {
             Logger.getLogger("ListDataContent01").log(Level.INFO, "ListDataContent01 [Loading]")
-            ListDataLoading01()
+            loadingContent()
         }
         is ListDataState.Available -> {
             Logger.getLogger("ListDataContent01").log(Level.INFO, "ListDataContent01 [Available]")
             availableContent(listDataState, itemClickCallback)
         }
         is ListDataState.Unavailable -> {
-            if (listDataState.theList.isNotEmpty()) {
-                Logger.getLogger("ListDataContent01").log(Level.INFO, "ListDataContent01 [Unavailable]")
-                ListDataUnavailable01(
-                    onClick = unavailableOnClick,
-                )
-            }
-            else { Logger.getLogger("ListDataContent01").log(Level.WARNING, "ListDataContent01 [Unavailable] - listDataState.theList is empty!!") }
+            Logger.getLogger("ListDataContent01").log(Level.INFO, "ListDataContent01 [Unavailable]")
+//            if (listDataState.theList.isNotEmpty()) {
+//                Logger.getLogger("ListDataContent01").log(Level.INFO, "ListDataContent01 [Unavailable]")
+//                unavailableContent()
+//            }
+//            else { Logger.getLogger("ListDataContent01").log(Level.WARNING, "ListDataContent01 [Unavailable] - listDataState.theList is empty!!") }
+            unavailableContent()
         }
         is ListDataState.None -> { Logger.getLogger("ListDataContent01").log(Level.INFO, "ListDataContent01 [None]") }
     }
@@ -112,22 +114,32 @@ fun <T> ListDataContent01(
 @Preview
 @Composable
 fun ListDataInitContent01(
-    progressColor: Color = Blue003,         // Pink001
-    progressTrackColor: Color = Blue008,    // Yellow001
+    initText: String = "Todo",
+    onClick: () -> Unit = {},
+    textFontSize: TextUnit = 20.sp,
+    textColor: Color = Color.Black,
     backgroundColor: Color = Color.White,
 ) {
-    Logger.getLogger("ListDataLoading01").log(Level.INFO, "ListDataLoading01")
+    Logger.getLogger("ListDataInitContent01").log(Level.INFO, "ListDataInitContent01")
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(backgroundColor,),
-        verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        CircularProgressIndicator(
-            modifier = Modifier.size(32.dp),
-            color = progressColor,
-            trackColor = progressTrackColor,
+
+        Text(
+            text = initText,
+            fontSize = textFontSize,
+            color = textColor,
+            textAlign = TextAlign.Start,
+            maxLines = 4,
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+            //.background(Grey80)
+            //.padding(horizontal = 10.dp, vertical = 8.dp)
         )
     }
 }
@@ -167,7 +179,7 @@ fun ListDataUnavailable01(
     backgroundColor: Color = Color.White,
 ) {
     Logger.getLogger("ListDataUnavailable01").log(Level.INFO, "ListDataLoading01")
-    val context: Context = LocalContext.current
+
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -201,11 +213,12 @@ fun ListDataUnavailable01(
                     fontSize = textFontSize,
                     color = textColor,
                     textAlign = TextAlign.Center,
-                    maxLines = 2,
-                    modifier = Modifier,
+                    maxLines = 4,
+                    modifier = Modifier
+                        .padding(horizontal = 15.dp, vertical = 10.dp),
                     //.fillMaxWidth()
                     //.background(Grey80)
-                    //.padding(vertical = 12.dp)
+
                 )
             }
         }
@@ -232,5 +245,6 @@ fun <T> ListDataUnavailable02(
         backgroundColor = backgroundColor,
     )
 }
+
 
 
