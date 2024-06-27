@@ -16,42 +16,42 @@ import androidx.navigation.NavBackStackEntry
 
 
 fun AnimatedContentTransitionScope<NavBackStackEntry>.fadeInExt(
-    durationMillis: Int = 500,
+    durationMillis: Int = 350,
 ): EnterTransition = fadeIn(tween(durationMillis = durationMillis, easing = LinearEasing))
 
 
 fun AnimatedContentTransitionScope<NavBackStackEntry>.fadeOutExt(
-    durationMillis: Int = 500,
+    durationMillis: Int = 350,
 ): ExitTransition = fadeOut(tween(durationMillis = durationMillis, easing = LinearEasing))
 
 
 fun AnimatedContentTransitionScope<NavBackStackEntry>.expandInExt(
-    durationMillis: Int = 500,
+    durationMillis: Int = 350,
 ): EnterTransition = expandIn(tween(durationMillis = durationMillis, easing = LinearEasing))
 
 
 fun AnimatedContentTransitionScope<NavBackStackEntry>.shrinkOutExt(
-    durationMillis: Int = 500,
+    durationMillis: Int = 350,
 ): ExitTransition = shrinkOut(tween(durationMillis = durationMillis, easing = LinearEasing))
 
 
 fun AnimatedContentTransitionScope<NavBackStackEntry>.slideInExt(
     towards: AnimatedContentTransitionScope.SlideDirection = AnimatedContentTransitionScope.SlideDirection.Start,
-    durationMillis: Int = 500,
+    durationMillis: Int = 350,
 ): EnterTransition =
     slideIntoContainer(towards, tween(durationMillis = durationMillis, easing = LinearEasing)) // EaseIn
 
 
 fun AnimatedContentTransitionScope<NavBackStackEntry>.slideOutExt(
     towards: AnimatedContentTransitionScope.SlideDirection = AnimatedContentTransitionScope.SlideDirection.End,
-    durationMillis: Int = 500,
+    durationMillis: Int = 350,
 ): ExitTransition =
     slideOutOfContainer(towards, tween(durationMillis = durationMillis, easing = LinearEasing)) // EaseOut
 
 
 fun AnimatedContentTransitionScope<NavBackStackEntry>.fadeInAndSlideInExt(
     towards: AnimatedContentTransitionScope.SlideDirection = AnimatedContentTransitionScope.SlideDirection.Start,
-    durationMillis: Int = 500,
+    durationMillis: Int = 350,
 ): EnterTransition =
     fadeIn(
         animationSpec = tween(durationMillis = durationMillis, easing = LinearEasing)
@@ -63,7 +63,7 @@ fun AnimatedContentTransitionScope<NavBackStackEntry>.fadeInAndSlideInExt(
 
 fun AnimatedContentTransitionScope<NavBackStackEntry>.fadeOutAndSlideOutExt(
     towards: AnimatedContentTransitionScope.SlideDirection = AnimatedContentTransitionScope.SlideDirection.End,
-    durationMillis: Int = 500,
+    durationMillis: Int = 350,
 ): ExitTransition =
     fadeOut(
         animationSpec = tween(

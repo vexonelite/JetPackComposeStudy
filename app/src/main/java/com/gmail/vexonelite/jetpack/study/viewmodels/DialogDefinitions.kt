@@ -1,10 +1,14 @@
 package com.gmail.vexonelite.jetpack.study.viewmodels
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -19,22 +23,28 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.ShapeDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.VerticalDivider
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.State
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
+import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
+import com.gmail.vexonelite.jetpack.study.HolderItemClickDelegate
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue002
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue003
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue004
@@ -227,6 +237,82 @@ data class BuiltInWrapperDialogStateImpl<T>(
     ) : BuiltInWrapperDialogStateDelegate<T>
 
 
+@Composable
+fun BuiltInCustomDialog01(
+    onDismissRequest: () -> Unit,
+    dialogContent: @Composable () -> Unit,
+    dialogBackgroundColor: Color = Color.White,
+    dialogShape: Shape = ShapeDefaults.Medium,
+    isFillMaxSize: Boolean = true,
+    horizontalDialogPadding: Dp = 40.dp,
+    verticalDialogPadding: Dp = 80.dp,
+) {
+    Logger.getLogger("BuiltInCustomDialog01").log(Level.INFO, "BuiltInCustomDialog01")
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            //.padding(vertical = 32.dp)
+            .background(Color.Black.copy(alpha = 0.5f))
+            .clickable(
+                onClick = onDismissRequest,
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() }
+            ),
+        contentAlignment = Alignment.Center
+    ) {
+        Box(
+            modifier = if (isFillMaxSize) {
+                Modifier.fillMaxSize()
+            } else {
+                Modifier.wrapContentSize()
+            }
+                .padding(horizontal = horizontalDialogPadding, vertical = verticalDialogPadding)
+                .background(color = dialogBackgroundColor, shape = dialogShape)
+                .graphicsLayer {
+                    shape = dialogShape
+                    clip = true
+                }
+
+        ) {
+            dialogContent()
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun BuiltInProgressDialog02(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
+        theDialogType = DialogType.Progress,
+        theDialogState = true,
+        theMessage = "Loading"
+    ),
+    onDismiss: () -> Unit = dialogState.onDismiss,
+    progressColor: Color = Blue003,         // Pink001
+    progressTrackColor: Color = Blue008,    // Yellow001
+    dismissOnBackPress: Boolean = true,
+    dismissOnClickOutside: Boolean = true,
+) {
+    Logger.getLogger("BuiltInProgressDialog01").log(Level.INFO, "BuiltInProgressDialog01 - theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
+    if (dialogState.theDialogType != DialogType.Progress) { return }
+    if (!dialogState.theDialogState) { return }
+
+    BuiltInCustomDialog01(
+        onDismissRequest = onDismiss,
+        dialogContent = {
+            BuiltInProgressContent01(
+                dialogState = dialogState,
+                progressColor = progressColor,
+                progressTrackColor = progressTrackColor,
+            )
+        },
+        isFillMaxSize = false
+    )
+}
+
+
 @Preview
 @Composable
 fun BuiltInProgressDialog01(
@@ -241,7 +327,7 @@ fun BuiltInProgressDialog01(
     dismissOnBackPress: Boolean = true,
     dismissOnClickOutside: Boolean = true,
 ) {
-    Logger.getLogger("BuiltInProgressDialog01").log(Level.INFO, "theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
+    Logger.getLogger("BuiltInProgressDialog01").log(Level.INFO, "BuiltInProgressDialog01 - theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
     if (dialogState.theDialogType != DialogType.Progress) { return }
     if (!dialogState.theDialogState) { return }
 
@@ -260,25 +346,11 @@ fun BuiltInProgressDialog01(
                 containerColor = Color.White,
             ),
         ) {
-            Column(
-                modifier = Modifier.padding(all = 20.dp),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-
-                ) {
-                CircularProgressIndicator(
-                    modifier = Modifier.size(32.dp),
-                    color = progressColor,
-                    trackColor = progressTrackColor,
-                )
-                Spacer(modifier = Modifier.padding(vertical = 10.dp))
-                Text(
-                    text = dialogState.theMessage,
-                    fontSize = dialogState.theMessageFontSize,
-                    color = dialogState.theMessageTextColor,
-                    //modifier = Modifier.padding(16.dp),
-                )
-            }
+            BuiltInProgressContent01(
+                dialogState = dialogState,
+                progressColor = progressColor,
+                progressTrackColor = progressTrackColor,
+            )
         }
     }
 }
@@ -310,6 +382,34 @@ fun BuiltInTitleOnlyContent01(
     }
 }
 
+
+@Preview
+@Composable
+fun BuiltInProgressContent01(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(),
+    progressColor: Color = Blue003,         // Pink001
+    progressTrackColor: Color = Blue008,    // Yellow001
+) {
+    Column(
+        modifier = Modifier.padding(all = 20.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+
+        ) {
+        CircularProgressIndicator(
+            modifier = Modifier.size(32.dp),
+            color = progressColor,
+            trackColor = progressTrackColor,
+        )
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+        Text(
+            text = dialogState.theMessage,
+            fontSize = dialogState.theMessageFontSize,
+            color = dialogState.theMessageTextColor,
+            //modifier = Modifier.padding(16.dp),
+        )
+    }
+}
 
 @Preview
 @Composable
@@ -472,6 +572,43 @@ fun BuiltInTwinActionsBottom01(
 
 @Preview
 @Composable
+fun BuiltInSingleActionDialog02(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
+        theDialogType = DialogType.SingleAction,
+        theDialogState = true,
+    ),
+    onDismiss: () -> Unit = dialogState.onDismiss,
+    onConfirm: () -> Unit = dialogState.onConfirm,
+    dismissOnBackPress: Boolean = true,
+    dismissOnClickOutside: Boolean = true,
+) {
+    Logger.getLogger("BuiltInSingleActionDialog02").log(Level.INFO, "BuiltInSingleActionDialog02 - theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
+    if (dialogState.theDialogType != DialogType.SingleAction) { return }
+    if (!dialogState.theDialogState) { return }
+
+    BuiltInCustomDialog01(
+        onDismissRequest = onDismiss,
+        dialogContent = {
+            Column(
+                modifier = Modifier.wrapContentSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+
+                BuiltInTitleMessageContent01(dialogState = dialogState,)
+
+                BuiltInSingleActionBottom01(
+                    dialogState = dialogState, onDismiss = onDismiss, onConfirm = onConfirm,
+                )
+            }
+        },
+        isFillMaxSize = false
+    )
+}
+
+
+@Preview
+@Composable
 fun BuiltInSingleActionDialog01(
     dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
         theDialogType = DialogType.SingleAction,
@@ -482,7 +619,7 @@ fun BuiltInSingleActionDialog01(
     dismissOnBackPress: Boolean = true,
     dismissOnClickOutside: Boolean = true,
 ) {
-    Logger.getLogger("BuiltInSingleActionDialog01").log(Level.INFO, "theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
+    Logger.getLogger("BuiltInSingleActionDialog01").log(Level.INFO, "BuiltInSingleActionDialog01 - theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
     if (dialogState.theDialogType != DialogType.SingleAction) { return }
     if (!dialogState.theDialogState) { return }
 
@@ -510,57 +647,49 @@ fun BuiltInSingleActionDialog01(
 
                 BuiltInTitleMessageContent01(dialogState = dialogState,)
 
-//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
-//
-//                Text(
-//                    modifier = Modifier.padding(horizontal = 12.dp),
-//                    text = dialogState.theTitle,
-//                    fontSize = dialogState.theTitleFontSize,
-//                    color = dialogState.theTitleTextColor,
-//                    fontWeight = FontWeight.Bold,
-//                )
-//
-//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
-//
-//                Text(
-//                    modifier = Modifier.padding(horizontal = 12.dp),
-//                    text = dialogState.theMessage,
-//                    fontSize = dialogState.theMessageFontSize,
-//                    color = dialogState.theMessageTextColor,
-//                )
-//
-//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
-
                 BuiltInSingleActionBottom01(
                     dialogState = dialogState, onDismiss = onDismiss, onConfirm = onConfirm,
                 )
-
-//                HorizontalDivider(
-//                    thickness = 1.dp,
-//                    color = Color.Gray,
-//                )
-//
-//                Surface(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .clickable(onClick = onConfirm,),
-//                    //shape = MaterialTheme.shapes.small,
-//                    //shape = RoundedCornerShape(10.dp),
-//                    color = dialogState.theConfirmBackgroundColor,
-//                    //contentColor = Color.White,
-//                    //border = BorderStroke(2.dp, Blue007),
-//                ) {
-//                    Text(
-//                        text = dialogState.theConfirmTitle,
-//                        textAlign = TextAlign.Center,
-//                        color = dialogState.theConfirmTitleTextColor,
-//                        fontSize = dialogState.theConfirmTitleFontSize,
-//                        modifier = Modifier.padding(all = 16.dp),
-//                    )
-//                }
             }
         }
     }
+}
+
+
+@Preview
+@Composable
+fun BuiltInTwinActionsDialog02(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
+        theDialogType = DialogType.TwinActions,
+        theDialogState = true,
+    ),
+    onDismiss: () -> Unit = dialogState.onDismiss,
+    onConfirm: () -> Unit = dialogState.onConfirm,
+    dismissOnBackPress: Boolean = true,
+    dismissOnClickOutside: Boolean = true,
+) {
+    Logger.getLogger("BuiltInTwinActionsDialog02").log(Level.INFO, "BuiltInTwinActionsDialog02 - theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
+
+    if (dialogState.theDialogType != DialogType.TwinActions) { return }
+    if (!dialogState.theDialogState) { return }
+
+    BuiltInCustomDialog01(
+        onDismissRequest = onDismiss,
+        dialogContent = {
+            Column(
+                modifier = Modifier.wrapContentSize(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                BuiltInTitleMessageContent01(dialogState = dialogState,)
+
+                BuiltInTwinActionsBottom01(
+                    dialogState = dialogState, onDismiss = onDismiss, onConfirm = onConfirm,
+                )
+            }
+        },
+        isFillMaxSize = false
+    )
 }
 
 
@@ -576,6 +705,8 @@ fun BuiltInTwinActionsDialog01(
     dismissOnBackPress: Boolean = true,
     dismissOnClickOutside: Boolean = true,
 ) {
+    Logger.getLogger("BuiltInTwinActionsDialog01").log(Level.INFO, "BuiltInTwinActionsDialog01 - theDialogType: [${dialogState.theDialogType}], theDialogState: [${dialogState.theDialogState}]")
+
     if (dialogState.theDialogType != DialogType.TwinActions) { return }
     if (!dialogState.theDialogState) { return }
 
@@ -601,142 +732,56 @@ fun BuiltInTwinActionsDialog01(
             ) {
                 BuiltInTitleMessageContent01(dialogState = dialogState,)
 
-//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
-//
-//                Text(
-//                    modifier = Modifier.padding(horizontal = 12.dp),
-//                    text = dialogState.theTitle,
-//                    fontSize = dialogState.theTitleFontSize,
-//                    color = dialogState.theTitleTextColor,
-//                    fontWeight = FontWeight.Bold,
-//                )
-//
-//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
-//
-//                Text(
-//                    modifier = Modifier.padding(horizontal = 12.dp),
-//                    text = dialogState.theMessage,
-//                    fontSize = dialogState.theMessageFontSize,
-//                    color = dialogState.theMessageTextColor,
-//                )
-//
-//                Spacer(modifier = Modifier.padding(vertical = 8.dp))
-
                 BuiltInTwinActionsBottom01(
                     dialogState = dialogState, onDismiss = onDismiss, onConfirm = onConfirm,
                 )
-
-//                HorizontalDivider(
-//                    thickness = 1.dp,
-//                    color = Color.Gray,
-//                )
-//
-//                Row(
-//                    modifier = Modifier
-//                        .fillMaxWidth()
-//                        .height(IntrinsicSize.Min) // needed - make sure have enough height to accommodate the ``VerticalDivider``
-//                ) {
-//                    Surface(
-//                        modifier = Modifier
-//                            .clickable(onClick = onDismiss,)
-//                            .weight(1f),
-//                        //shape = MaterialTheme.shapes.small,
-//                        //shape = RoundedCornerShape(10.dp),
-//                        color = dialogState.theCancelBackgroundColor,
-//                        //contentColor = Color.White,
-//                        //border = BorderStroke(2.dp, Blue007),
-//                    ) {
-//                        Text(
-//                            text = dialogState.theCancelTitle,
-//                            textAlign = TextAlign.Center,
-//                            color = dialogState.theCancelTitleTextColor,
-//                            fontSize = dialogState.theCancelTitleFontSize,
-//                            modifier = Modifier.padding(all = 16.dp),
-//                        )
-//                    }
-//
-//                    VerticalDivider(
-//                        //modifier = Modifier.fillMaxHeight().width(1.dp),
-//                        thickness = 1.dp,
-//                        color = Color.Gray,
-//                    )
-//
-//                    Surface(
-//                        modifier = Modifier
-//                            .clickable(onClick = onConfirm,)
-//                            .weight(1f),
-//                        //shape = MaterialTheme.shapes.small,
-//                        //shape = RoundedCornerShape(10.dp),
-//                        color = dialogState.theConfirmBackgroundColor,
-//                        //contentColor = Color.White,
-//                        //border = BorderStroke(2.dp, Blue007),
-//                    ) {
-//                        Text(
-//                            text = dialogState.theConfirmTitle,
-//                            textAlign = TextAlign.Center,
-//                            color = dialogState.theConfirmTitleTextColor,
-//                            fontSize = dialogState.theConfirmTitleFontSize,
-//                            modifier = Modifier.padding(all = 16.dp),
-//                        )
-//                    }
-//                }
             }
         }
     }
 }
 
 
-@Composable
-fun <T> BuiltInItemPickerDialog01(
-    dialogState: BuiltInWrapperDialogStateDelegate<T> = BuiltInWrapperDialogStateImpl<T>(
-        theDialogType = DialogType.ItemPicker,
-    ),
-    dismissOnBackPress: Boolean = true,
-    dismissOnClickOutside: Boolean = true,
-) {
-    if (dialogState.theDialogType != DialogType.ItemPicker) { return }
-    if (!dialogState.theDialogState) { return }
 
-    Dialog(
-        onDismissRequest = dialogState.onDismiss,
-        properties = DialogProperties(
-            dismissOnBackPress = dismissOnBackPress,
-            dismissOnClickOutside = dismissOnClickOutside),
-    ) {
-        Card(
-            modifier = Modifier
-                //.padding(all = 16.dp) // when using wrapContentXXXX(), padding() has no effect!!
-                .wrapContentSize(unbounded = true),
-            shape = RoundedCornerShape(16.dp),
-        ) {
-
-
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
-
-                Text(
-                    modifier = Modifier.padding(horizontal = 12.dp),
-                    text = dialogState.theTitle,
-                    fontSize = dialogState.theTitleFontSize,
-                    color = dialogState.theTitleTextColor,
-                    fontWeight = FontWeight.Bold,
-                )
-
-                Spacer(modifier = Modifier.padding(vertical = 8.dp))
-
-            }
-
-        }
-    }
-}
-
-
+@Preview
 @Composable
 fun BuiltInDialogSet01(
+    dialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
+        theDialogType = DialogType.Progress,
+        theDialogState = true,
+        theConfirmTitle = "確定",
+        theCancelTitle = "取消",
+    ),
+    //theParameters: RfidTagParameters = RfidTagParameters.None,
+    onDismiss: () -> Unit = dialogState.onDismiss,
+    onConfirm: () -> Unit = dialogState.onConfirm,
+    dismissOnBackPress: Boolean = false,
+    dismissOnClickOutside: Boolean = false,
+) {
+    Logger.getLogger("BuiltInDialogSet01").log(Level.INFO, "BuiltInDialogSet01 [-1]")
+    if (!dialogState.theDialogState) { return }
+
+    when(dialogState.theDialogType) {
+        DialogType.Progress -> {
+            Logger.getLogger("BuiltInDialogSet01").log(Level.INFO, "BuiltInDialogSet01 [0] - [Progress]")
+            BuiltInProgressDialog01(dialogState = dialogState, onDismiss = onDismiss, )
+        }
+        DialogType.SingleAction -> {
+            Logger.getLogger("BuiltInDialogSet01").log(Level.INFO, "BuiltInDialogSet01 [0] - [SingleAction]")
+            BuiltInSingleActionDialog01(dialogState = dialogState, onDismiss = onDismiss, onConfirm = onConfirm,)
+        }
+        DialogType.TwinActions -> {
+            Logger.getLogger("BuiltInDialogSet01").log(Level.INFO, "BuiltInDialogSet01 [0] - [TwinActions]")
+            BuiltInTwinActionsDialog01(dialogState = dialogState, onDismiss = onDismiss, onConfirm = onConfirm,)
+        }
+        else -> {
+            Logger.getLogger("BuiltInDialogSet01").log(Level.INFO, "BuiltInDialogSet01 [0] - [Else]")
+        }
+    }
+}
+
+
+@Composable
+fun BuiltInDialogSet02(
     progressDialogState: BuiltInDialogStateDelegate = BuiltInDialogStateImpl(
         theDialogType = DialogType.Progress,
         theMessage = "Loading"
