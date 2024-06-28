@@ -2,9 +2,12 @@ package com.gmail.vexonelite.jetpack.study.ui.theme
 
 
 import androidx.compose.foundation.Canvas
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardDoubleArrowUp
 import androidx.compose.material3.ButtonColors
@@ -15,8 +18,10 @@ import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -114,12 +119,43 @@ fun theBuiltInCheckboxColor02(): CheckboxColors =
 
 @Preview
 @Composable
-fun DoubleUpCircle01(
-    arcColor: Color = Teal200,
+fun CircleIcon01(
+    circleColor: Color = Teal200,
     size: Dp = 200.dp,
+    iconImageVector: ImageVector = Icons.Filled.KeyboardDoubleArrowUp,
+    iconTint: Color = Color.White,
+    onClick: () -> Unit = {}
 ) {
     Box(
-        modifier = Modifier.size(size)
+        modifier = Modifier
+            .size(size)
+            .background(color = circleColor, shape = CircleShape)
+            .clickable(onClick = onClick),
+        contentAlignment = Alignment.TopCenter,
+    ) {
+        Icon(
+            modifier = Modifier.size(size),
+            imageVector = iconImageVector,
+            tint = iconTint,
+            contentDescription = null,
+        )
+    }
+}
+
+
+@Preview
+@Composable
+fun CircleIcon02(
+    arcColor: Color = Teal200,
+    size: Dp = 200.dp,
+    iconImageVector: ImageVector = Icons.Filled.KeyboardDoubleArrowUp,
+    iconTint: Color = Color.White,
+    onClick: () -> Unit = {}
+) {
+    Box(
+        modifier = Modifier
+            .size(size)
+            .clickable(onClick = onClick),
     ) {
         Canvas(
             modifier = Modifier.fillMaxSize()
@@ -131,8 +167,8 @@ fun DoubleUpCircle01(
 
         Icon(
             modifier = Modifier.fillMaxSize(),
-            imageVector = Icons.Filled.KeyboardDoubleArrowUp,
-            tint = Color.White,
+            imageVector = iconImageVector,
+            tint = iconTint,
             contentDescription = null,
         )
     }
