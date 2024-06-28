@@ -547,6 +547,80 @@ fun BuiltInTextField03(
 
 @Preview
 @Composable
+fun BuiltInOutlinedTextField01(
+    modifier: Modifier = Modifier,
+    textValue: TextFieldValue = TextFieldValue(),
+    onValueChange: (TextFieldValue) -> Unit = {},
+    hint: String = "Hint",
+    height: Dp = 0.dp,
+    paddingHorizontal: Dp = 4.dp,
+    paddingVertical: Dp = 4.dp,
+    textColor: Color = Blue002,
+    hintColor: Color = Grey85,
+    fontSize: TextUnit = 20.sp,
+    fontWeight: FontWeight = FontWeight.Normal,
+    elevation: Dp = 3.dp,
+    cornerShape: Shape = RoundedCornerShape(4.dp),
+    backgroundColor: Color = Blue012,
+    keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
+    keyboardActions: KeyboardActions = KeyboardActions.Default,
+    visualTransformation: VisualTransformation = VisualTransformation.None,
+    singleLine: Boolean = true,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
+    enabled: Boolean = true,
+    selectAllOnFocus: Boolean = false,
+    onFocusChanged: (FocusState) -> Unit = {},
+    focusRequester: FocusRequester? = null
+) {
+
+    val textModifier = if (null != focusRequester) {
+        Modifier.focusRequester(focusRequester)
+    }
+    else { Modifier }
+        .then(
+            if(selectAllOnFocus) {
+                Modifier.onFocusChanged(onFocusChanged)
+            }
+            else { Modifier }
+        )
+        .fillMaxWidth()
+        .then(
+            if (height > 0.dp) { Modifier.height(height) } else { Modifier }
+        )
+//        .then(
+//            if (borderEnabled) {
+//                Modifier.border(borderWidth, SolidColor(borderColor), cornerShape)
+//            }
+//            else {
+//                Modifier.shadow(elevation = elevation, shape = cornerShape)
+//            }
+//        )
+        .background(color = backgroundColor, shape = cornerShape)
+        .padding(horizontal = paddingHorizontal, vertical = paddingVertical)
+
+    OutlinedTextField(
+        modifier = textModifier,
+        value = textValue,
+        onValueChange = onValueChange,
+        label = { Text(text = hint) },
+        textStyle = TextStyle(
+            color = textColor,
+            fontSize = fontSize,
+            fontWeight = fontWeight
+        ),
+        keyboardOptions = keyboardOptions,
+        keyboardActions = keyboardActions,
+        visualTransformation = visualTransformation,
+        singleLine = singleLine,
+        enabled = enabled,
+        colors = theBuiltInOutlinedTextFieldColor01()
+    )
+}
+
+
+@Preview
+@Composable
 fun BuiltInDropDownMenu01(
     value: TextFieldValue = TextFieldValue(),
     onValueChange: (TextFieldValue) -> Unit = {},
