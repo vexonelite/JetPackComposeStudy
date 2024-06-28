@@ -16,6 +16,7 @@ object MenuItemContentType {
     const val TYPE1 = 401
     const val TYPE2 = 402
     const val TYPE3 = 403
+    const val TYPE4 = 404
 }
 
 data class MenuItemModel(

@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -62,7 +63,10 @@ fun MenuScreen01(viewModel: ListViewModel = viewModel()) {
 @Composable
 fun MenuScreenContent(
     menuItemList: ImmutableObjectList<MenuItemModel> = ImmutableObjectList<MenuItemModel>(listOf()),
-    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null
+    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null,
+    textColor: Color = Color.Black,
+    textBackgroundColor: Color = Grey80,
+    textFontSize: TextUnit = 20.sp,
 ) {
     LazyVerticalGrid(
         columns = GridCells.Fixed(2),
@@ -80,9 +84,40 @@ fun MenuScreenContent(
             contentType = { menuItem: MenuItemModel -> menuItem.contentType },
         ) { menuItem: MenuItemModel ->
             when(menuItem.contentType) {
-                MenuItemContentType.TYPE1 -> { ColorMenuItemGrid01(menuItem, itemClickCallback) }
-                MenuItemContentType.TYPE2 -> { ImageMenuItemGrid01(menuItem, itemClickCallback) }
-                MenuItemContentType.TYPE3 -> { ImageMenuItemGrid02(menuItem, itemClickCallback) }
+                MenuItemContentType.TYPE1 -> {
+                    ColorMenuItemGrid01(
+                        menuItem = menuItem,
+                        itemClickCallback = itemClickCallback,
+                        textColor = textColor,
+                        textBackgroundColor = textBackgroundColor,
+                        textFontSize = textFontSize
+                    ) }
+                MenuItemContentType.TYPE2 -> {
+                    ColorMenuItemGrid02(
+                        menuItem = menuItem,
+                        itemClickCallback = itemClickCallback,
+                        textColor = textColor,
+                        textFontSize = textFontSize
+                    )
+                }
+                MenuItemContentType.TYPE3 -> {
+                    ImageMenuItemGrid01(
+                        menuItem = menuItem,
+                        itemClickCallback = itemClickCallback,
+                        textColor = textColor,
+                        textBackgroundColor = textBackgroundColor,
+                        textFontSize = textFontSize
+                    )
+                }
+                MenuItemContentType.TYPE4 -> {
+                    ImageMenuItemGrid02(
+                        menuItem = menuItem,
+                        itemClickCallback = itemClickCallback,
+                        textColor = textColor,
+                        textBackgroundColor = textBackgroundColor,
+                        textFontSize = textFontSize
+                    )
+                }
             }
         }
     }
@@ -93,7 +128,10 @@ fun MenuScreenContent(
 @Composable
 fun ColorMenuItemGrid01(
     menuItem: MenuItemModel = MenuItemModel(),
-    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null
+    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null,
+    textColor: Color = Color.Black,
+    textBackgroundColor: Color = Grey80,
+    textFontSize: TextUnit = 20.sp,
 ) {
     Box(
         modifier = Modifier
@@ -118,16 +156,51 @@ fun ColorMenuItemGrid01(
             ){}
             Text(
                 text = menuItem.description,
-                fontSize = 20.sp,
-                color = Color.Black,
+                fontSize = textFontSize,
+                color = textColor,
                 textAlign = TextAlign.Center,
                 maxLines = 2,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Grey80)
+                    .background(textBackgroundColor)
                     .padding(vertical = 12.dp)
             )
         }
+    }
+}
+
+
+@Preview
+@Composable
+fun ColorMenuItemGrid02(
+    menuItem: MenuItemModel = MenuItemModel(),
+    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null,
+    textColor: Color = Color.Black,
+    textFontSize: TextUnit = 20.sp,
+) {
+    Box(
+        modifier = Modifier
+            .clickable { itemClickCallback?.onHolderItemClicked(menuItem, menuItem.action, -1) }
+            .padding(10.dp)
+            .aspectRatioReference(
+                ratioWidth = 1f,
+                ratioHeight = 1f,
+                reference = AspectRatioReference.MIN_PARENT_WIDTH_PARENT_HEIGHT,
+            ).
+            background(color = menuItem.color),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = menuItem.description,
+            fontSize = textFontSize,
+            color = textColor,
+            textAlign = TextAlign.Center,
+            maxLines = 2,
+            modifier = Modifier
+                .fillMaxWidth()
+                //.background(textBackgroundColor)
+                .padding(vertical = 12.dp)
+        )
     }
 }
 
@@ -136,7 +209,10 @@ fun ColorMenuItemGrid01(
 @Composable
 fun ImageMenuItemGrid01(
     menuItem: MenuItemModel = MenuItemModel(),
-    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null
+    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null,
+    textColor: Color = Color.Black,
+    textBackgroundColor: Color = Grey80,
+    textFontSize: TextUnit = 20.sp,
 ) {
     Box(
         modifier = Modifier
@@ -186,13 +262,13 @@ fun ImageMenuItemGrid01(
 
             Text(
                 text = menuItem.description,
-                fontSize = 20.sp,
-                color = Color.Black,
+                fontSize = textFontSize,
+                color = textColor,
                 textAlign = TextAlign.Center,
                 maxLines = 2,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Grey80)
+                    .background(textBackgroundColor)
                     .padding(vertical = 12.dp)
             )
         }
@@ -204,7 +280,10 @@ fun ImageMenuItemGrid01(
 @Composable
 fun ImageMenuItemGrid02(
     menuItem: MenuItemModel = MenuItemModel(),
-    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null
+    itemClickCallback: HolderItemClickDelegate<MenuItemModel>? = null,
+    textColor: Color = Color.Black,
+    textBackgroundColor: Color = Grey80,
+    textFontSize: TextUnit = 20.sp,
 ) {
     Box(
         modifier = Modifier
@@ -231,13 +310,13 @@ fun ImageMenuItemGrid02(
             }
             Text(
                 text = menuItem.description,
-                fontSize = 20.sp,
-                color = Color.Black,
+                fontSize = textFontSize,
+                color = textColor,
                 textAlign = TextAlign.Center,
                 maxLines = 2,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Grey80)
+                    .background(textBackgroundColor)
                     .padding(vertical = 12.dp)
             )
         }
