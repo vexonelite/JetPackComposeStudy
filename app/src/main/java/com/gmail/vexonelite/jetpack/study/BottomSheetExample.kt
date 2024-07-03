@@ -55,7 +55,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.gmail.vexonelite.jetpack.study.ui.theme.Blue012
 import com.gmail.vexonelite.jetpack.study.ui.theme.ColorCircle01
-import com.gmail.vexonelite.jetpack.study.ui.theme.DoubleUpCircle01
 import com.gmail.vexonelite.jetpack.study.ui.theme.ImmutableObjectList
 import com.gmail.vexonelite.jetpack.study.ui.theme.Pink002
 import com.gmail.vexonelite.jetpack.study.ui.theme.Teal200

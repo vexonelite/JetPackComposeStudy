@@ -73,6 +73,8 @@ class MainActivity : ComponentActivity() {
             //MinimalDialog({ println("Confirmation registered") })
             //DialogDemo01()
             //ProgressDemo02()
+            //CustomDialogSample()
+            ChipAlls()
 
             // [start] LazyColumn
             //ListColumnDemo02()
@@ -94,7 +96,7 @@ class MainActivity : ComponentActivity() {
 
             //SainSignatureExample01()
 
-            BottomSheetExample02()
+            //BottomSheetExample02()
 
             //RequestCameraPermissionIfNeeded01()
             //RequestWriteStoragePermissionIfNeeded01()
