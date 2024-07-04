@@ -13,8 +13,10 @@ import androidx.compose.material.icons.filled.KeyboardDoubleArrowUp
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.CheckboxColors
 import androidx.compose.material3.CheckboxDefaults
+import androidx.compose.material3.ChipColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextFieldDefaults
+import androidx.compose.material3.SelectableChipColors
 import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
@@ -114,6 +116,47 @@ fun theBuiltInCheckboxColor02(): CheckboxColors =
         uncheckedBorderColor = Blue002,
         checkedBoxColor = Color.Transparent,
         //uncheckedBoxColor = Blue009,
+    )
+
+
+@Composable
+fun theBuiltInChipColors01(
+    containerColor: Color = Grey94,
+    labelColor: Color = Grey85,
+): ChipColors =
+    ChipColors(
+        containerColor = containerColor,
+        labelColor = labelColor,
+        leadingIconContentColor = Color.Unspecified,
+        trailingIconContentColor = Color.Unspecified,
+        disabledContainerColor = Color.Unspecified,
+        disabledLabelColor = Color.Unspecified,
+        disabledLeadingIconContentColor = Color.Unspecified,
+        disabledTrailingIconContentColor = Color.Unspecified,
+    )
+
+
+@Composable
+fun theBuiltInSelectableChipColors01(
+    containerColor: Color = Grey94,
+    labelColor: Color = Grey85,
+    selectedContainerColor: Color = Blue012,
+    selectedLabelColor: Color = Blue004,
+): SelectableChipColors =
+    SelectableChipColors(
+        containerColor = containerColor,
+        labelColor = labelColor,
+        leadingIconColor = Color.Unspecified,
+        trailingIconColor = Color.Unspecified,
+        disabledContainerColor = Color.Unspecified,
+        disabledLabelColor = Color.Unspecified,
+        disabledLeadingIconColor = Color.Unspecified,
+        disabledTrailingIconColor = Color.Unspecified,
+        selectedContainerColor = selectedContainerColor,
+        disabledSelectedContainerColor = Color.Unspecified,
+        selectedLabelColor = selectedLabelColor,
+        selectedLeadingIconColor = Color.Unspecified,
+        selectedTrailingIconColor = Color.Unspecified,
     )
 
 
