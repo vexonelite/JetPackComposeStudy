@@ -24,6 +24,7 @@ import androidx.compose.material3.AssistChipDefaults
 import androidx.compose.material3.ChipColors
 import androidx.compose.material3.FilterChip
 import androidx.compose.material3.FilterChipDefaults
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.InputChip
 import androidx.compose.material3.InputChipDefaults
@@ -52,6 +53,15 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.Blue012
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey20
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey85
 import com.gmail.vexonelite.jetpack.study.ui.theme.Grey94
+import com.gmail.vexonelite.jetpack.study.ui.theme.ImmutableObjectList
+import com.gmail.vexonelite.jetpack.study.ui.theme.ImmutableObjectMap
+import com.gmail.vexonelite.jetpack.study.ui.theme.ImmutableObjectSet
+import com.gmail.vexonelite.jetpack.study.ui.theme.Pink40
+import com.gmail.vexonelite.jetpack.study.ui.theme.theBuiltInChipColors01
+import com.gmail.vexonelite.jetpack.study.ui.theme.theBuiltInSelectableChipColors01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInFilterChip01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInFilterChipGroup01
+import com.gmail.vexonelite.jetpack.study.viewmodels.BuiltInSuggestionChipGroup01
 import java.util.logging.Level
 import java.util.logging.Logger
 
@@ -80,7 +90,52 @@ fun ChipAlls() {
 
         Spacer(modifier = Modifier.padding(vertical = 10.dp))
 
-        FlowRowSimpleUsageExample()
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = Pink40,
+        )
+
+        val items = remember {
+            mutableStateListOf<String>(
+                "Price: High to Low",
+                "Avg rating: 4+",
+                "Free breakfast",
+                "Free cancellation",
+                "£50 pn"
+            )
+        }
+
+        val selectedItems = remember { mutableStateMapOf<String, String>() }
+        Logger.getLogger("ChipAlls").log(Level.INFO, "ChipAlls()")
+        BuiltInFilterChipGroup01(
+            items = ImmutableObjectList<String>(items),
+            selectedItems = ImmutableObjectMap<String, String>(selectedItems),
+            onSelectedChanged = { tag: String ->
+                if (tag in selectedItems) {
+                    selectedItems.remove(tag)
+                }
+                else { selectedItems[tag] = tag }
+                var text = ""
+                selectedItems.forEach {
+                    text += "${it.value},"
+                }
+                Logger.getLogger("ChipAlls").log(Level.INFO, "ChipAlls() - selectedItems: [${text}]")
+            }
+        )
+
+        Spacer(modifier = Modifier.padding(vertical = 10.dp))
+
+        HorizontalDivider(
+            thickness = 1.dp,
+            color = Pink40,
+        )
+
+        BuiltInSuggestionChipGroup01(
+            items = ImmutableObjectList<String>(items),
+        )
+
+        //FlowRowSimpleUsageExample()
+
     }
 }
 
@@ -184,124 +239,6 @@ fun SuggestionChipExample() {
 
 
 @Preview
-@Composable
-fun BuiltInFilterChip01(
-    modifier: Modifier = Modifier,
-    text: String = "Title",
-    selected: Boolean = false,
-    enabled: Boolean = true,
-    //color = hintColor,
-    fontSize: TextUnit = 20.sp,
-    fontWeight: FontWeight = FontWeight.Normal,
-    chipColors: SelectableChipColors = theBuiltInSelectableChipColors01(),
-    borderWidth: Dp = 1.dp,
-    borderColor: Color = Grey20,
-    selectedBorderColor: Color = Blue005,
-    paddingValues: PaddingValues = PaddingValues(horizontal = 4.dp),
-    onClick: () -> Unit = {},
-) {
-    var rememberSelected by remember { mutableStateOf(selected) }
-
-    FilterChip(
-        modifier = Modifier
-            .then(modifier)
-            .padding(paddingValues),
-        selected = selected,
-        onClick = onClick,
-        label = {
-            Text(
-                text = text,
-                //color = hintColor,
-                fontSize = fontSize,
-                fontWeight = fontWeight,
-            )
-        },
-        colors = chipColors,
-        border = FilterChipDefaults.filterChipBorder(
-            enabled = enabled,
-            selected = selected,
-            borderColor = borderColor,
-            selectedBorderColor = selectedBorderColor,
-        ),
-    )
-}
-
-
-@Preview
-@Composable
-fun BuiltInSuggestionChip01(
-    modifier: Modifier = Modifier,
-    text: String = "Title",
-    //color = hintColor,
-    fontSize: TextUnit = 20.sp,
-    fontWeight: FontWeight = FontWeight.Normal,
-    chipColors: ChipColors = theBuiltInChipColors01(),
-    borderWidth: Dp = 1.dp,
-    borderColor: Color = Grey20,
-    paddingValues: PaddingValues = PaddingValues(horizontal = 4.dp),
-    onClick: () -> Unit = {},
-) {
-    SuggestionChip(
-        modifier = Modifier
-            .then(modifier)
-            .padding(paddingValues),
-        onClick = onClick,
-        label = {
-            Text(
-                text = text,
-                //color = hintColor,
-                fontSize = fontSize,
-                fontWeight = fontWeight,
-            )
-        },
-        colors = chipColors,
-        border = BorderStroke(width = borderWidth, color = borderColor),
-    )
-}
-
-
-@Composable
-fun theBuiltInSelectableChipColors01(
-    containerColor: Color = Grey94,
-    labelColor: Color = Grey85,
-    selectedContainerColor: Color = Blue012,
-    selectedLabelColor: Color = Blue004,
-): SelectableChipColors =
-    SelectableChipColors(
-        containerColor = containerColor,
-        labelColor = labelColor,
-        leadingIconColor = Color.Unspecified,
-        trailingIconColor = Color.Unspecified,
-        disabledContainerColor = Color.Unspecified,
-        disabledLabelColor = Color.Unspecified,
-        disabledLeadingIconColor = Color.Unspecified,
-        disabledTrailingIconColor = Color.Unspecified,
-        selectedContainerColor = selectedContainerColor,
-        disabledSelectedContainerColor = Color.Unspecified,
-        selectedLabelColor = selectedLabelColor,
-        selectedLeadingIconColor = Color.Unspecified,
-        selectedTrailingIconColor = Color.Unspecified,
-    )
-
-
-@Composable
-fun theBuiltInChipColors01(
-    containerColor: Color = Grey94,
-    labelColor: Color = Grey85,
-): ChipColors =
-    ChipColors(
-        containerColor = containerColor,
-        labelColor = labelColor,
-        leadingIconContentColor = Color.Unspecified,
-        trailingIconContentColor = Color.Unspecified,
-        disabledContainerColor = Color.Unspecified,
-        disabledLabelColor = Color.Unspecified,
-        disabledLeadingIconContentColor = Color.Unspecified,
-        disabledTrailingIconContentColor = Color.Unspecified,
-    )
-
-
-@Preview
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 private fun FlowRowSimpleUsageExample() {
@@ -341,6 +278,11 @@ private fun FlowRowSimpleUsageExample() {
         }
     }
 }
+
+
+
+
+
 
 
 
