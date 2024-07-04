@@ -120,7 +120,13 @@ fun BuiltInFilterChipGroup01(
         )
     ),
     selectedItems: ImmutableObjectMap<String, String> = ImmutableObjectMap<String, String>(),
-    onSelectedChanged: (String) -> Unit = {}
+    onSelectedChanged: (String) -> Unit = {},
+    fontSize: TextUnit = 20.sp,
+    chipColors: SelectableChipColors = theBuiltInSelectableChipColors01(),
+    borderWidth: Dp = 1.dp,
+    borderColor: Color = Grey20,
+    selectedBorderColor: Color = Blue005,
+    paddingValues: PaddingValues = PaddingValues(horizontal = 4.dp),
 ) {
     var text = ""
     selectedItems.objectMap.forEach {
@@ -138,7 +144,13 @@ fun BuiltInFilterChipGroup01(
             BuiltInFilterChip01(
                 text = tag,
                 selected = tag in selectedItems.objectMap,
-                onClick = { onSelectedChanged(tag) }
+                onClick = { onSelectedChanged(tag) },
+                fontSize = fontSize,
+                chipColors = chipColors,
+                borderWidth = borderWidth,
+                borderColor = borderColor,
+                selectedBorderColor = selectedBorderColor,
+                paddingValues = paddingValues,
             )
         }
     }
@@ -158,6 +170,11 @@ fun BuiltInSuggestionChipGroup01(
             "£50 pn"
         )
     ),
+    fontSize: TextUnit = 20.sp,
+    chipColors: ChipColors = theBuiltInChipColors01(),
+    borderWidth: Dp = 1.dp,
+    borderColor: Color = Grey20,
+    paddingValues: PaddingValues = PaddingValues(horizontal = 4.dp),
 ) {
     FlowRow(
         modifier = Modifier
@@ -168,6 +185,11 @@ fun BuiltInSuggestionChipGroup01(
         items.objectList.forEach { tag: String ->
             BuiltInSuggestionChip01(
                 text = tag,
+                fontSize = fontSize,
+                chipColors = chipColors,
+                borderWidth = borderWidth,
+                borderColor = borderColor,
+                paddingValues = paddingValues,
             )
         }
     }
