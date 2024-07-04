@@ -30,4 +30,14 @@ data class ImmutableObjectList<T>(
 )
 
 
+@Immutable
+data class ImmutableObjectSet<T>(
+    val objectSet: Set<T> = setOf()
+)
+
+
+@Immutable
+data class ImmutableObjectMap<K, V>(
+    val objectMap: Map<K, V> = mapOf()
+)
 
