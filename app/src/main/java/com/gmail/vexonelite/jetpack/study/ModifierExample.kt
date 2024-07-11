@@ -5,6 +5,7 @@ import android.content.res.Configuration
 import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -18,6 +19,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.windowInsetsPadding
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -25,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.gmail.vexonelite.jetpack.study.ui.theme.StringResource
 
@@ -80,6 +83,42 @@ fun Spacer01() {
     //Spacer(Modifier.weight(1f))
 }
 
+
+@Preview
+@Composable
+fun ProductCard01(onClick: () -> Unit = {}) {
+    Column {
+        Row {
+            Text(text = "Product Title")
+            Text(text = "Product Price")
+        }
+        Row {
+            Text(text = "Product Description")
+            Button(
+                onClick = { onClick.invoke() },
+            ) {
+                Text(text = "Add to Cart")
+            }
+        }
+    }
+}
+
+
+@Preview
+@Composable
+fun ProductCard01Improved(onClick: () -> Unit = {}) {
+    Box {
+        Text(text = "Product Title", modifier = Modifier.align(Alignment.TopStart))
+        Text(text = "Product Price", modifier = Modifier.align(Alignment.TopEnd))
+        Text(text = "Product Description", modifier = Modifier.align(Alignment.BottomStart))
+        Button(
+            onClick = { onClick.invoke() },
+            modifier = Modifier.align(Alignment.BottomEnd)
+        ) {
+            Text(text = "Add to Cart")
+        }
+    }
+}
 
 
 
