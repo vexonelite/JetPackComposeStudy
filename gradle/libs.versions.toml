@@ -1,11 +1,11 @@
 [versions]
-androidGradlePlugin = "8.4.1"           # updated in 2024/06/05
+androidGradlePlugin = "8.5.1"           # updated in 2024/07/16
 googleServicesPlugIn = "4.4.2"          # updated in 2024/06/05
-firebaseCrashlyticsPlugIn = "3.0.1"     # updated in 2024/06/25
-kotlinKSP = "1.9.22-1.0.17"             # updated in 2024/04/01
+firebaseCrashlyticsPlugIn = "3.0.2"     # updated in 2024/06/26
+kotlinKSP = "1.9.24-1.0.20"             # updated in 2024/07/16
 
 
-kotlin = "1.9.22"                       # updated in 2024/04/01
+kotlin = "1.9.24"                       # updated in 2024/07/16
 #kotlinPlugIn = "1.5.31"                # updated in 2021/10/20
 kotlinCoroutines = "1.8.0"              # updated in 2024/04/01
 kotlinCoreKtx = "1.10.1"                # updated in 2023/05/26
@@ -20,8 +20,9 @@ androidX = "1.7.0"                      # updated in 2024/06/05
 annotationX = "1.8.0"                   # updated in 2024/05/03
 transitionX = "1.5.0"                   # updated in 2021/07/28
 
-composeBoM = "2024.05.00"               # updated in 2024/06/05
+composeBoM = "2024.06.00"               # updated in 2024/06/26
 composeCompilerExt = "1.5.10"           # updated in 2024/05/02
+constraintlayoutCompose = "1.0.1"       # added in 2024/07/07
 
 constraintLayoutX = "2.1.4"             # updated in 2023/02/10
 materialX = "1.12.0"                    # updated in 2024/06/05
@@ -36,14 +37,15 @@ dataStore = "1.1.1"                     # updated in 2024/06/05
 protobuf = "3.14.0"                     # added in 2020/12/09
 
 activityX = "1.9.0"                     # updated in 2024/05/03
-fragmentX = "1.7.1"                     # updated in 2024/06/05
-lifecycleX = "2.8.1"                    # updated in 2024/06/05
+fragmentX = "1.8.1"                     # updated in 2024/07/04
+lifecycleX = "2.8.3"                    # updated in 2024/07/04
 roomX = "2.6.1"                         # updated in 2024/05/03
 multidex = "2.0.1"                      # updated in 2023/02/10
 navigation = "2.7.7"                    # updated in 2024/05/03
 
 workManager = "2.9.0"                   # updated in 2024/01/17
 
+#cameraX = "1.0.0-beta10"               # updated in 2020/10/14
 cameraX = "1.0.0-SNAPSHOT"              # updated in 2020/10/14
 
 # ML Kit
@@ -66,18 +68,16 @@ flexbox = "3.0.0"                       # updated in 2023/06/09
 # Now, to use Analytics or a product that recommends adding Analytics (see table below),
 # you need to explicitly declare the Analytics dependency:
 # com.google.firebase:firebase-analytics or com.google.firebase:firebase-analytics-ktx.
-firebaseBoM = "33.1.0"                  # updated in 2024/06/05
+firebaseBoM = "33.1.2"                  # updated in 2024/07/16
 firebaseAuth = "22.3.0"                 # updated in 2024/01/17
 firebaseMessaging = "21.0.1"            # updated in 2021/04/08
 firebaseAnalytics = "18.0.2"            # updated in 2021/04/08
 firebaseCrashlytics = "18.6.0"          # updated in 2024/01/17
 
 #https:#developers.google.com/android/guides/setup
-googlePlayCore = "1.10.3"               # updated in 2022/02/18
-googlePlayCoreKtx = "1.8.1"             # updated in 2021/04/08
-googleAuth = "20.7.0"                   # updated in 2024/01/17
+
+googleAuth = "21.2.0"                   # updated in 2024/07/16
 googleMobileAds = "16.0.0"
-googleAnalytics = "18.0.1"              # updated in 2022/02/18 (deprecated)
 googleLocation = "17.0.0"               # updated in 2020/08/31
 googleCloudMessaging = "17.0.0"         # updated in 2020/08/31
 
@@ -101,25 +101,28 @@ seancfoleyIpaddress4 = "4.3.3"          # updated in 2020/07/15
 
 sain = "2.0.3"                          # added in 2024/06/16
 
+pdfboxAndroid = "2.0.27.0"              # added in 2024/06/16
+
 glide = "4.16.0"                        # updated in 2024/03/21
 coil = "2.6.0"                          # updated in 2024/05/02
 
 gson = "2.10.1"                         # updated in 2024/01/17
-moshi = "1.9.3"                         # updated in 2020/11/10
+moshi = "1.15.1"                        # updated in 2024/07/16
 
-slf4Logback = "1.2.3"                   # updated in 2024/03/21
+slf4Logback = "1.3.14"                  # updated in 2024/07/16
 dantSuESCPOS = "3.2.0"                  # updated in 2024/03/21
 
 facebook9 = "9.0.0"                     # updated in 2021/03/16
 facebook12 = "12.1.0"                   # updated in 2021/11/10
 
 twitter = "3.3.0"
+twitterAAR = "3.3.0@aar"
 
 photoView = "1.3.0"
 
 leakcanary = "1.6.1"
 
-zxing = "3.3.0"
+zxing = "3.4.0"                         # updated in 2024/07/16
 zxingAndroidEmbedded = "4.3.0"
 
 socketIO = "1.0.0"
@@ -138,6 +141,9 @@ mockito = "1.10.19"                     # updated in 2020/08/27
 mockito2 = "2.10.0"                     # updated in 2020/08/27
 googleTruth = "0.42"                    # updated in 2020/09/14
 
+
+openpdf = "2.0.2"
+androidAwt = "1.0.0"
 
 minSdk = "26"                           # updated in 2024/01/17
 compileSdk = "34"                       # updated in 2023/06/25
@@ -268,6 +274,10 @@ dantSuESCPOS = { module = "com.github.DantSu:ESCPOS-ThermalPrinter-Android" , ve
 seancfoleyIpaddress  = { module = "com.github.seancfoley:ipaddress" , version.ref = "seancfoleyIpaddress5" }
 
 sain = { module = "io.github.joelkanyi:sain", version.ref = "sain" }
+
+pdfboxAndroid = { module = "com.tom-roush:pdfbox-android", version.ref = "pdfboxAndroid" }
+openpdf = { module = "com.github.librepdf:openpdf", version.ref = "openpdf" }
+androidAwt = { module = "com.github.andob:android-awt", version.ref = "androidAwt" }
 
 
 junit = { module = "junit:junit", version.ref = "junit" }

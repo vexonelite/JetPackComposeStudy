@@ -108,6 +108,9 @@ dependencies {
 
     implementation(libs.sain)
 
+//    implementation(libs.openpdf)
+//    implementation(libs.androidAwt)
+
     // UI Tests
 //    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
 //    debugImplementation("androidx.compose.ui:ui-test-manifest")
