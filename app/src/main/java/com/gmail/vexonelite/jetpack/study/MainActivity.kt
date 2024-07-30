@@ -35,6 +35,9 @@ import java.util.logging.Logger
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // AAA
+        
         // Template
 //        setContent {
 //            JetPackComposeStudyTheme {
