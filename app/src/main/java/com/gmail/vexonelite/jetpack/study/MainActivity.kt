@@ -37,7 +37,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         // AAA
-        
+
+        // BBB
+
         // Template
 //        setContent {
 //            JetPackComposeStudyTheme {
