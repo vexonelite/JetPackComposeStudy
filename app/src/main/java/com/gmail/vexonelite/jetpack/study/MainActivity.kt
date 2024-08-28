@@ -79,7 +79,7 @@ class MainActivity : ComponentActivity() {
             //DialogDemo01()
             //ProgressDemo02()
             //CustomDialogSample()
-            ChipAlls()
+            //ChipAlls()
 
             // [start] LazyColumn
             //ListColumnDemo02()
@@ -102,6 +102,8 @@ class MainActivity : ComponentActivity() {
             //SainSignatureExample01()
 
             //BottomSheetExample02()
+
+            SliderExamples()
 
             //RequestCameraPermissionIfNeeded01()
             //RequestWriteStoragePermissionIfNeeded01()
