@@ -21,7 +21,7 @@ annotationX = "1.8.0"                   # updated in 2024/05/03
 transitionX = "1.5.0"                   # updated in 2021/07/28
 
 composeBoM = "2024.06.00"               # updated in 2024/06/26
-composeCompilerExt = "1.5.10"           # updated in 2024/05/02
+composeCompilerExt = "1.5.14"           # updated in 2024/07/16
 constraintlayoutCompose = "1.0.1"       # added in 2024/07/07
 
 constraintLayoutX = "2.1.4"             # updated in 2023/02/10
@@ -36,9 +36,9 @@ vectorDrawableX = "1.1.0"
 dataStore = "1.1.1"                     # updated in 2024/06/05
 protobuf = "3.14.0"                     # added in 2020/12/09
 
-activityX = "1.9.0"                     # updated in 2024/05/03
-fragmentX = "1.8.1"                     # updated in 2024/07/04
-lifecycleX = "2.8.3"                    # updated in 2024/07/04
+activityX = "1.9.1"                     # updated in 2024/08/07
+fragmentX = "1.8.2"                     # updated in 2024/08/07
+lifecycleX = "2.8.4"                    # updated in 2024/08/07
 roomX = "2.6.1"                         # updated in 2024/05/03
 multidex = "2.0.1"                      # updated in 2023/02/10
 navigation = "2.7.7"                    # updated in 2024/05/03
@@ -215,6 +215,7 @@ kspSymbolProcessingApi = { module = "com.google.devtools.ksp:symbol-processing-a
 
 lifecycleViewmodelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleX" }
 lifecycleLivedataKtx = { module = "androidx.lifecycle:lifecycle-livedata-ktx", version.ref = "lifecycleX" }
+lifecycleLivedataCoreKtx = { group = "androidx.lifecycle", name = "lifecycle-livedata-core-ktx", version.ref = "lifecycleX" }
 
 lifecycleViewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "lifecycleX" }
 lifecycleLivedata = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "lifecycleX" }
