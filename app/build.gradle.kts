@@ -76,6 +76,7 @@ dependencies {
 
     implementation(libs.composeUI)
     implementation(libs.composeUiGraphics)
+    implementation(libs.constraintlayoutCompose)
 
     // Android Studio Preview support
     implementation(libs.composeUiToolingPreview)

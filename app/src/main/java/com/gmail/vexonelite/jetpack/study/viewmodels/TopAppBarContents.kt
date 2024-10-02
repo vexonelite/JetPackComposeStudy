@@ -6,18 +6,28 @@ import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.NextPlan
 import androidx.compose.material.icons.automirrored.filled.Outbound
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Circle
-import androidx.compose.material.icons.filled.Keyboard
+import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Done
+import androidx.compose.material.icons.filled.EditNote
 import androidx.compose.material.icons.filled.KeyboardDoubleArrowUp
+import androidx.compose.material.icons.filled.LeakAdd
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Pending
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PlaylistAddCheck
+import androidx.compose.material.icons.filled.PlaylistRemove
 import androidx.compose.material.icons.filled.RadioButtonChecked
 import androidx.compose.material.icons.filled.RadioButtonUnchecked
 import androidx.compose.material.icons.filled.RemoveCircle
 import androidx.compose.material.icons.filled.RemoveCircleOutline
 import androidx.compose.material.icons.filled.Save
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.Share
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -37,25 +47,38 @@ import com.gmail.vexonelite.jetpack.study.ui.theme.Blue001
 
 class MaterialFilledIcons{
     fun theArrowBack(): ImageVector = Icons.AutoMirrored.Filled.ArrowBack
+    fun theNextPlan(): ImageVector = Icons.AutoMirrored.Filled.NextPlan
+    fun theOutbound(): ImageVector = Icons.AutoMirrored.Filled.Outbound
+    fun theAdd(): ImageVector = Icons.Filled.Add
+    fun theCheckCircle(): ImageVector = Icons.Filled.CheckCircle
+    fun theCircle(): ImageVector = Icons.Filled.Circle
+    fun theClear(): ImageVector = Icons.Filled.Clear
+    fun theClose(): ImageVector = Icons.Filled.Close
+    fun theDone(): ImageVector = Icons.Filled.Done
+    fun theEditNote(): ImageVector = Icons.Filled.EditNote
+    fun theKeyboardDoubleArrowUp(): ImageVector = Icons.Filled.KeyboardDoubleArrowUp
+    fun theLeakAdd(): ImageVector = Icons.Filled.LeakAdd
+    fun theMenu(): ImageVector = Icons.Filled.Menu
+    fun thePending(): ImageVector = Icons.Filled.Pending
+    fun thePerson(): ImageVector = Icons.Filled.Person
+    fun thePlaylistAddCheck(): ImageVector = Icons.Filled.PlaylistAddCheck
+    fun thePlaylistRemove(): ImageVector = Icons.Filled.PlaylistRemove
+    fun theRadioButtonChecked(): ImageVector = Icons.Filled.RadioButtonChecked
+    fun theRadioButtonUnchecked(): ImageVector = Icons.Filled.RadioButtonUnchecked
+    fun theRemoveCircle(): ImageVector = Icons.Filled.RemoveCircle
+    fun theRemoveCircleOutline(): ImageVector = Icons.Filled.RemoveCircleOutline
+    fun theSave(): ImageVector = Icons.Filled.Save
+    fun theSearch(): ImageVector = Icons.Filled.Search
     fun theSettings(): ImageVector = Icons.Filled.Settings
     fun theShare(): ImageVector = Icons.Filled.Share
-    fun theMenu(): ImageVector = Icons.Filled.Menu
-    fun theCheckCircle(): ImageVector = Icons.Filled.CheckCircle
-    fun thePending(): ImageVector = Icons.Filled.Pending
-    fun theRemoveCircleOutline(): ImageVector = Icons.Filled.RemoveCircleOutline
-    fun theOutbound(): ImageVector = Icons.AutoMirrored.Filled.Outbound
-    fun theCircle(): ImageVector = Icons.Filled.Circle
-    fun theRadioButtonUnchecked(): ImageVector = Icons.Filled.RadioButtonUnchecked
-    fun theRadioButtonChecked(): ImageVector = Icons.Filled.RadioButtonChecked
-    fun theSave(): ImageVector = Icons.Filled.Save
-    fun theKeyboardDoubleArrowUp(): ImageVector = Icons.Filled.KeyboardDoubleArrowUp
+
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Preview
 @Composable
-fun BuildInTopAppBarScreenContent(
+fun BuiltInTopAppBarScreenContent(
     topAppBarTitle: String = "Test",
     topAppBarContainerColor: Color = Blue001,
     topAppBarTitleContentColor: Color = Color.White,

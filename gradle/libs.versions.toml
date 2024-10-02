@@ -1,5 +1,5 @@
 [versions]
-androidGradlePlugin = "8.5.1"           # updated in 2024/07/16
+androidGradlePlugin = "8.6.1"           # updated in 2024/09/20
 googleServicesPlugIn = "4.4.2"          # updated in 2024/06/05
 firebaseCrashlyticsPlugIn = "3.0.2"     # updated in 2024/06/26
 kotlinKSP = "1.9.24-1.0.20"             # updated in 2024/07/16
@@ -17,10 +17,10 @@ kotlinSerialization = "1.6.3"           # updated in 2024/04/01
 
 coreKtx = "1.13.1"                      # updated in 2024/06/05
 androidX = "1.7.0"                      # updated in 2024/06/05
-annotationX = "1.8.0"                   # updated in 2024/05/03
-transitionX = "1.5.0"                   # updated in 2021/07/28
+annotationX = "1.8.2"                   # updated in 2024/09/10
+transitionX = "1.5.1"                   # updated in 2021/07/10
 
-composeBoM = "2024.06.00"               # updated in 2024/06/26
+composeBoM = "2024.09.02"               # updated in 2024/09/20
 composeCompilerExt = "1.5.14"           # updated in 2024/07/16
 constraintlayoutCompose = "1.0.1"       # added in 2024/07/07
 
@@ -36,12 +36,12 @@ vectorDrawableX = "1.1.0"
 dataStore = "1.1.1"                     # updated in 2024/06/05
 protobuf = "3.14.0"                     # added in 2020/12/09
 
-activityX = "1.9.1"                     # updated in 2024/08/07
-fragmentX = "1.8.2"                     # updated in 2024/08/07
-lifecycleX = "2.8.4"                    # updated in 2024/08/07
+activityX = "1.9.2"                     # updated in 2024/09/10
+fragmentX = "1.8.3"                     # updated in 2024/09/10
+lifecycleX = "2.8.6"                    # updated in 2024/09/20
 roomX = "2.6.1"                         # updated in 2024/05/03
 multidex = "2.0.1"                      # updated in 2023/02/10
-navigation = "2.7.7"                    # updated in 2024/05/03
+navigation = "2.8.1"                    # updated in 2024/09/20
 
 workManager = "2.9.0"                   # updated in 2024/01/17
 
@@ -102,6 +102,9 @@ seancfoleyIpaddress4 = "4.3.3"          # updated in 2020/07/15
 sain = "2.0.3"                          # added in 2024/06/16
 
 pdfboxAndroid = "2.0.27.0"              # added in 2024/06/16
+apachePdfXox = "2.0.32"                 # added in 2024/09/04
+librePdf = "2.0.3"                      # added in 2024/09/20
+androidAwt = "1.0.4"                    # added in 2024/09/20
 
 glide = "4.16.0"                        # updated in 2024/03/21
 coil = "2.6.0"                          # updated in 2024/05/02
@@ -109,7 +112,7 @@ coil = "2.6.0"                          # updated in 2024/05/02
 gson = "2.10.1"                         # updated in 2024/01/17
 moshi = "1.15.1"                        # updated in 2024/07/16
 
-slf4Logback = "1.3.14"                  # updated in 2024/07/16
+slf4Logback = "1.2.3"                   # updated in 2024/03/21
 dantSuESCPOS = "3.2.0"                  # updated in 2024/03/21
 
 facebook9 = "9.0.0"                     # updated in 2021/03/16
@@ -131,19 +134,16 @@ atAAR = "@aar"
 
 # https:#developer.android.com/training/testing/set-up-project
 junit = "4.13.2"                        # updated in 2024/03/21
-testCore = "1.4.0"                      # updated in 2021/07/28
+testCore = "1.6.1"                      # updated in 2024/08/26
 testRunner = "1.4.0"                    # updated in 2021/07/28
 testRules = "1.3.0"                     # updated in 2020/08/27
-testExtensionJUnit = "1.1.5"            # updated in 2024/03/21
+testExtensionJUnit = "1.2.1"            # updated in 2024/07/04
 testExtensionTruth = "1.3.0"            # updated in 2020/09/14
-espresso = "3.5.1"                      # updated in 2024/03/21
+espresso = "3.6.1"                      # updated in 2024/07/04
 mockito = "1.10.19"                     # updated in 2020/08/27
 mockito2 = "2.10.0"                     # updated in 2020/08/27
 googleTruth = "0.42"                    # updated in 2020/09/14
 
-
-openpdf = "2.0.2"
-androidAwt = "1.0.0"
 
 minSdk = "26"                           # updated in 2024/01/17
 compileSdk = "34"                       # updated in 2023/06/25
@@ -183,34 +183,6 @@ fragment = { module = "androidx.fragment:fragment", version.ref = "fragmentX" }
 navigationFragment = { module = "androidx.navigation:navigation-fragment", version.ref = "navigation" }
 navigationUi = { module = "androidx.navigation:navigation-ui", version.ref = "navigation" }
 
-# [start] Jetpack Compose
-coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
-
-composeBoM = { module = "androidx.compose:compose-bom", version.ref = "composeBoM" }
-composeUI = { module = "androidx.compose.ui:ui" }
-composeUiGraphics = { module = "androidx.compose.ui:ui-graphics" }
-composeMaterial3 = { module = "androidx.compose.material3:material3" }
-composeMaterial3WindowSize = { module = "androidx.compose.material3:material3-window-size-class" }
-composeMaterialIconsCore = { module = "androidx.compose.material:material-icons-core" }
-composeMaterialiconsExt = { module = "androidx.compose.material:material-icons-extended" }
-
-# Android Studio Preview support
-composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
-composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
-
-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityX" }
-
-lifecycleViewmodelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleX" }
-lifecycleRuntimeCompose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleX" }
-lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleX" }
-
-livedataRuntimeCompose = { module = "androidx.compose.runtime:runtime-livedata" }
-
-navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
-
-coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
-# [end] Jetpack Compose
-
 kspSymbolProcessingApi = { module = "com.google.devtools.ksp:symbol-processing-api", version.ref = "kotlinKSP" }
 
 lifecycleViewmodelKtx = { module = "androidx.lifecycle:lifecycle-viewmodel-ktx", version.ref = "lifecycleX" }
@@ -224,10 +196,13 @@ lifecycleCommonJava8 = { module = "androidx.lifecycle:lifecycle-common-java8", v
 roomRruntime = { module = "androidx.room:room-runtime", version.ref = "roomX" }
 roomCompiler = { module = "androidx.room:room-compiler", version.ref = "roomX" }
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "roomX" }
+roomRxJava3 = { module = "androidx.room:room-rxjava3", version.ref = "roomX" }
 
+workRuntime = { module = "androidx.work:work-runtime", version.ref = "workManager" }
 workRuntimeKtx = { module = "androidx.work:work-runtime-ktx", version.ref = "workManager" }
 
 datastorePreferences = { module = "androidx.datastore:datastore-preferences", version.ref = "dataStore" }
+datastorePreferencesRxJava3 = { module = "androidx.datastore:datastore-preferences-rxjava3", version.ref = "dataStore" }
 
 # RxJava 3.X
 rxJava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxJava3" }
@@ -255,35 +230,99 @@ ktorLogging = { module = "io.ktor:ktor-client-logging", version.ref = "ktor" }
 #  - Problem: In version catalog libs, on alias 'slf4Logback' module 'ch.qos.logback:logback-classic:1.2.3' is not a valid module notation.
 slf4Logback = { module = "ch.qos.logback:logback-classic", version.ref = "slf4Logback" }
 
-gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
-
 kotlinSerialization = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinSerialization" }
 
+gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+
+moshi = { module = "com.squareup.moshi:moshi", version.ref = "moshi" }
+
+retrofit2 = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit2" }
+retrofit2ConverterMoshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit2" }
+retrofit2AdapterRxJava3 = { module = "com.squareup.retrofit2:adapter-rxjava3", version.ref = "retrofit2" }
+
+apacheCommonsNet = { module = "commons-net:commons-net", version.ref = "apacheCommonsNet" }
+
+seancfoleyIpaddress4 = { module = "com.github.seancfoley:ipaddress", version.ref = "seancfoleyIpaddress4" }
+seancfoleyIpaddress5 = { module = "com.github.seancfoley:ipaddress", version.ref = "seancfoleyIpaddress5" }
+
+rabbitmqClient = { module = "com.rabbitmq:amqp-client", version.ref = "rabbitmqClient" }
+hiveMqClient = { module = "com.hivemq:hivemq-mqtt-client", version.ref = "hiveMqClient" }
+
 firebaseBoM = { module = "com.google.firebase:firebase-bom", version.ref = "firebaseBoM" }
+firebaseAuth = { module = "com.google.firebase:firebase-auth" }
 firebaseCrashlytics = { module = "com.google.firebase:firebase-crashlytics" }
+firebaseMessaging = { module = "com.google.firebase:firebase-messaging" }
+
+googleAuth = { module = "com.google.android.gms:play-services-auth", version.ref = "googleAuth" }
+
+facebookCore = { module = "com.facebook.android:facebook-core", version.ref = "facebook12" }
+facebookLogin = { module = "com.facebook.android:facebook-login", version.ref = "facebook12" }
+facebookShare = { module = "com.facebook.android:facebook-share", version.ref = "facebook12" }
+
+twitter = { module = "com.twitter.sdk.android:twitter", version.ref = "twitter" }
+twitterAAR = { module = "com.twitter.sdk.android:twitter", version.ref = "twitterAAR" }
+twitterCore = { module = "com.twitter.sdk.android:twitter-core", version.ref = "twitter" }
+tweetUi = { module = "com.twitter.sdk.android:tweet-ui", version.ref = "twitter" }
+tweetComposer = { module = "com.twitter.sdk.android:tweet-composer", version.ref = "twitter" }
+twitterMoPub = { module = "com.twitter.sdk.android:twitter-mopub", version.ref = "twitter" }
 
 flexbox = { module = "com.google.android.flexbox:flexbox", version.ref = "flexbox" }
 
+# [start] Jetpack Compose
+coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+
+composeBoM = { module = "androidx.compose:compose-bom", version.ref = "composeBoM" }
+composeUI = { module = "androidx.compose.ui:ui" }
+composeUiGraphics = { module = "androidx.compose.ui:ui-graphics" }
+composeMaterial3 = { module = "androidx.compose.material3:material3" }
+composeMaterial3WindowSize = { module = "androidx.compose.material3:material3-window-size-class" }
+composeMaterialIconsCore = { module = "androidx.compose.material:material-icons-core" }
+composeMaterialiconsExt = { module = "androidx.compose.material:material-icons-extended" }
+
+constraintlayoutCompose = { module = "androidx.constraintlayout:constraintlayout-compose", version.ref = "constraintlayoutCompose" }
+
+# Android Studio Preview support
+composeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
+composeUiTooling = { module = "androidx.compose.ui:ui-tooling" }
+
+activityCompose = { module = "androidx.activity:activity-compose", version.ref = "activityX" }
+
+lifecycleViewmodelCompose = { module = "androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleX" }
+lifecycleRuntimeCompose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleX" }
+lifecycleRuntimeKtx = { module = "androidx.lifecycle:lifecycle-runtime-ktx", version.ref = "lifecycleX" }
+
+livedataRuntimeCompose = { module = "androidx.compose.runtime:runtime-livedata" }
+
+navigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "navigation" }
+
+coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coil" }
+# [end] Jetpack Compose
+
 glide = { module = "com.github.bumptech.glide:glide", version.ref = "glide" }
 glideKsp = { module = "com.github.bumptech.glide:ksp", version.ref = "glide" }
+glideCompiler = { module = "com.github.bumptech.glide:compiler", version.ref = "glide" }
 
 zxingCore = { module = "com.google.zxing:core", version.ref = "zxing" }
 zxingAndroidEmbedded = { module = "com.journeyapps:zxing-android-embedded", version.ref = "zxingAndroidEmbedded" }
 
 dantSuESCPOS = { module = "com.github.DantSu:ESCPOS-ThermalPrinter-Android" , version.ref = "dantSuESCPOS" }
 
-seancfoleyIpaddress  = { module = "com.github.seancfoley:ipaddress" , version.ref = "seancfoleyIpaddress5" }
-
 sain = { module = "io.github.joelkanyi:sain", version.ref = "sain" }
 
 pdfboxAndroid = { module = "com.tom-roush:pdfbox-android", version.ref = "pdfboxAndroid" }
-openpdf = { module = "com.github.librepdf:openpdf", version.ref = "openpdf" }
-androidAwt = { module = "com.github.andob:android-awt", version.ref = "androidAwt" }
+apachePdfXox = { module = "org.apache.pdfbox:pdfbox", version.ref = "apachePdfXox" }
+librePdf = { module = "com.github.librepdf:openpdf", version.ref = "librePdf" }
+androidAwt = { module = "ro.andob.androidawt:androidawt", version.ref = "androidAwt" }
 
 
 junit = { module = "junit:junit", version.ref = "junit" }
+testCore = { module = "androidx.test:core", version.ref = "testCore" }
+testCoreKtx = { module = "androidx.test:core-ktx", version.ref = "testCore" }
 testExtJunit = { module = "androidx.test.ext:junit", version.ref = "testExtensionJUnit" }
+testExtJunitKtx = { module = "androidx.test.ext:junit-ktx", version.ref = "testExtensionJUnit" }
 testEspresso = { module = "androidx.test.espresso:espresso-core", version.ref = "espresso" }
+
+testRoom = { module = "androidx.room:room-testing", version.ref = "roomX" }
 
 
 [plugins]

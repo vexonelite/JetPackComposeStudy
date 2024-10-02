@@ -23,8 +23,6 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FilledTonalButton
-import androidx.compose.material3.LocalMinimumTouchTargetEnforcement
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Surface
 
@@ -236,37 +234,42 @@ fun ButtonDemo01() {
 
             Spacer(modifier = Modifier.padding(horizontal = 8.dp))
 
+
             Text(
                 text = "Banana",
                 color = Blue003,
                 fontSize = 10.sp,
                 modifier = Modifier
                     .weight(1 / 2f)
-                    .clickable(
-                        interactionSource = remember { MutableInteractionSource() },
-                        indication = rememberRipple(color = Color.Transparent),
-                    ) {
-
-                    }
+                // [start] revision due to deprecation - 2024/10/02
+//                    .clickable(
+//                        interactionSource = remember { MutableInteractionSource() },
+//                        indication = rememberRipple(color = Color.Transparent),
+//                    ) {
+//
+//                    }
+                // [end] revision due to deprecation - 2024/10/02
             )
         }
 
-        Spacer(modifier = Modifier.padding(vertical = 8.dp))
-
-        CompositionLocalProvider(
-            LocalMinimumTouchTargetEnforcement provides false,
-        ) {
-            TextButton(
-                onClick = {},
-                contentPadding = PaddingValues(),
-            ) {
-                Text(
-                    "Button",
-                    color = Blue007,
-                    fontSize = 10.sp,
-                )
-            }
-        }
+        // [start] revision due to deprecation - 2024/10/02
+//        Spacer(modifier = Modifier.padding(vertical = 8.dp))
+//
+//        CompositionLocalProvider(
+//            LocalMinimumTouchTargetEnforcement provides false,
+//        ) {
+//            TextButton(
+//                onClick = {},
+//                contentPadding = PaddingValues(),
+//            ) {
+//                Text(
+//                    "Button",
+//                    color = Blue007,
+//                    fontSize = 10.sp,
+//                )
+//            }
+//        }
+        // [end] revision due to deprecation - 2024/10/02
 
     }
 }
